@@ -1,0 +1,204 @@
+/****
+Page styling
+**/
+
+/*
+Code help to reset CSS on browser
+https://css-tricks.com/forums/topic/div-doesnt-reach-edge-of-browser-page/
+Gets rid of margins and padding of the body
+*/
+html, body {
+	background-color:#fff;
+	margin:0;
+	padding:0;
+}
+
+.contentArea {
+	background-color:#fff;
+	height:100%;
+	display:block;
+	left:0;
+	top:0;
+	width:100%;
+}
+
+.content{
+	background-color:#fff;
+	height:auto;
+	margin: 0 auto;
+	overflow:auto;
+	padding:30px;
+	width:1200px; 
+}
+
+.otherContent{
+	background-color:#fff;
+	height:auto;
+	margin: 0 auto;
+	overflow:auto;
+	padding:30px;
+	width:900px; 
+}
+
+#title {
+	font-family: "Poiret One",cursive;
+	font-size:3em;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.subtitle {
+	color:#fff;
+	font-family: "Poiret One",cursive;
+	font-size:1.3em;
+	letter-spacing: 0.2em;
+	margin:10px 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
+/*
+Coding dashboard contents - recent awards section
+*/
+#smallBox {
+	background-color:#fff;
+	border:1px solid #8A96CC;
+	float:left;
+	width:250px;
+}
+
+#boxTitle1 {
+	background-color: #9E637D;
+	display:block;
+	padding:10px 0;
+	width:100%;
+}
+
+#boxTitle2 {
+	background-color: #979E66;
+	display:block;
+	padding:10px 0;
+	width:100%;
+}
+
+#boxTitle3 {
+	background-color: #5D919E;
+	display:block;
+	padding:10px 0;
+	width:100%;
+}
+
+
+#sBContents {
+	background-color:#fff;
+	padding:5px 20px;
+	width:210px;
+}
+
+#sBContents ul {
+	list-style-type: none;
+	padding:0;
+}
+
+#sBContents ul li{
+	padding: 5px 0;
+}
+
+/*
+Main content box
+*/
+#mainBox {
+	background-color:#fff;
+	border:1px solid #8A96CC;
+	height:400px;
+	margin-left:300px;
+}
+
+#otherMainBox {
+	background-color:#fff;
+	border:1px solid #8A96CC;
+	height:400px;
+	margin: 0 auto;
+	width:100%;
+}
+
+.nav {
+	background-color:#4F587F;
+	height:auto;
+	padding:0.4em 0;
+	width:100%;
+}
+
+.navLinks {
+	margin:0 auto;
+	padding:20px 0;
+	width:1200px;
+}
+
+#titleLogo {
+	color:#fff;
+	float:left;
+	font-family: "Poiret One",cursive;
+	font-size:1.2em;
+	padding: 0 4em;
+}
+
+
+#links {
+	padding: 0 4em;
+}
+
+#list {
+	overflow:scroll
+}
+
+/*
+Table formatting
+*/
+
+#otherMainBox table{
+	border-collapse: collapse;
+	width:100%;
+}
+
+#otherMainBox table th{
+	color:#565E7F;
+	font-family: "Tahoma",sans-serif;
+	font-size:1.1em;
+	padding: 0.3em 0;
+	text-transform: uppercase;
+}
+
+#otherMainBox table tr:first-child {
+	border-bottom: 1px solid #000;
+}
+
+#otherMainBox table tr td{
+	padding:0.2em 0;
+	text-align: center;
+}
+
+
+/*
+Style links in top navigation bar
+*/
+
+
+#links a {
+	color:#CDD6FF;
+	font-family: "verdana",sans-serif;
+	padding:0 3em;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+#blurb {
+	font-family: "Tahoma",sans-serif;
+	font-size: 0.8em;
+	margin:10px 0;
+	text-align:center;
+}
+
+

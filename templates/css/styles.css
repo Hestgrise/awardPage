@@ -1,0 +1,168 @@
+/****
+Page styling
+**/
+
+/*
+Code help to reset CSS on browser
+https://css-tricks.com/forums/topic/div-doesnt-reach-edge-of-browser-page/
+Gets rid of margins and padding of the body
+*/
+html, body {
+	background-color:#fff;
+	margin:0;
+	padding:0;
+}
+
+.contentArea {
+	background-color:#d3ebfd;
+	height:100%;
+	display:block;
+	left:0;
+	top:0;
+	width:100%;
+}
+
+.nav {
+	background-color:#4F587F;
+	height:auto;
+	padding:0.4em 0;
+	width:100%;
+}
+
+.navLinks {
+	margin:0 auto;
+	padding:20px 0;
+	text-align: center;
+	width:850px;
+}
+
+#titleLogo {
+	color:#fff;
+	float:left;
+	font-family: "Poiret One",cursive;
+	font-size:1.2em;
+	padding: 0 4em;
+	margin:auto 0;
+}
+
+/*
+Style links in top navigation bar
+*/
+.navLinks a {
+	color:#CDD6FF;
+	font-family: "verdana",sans-serif;
+	padding:0.4em 3em;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.content{
+	background-color:#d3ebfd;
+	height:auto;
+	margin: 0 auto;
+	overflow:auto;
+	padding:30px;
+	width:850px; /* total width is 790px */ 
+}
+
+#title {
+	font-family: "Poiret One",cursive;
+	font-size:3em;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#subtitle {
+	font-family: "Poiret One",cursive;
+	font-size:1.3em;
+	letter-spacing: 0.2em;
+	margin:10px 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#blurb {
+	font-family: "Tahoma",sans-serif;
+	font-size: 0.8em;
+	margin:10px 0;
+	text-align:center;
+}
+
+#login {
+	background-color:#fff;
+	border: 1px #000 solid;
+	color:#000;
+	font-family: "Tahoma",sans-serif;
+	font-size: 0.8em;
+	margin:20px auto;
+	padding:10px;
+	text-align: center;
+	width:400px;
+}
+
+#loginFields {
+	border:1px #000 solid;
+	display: block;
+	height:25px;
+	margin:0 auto;
+	width:85%;
+}
+
+#loginButton {
+	border:1px #000 solid;
+	display: block;
+	height:25px;
+	margin:0 auto 10px;
+	width:86%;
+}
+
+/**
+Other pages
+**/
+.contentBox {
+	background-color:#fff;
+	height:100%;
+	display:block;
+	left:0;
+	top:0;
+	width:100%;
+}
+
+.contents{
+	background-color:#fff;
+	height:auto;
+	margin: 0 auto;
+	overflow:auto;
+	padding:30px;
+	width:850px; /* total width is 790px */ 
+}
+
+#aboutBox{
+	margin: 10px auto 0;
+	width:700px;
+}
+
+#aboutBox img {
+	float:left;
+	height:190px;
+	width:190px;
+}
+
+.member {
+	display:block;
+	margin-top:20px;
+	width:100%;
+}
+
+.bio {
+	background-color:#fff;
+	font-family: "Tahoma",sans-serif;
+	font-size: 0.8em;
+	height:190px;
+	margin-left:195px;
+	vertical-align: middle;
+	width:500px;
+}
+
+
