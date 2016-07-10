@@ -20,7 +20,7 @@ class SignOnPage(webapp2.RequestHandler):
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		
-		template = env.get_template('signon.html')
+		template = env.get_template('index.html')
 		self.response.out.write(template.render())
 
 	def post(self):
