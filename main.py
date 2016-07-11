@@ -10,7 +10,7 @@ app = webapp2.WSGIApplication([
 
 def main():
 	from paste import httpserver
-	httpserver.serve(app, host='127.0.0.1', port='8080')
+	httpserver.serve(app, host='ec2-52-26-46-121.us-west-2.compute.amazonaws.com', port='5423')
 	
 app.router.add(webapp2.Route(r'/', 'api.SignOnPage'))
 app.router.add(webapp2.Route(r'/adapter/<id:[0-9]+><:/?>', 'api.AdapterVar'))
