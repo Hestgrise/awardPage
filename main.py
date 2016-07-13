@@ -10,7 +10,7 @@ portNum = '5432'
 
 app = webapp2.WSGIApplication([
 (r'/static/(.+)', webapp2_static.StaticFileHandler)
-], debug=True, config=config)
+], config = {'webapp2_static.static_file_path': './static'})
 
 
 def main():
