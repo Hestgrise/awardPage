@@ -1,5 +1,5 @@
 import webapp2
-import webapp2_static
+
 
 config = {'default-group' : 'base-data'}
 
@@ -9,15 +9,15 @@ hostName = 'localhost'
 portNum = '5432'
 
 app = webapp2.WSGIApplication([
-(r'/static/(.+)', webapp2_static.StaticFileHandler)
-], config = {'webapp2_static.static_file_path': './static'})
+(r'/', 'api.SignOnPage')
+], debug=True, config=config)
 
 
 def main():
 	from paste import httpserver
 	httpserver.serve(app, host=hostName, port=portNum)
 	
-app.router.add(webapp2.Route(r'/', 'api.SignOnPage'))
+app.router.add((r'/static/css.*', 'api.ServeCss'))
 app.router.add(webapp2.Route(r'/adapter/<id:[0-9]+><:/?>', 'api.AdapterVar'))
 app.router.add(webapp2.Route(r'/productID/<pid:[0-9]+>/adapterID/<aid:[0-9]+><:/?>', 'api.Link'))
 

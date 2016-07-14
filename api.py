@@ -49,10 +49,10 @@ class CheckLogin(webapp2.RequestHandler):
 		cursor.execute(userQuery)
 		passwordInDB = cursor.fetchone()
 		#Check entered password against user's stored password
-		if passwordInDB == password:
+		"""if passwordInDB == password:
 			#Redirect to landing page
 		else:
-			#Error message. Try again
+			#Error message. Try again"""
 
 class CreateUserAccount(webapp2.RequestHandler):
 	def post(self):
@@ -67,7 +67,17 @@ class CreateUserAccount(webapp2.RequestHandler):
 		#Additional execute() call needed for insert/update/delete commands
 		cursor.execute(userInsert, userDetails)
 
+""" adapted from
+http://stackoverflow.com/questions/13841827/chrome-not-rendering-stylesheets-served-by-python-webapp2
+"""
 
+class ServeCss(webapp2.RequestHandler):
+	def get(self):
+		self.response.headers['Content-Type'] = "text/css"
+		finalFileName = 'static/css/' +  self.request.get('file')
+		self.response.out.write(open(finalFileName, "rb").read())
+
+		
 
 			
 			
