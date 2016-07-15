@@ -21,13 +21,12 @@ dbPass = 'default'
 dbHost = 'localhost'
 
 #Create database connection and cursor for queries
-cnx = mysql.connector.connect(user='root', password='password', host='localhost', database='ESDR2')
+cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 cursor = cnx.cursor(buffered=True)
 
 class SignOnPage(webapp2.RequestHandler):
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
-		
 		template = env.get_template('index.html')
 		self.response.out.write(template.render())
 
@@ -36,6 +35,36 @@ class SignOnPage(webapp2.RequestHandler):
 
 		out_obj = {'msg': 'Success, Your POST worked!'}
 		self.response.out.write(json.dumps(out_obj))
+
+class AboutPage(webapp2.RequestHandler):
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('about.html')
+		self.response.out.write(template.render())
+
+class DashboardPage(webapp2.RequestHandler):
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('dashboard.html')
+		self.response.out.write(template.render())
+
+class UsersPage(webapp2.RequestHandler):
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('users.html')
+		self.response.out.write(template.render())
+
+class ExistingPage(webapp2.RequestHandler):
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('existing.html')
+		self.response.out.write(template.render())
+
+class SignUpPage(webapp2.RequestHandler):
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('signUp.html')
+		self.response.out.write(template.render())
 
 class CheckLogin(webapp2.RequestHandler):
 	def post(self):

@@ -20,6 +20,12 @@ def main():
 app.router.add((r'/static/css.*', 'api.ServeCss'))
 app.router.add(webapp2.Route(r'/adapter/<id:[0-9]+><:/?>', 'api.AdapterVar'))
 app.router.add(webapp2.Route(r'/productID/<pid:[0-9]+>/adapterID/<aid:[0-9]+><:/?>', 'api.Link'))
+app.router.add(webapp2.Route(r'/index.html', 'api.SignOnPage'))
+app.router.add(webapp2.Route(r'/about.html', 'api.AboutPage'))
+app.router.add(webapp2.Route(r'/dashboard.html', 'api.DashboardPage'))
+app.router.add(webapp2.Route(r'/users.html', 'api.UsersPage'))
+app.router.add(webapp2.Route(r'/existing.html', 'api.ExistingPage'))
+app.router.add(webapp2.Route(r'/signUp.html', 'api.SignUpPage'))
 
 if __name__ == '__main__':
 	main()
