@@ -67,6 +67,12 @@ class SignUpPage(webapp2.RequestHandler):
 		template = env.get_template('signUp.html')
 		self.response.out.write(template.render())
 
+class ForgetPasswordPage(webapp2.RequestHandler):
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('forget.html')
+		self.response.out.write(template.render())
+
 class CheckLogin(webapp2.RequestHandler):
 	def post(self):
 		#Simple example of login validation to show mysql connector syntax

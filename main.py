@@ -5,7 +5,7 @@ config = {'default-group' : 'base-data'}
 
 #Comment/uncomment hostName as needed for local/AWS testing
 hostName = 'localhost'
-#hostName = 'ec2-52-26-46-121.us-west-2.compute.amazonaws.com'
+#hostName = 'ec2-52-26-46-121.us-west-2.compute.ama:qzonaws.com'
 portNum = '5432'
 
 app = webapp2.WSGIApplication([
@@ -27,6 +27,7 @@ app.router.add(webapp2.Route(r'/users.html', 'api.UsersPage'))
 app.router.add(webapp2.Route(r'/existing.html', 'api.ExistingPage'))
 app.router.add(webapp2.Route(r'/signUp.html', 'api.SignUpPage'))
 app.router.add(webapp2.Route(r'/createUserAccount', 'api.CreateUserAccount'))
+app.router.add(webapp2.Route(r'/forget.html', 'api.ForgetPasswordPage'))
 
 if __name__ == '__main__':
 	main()
