@@ -15,11 +15,16 @@ import os
 import mysql.connector
 import json
 import datetime
+import smtplib
+from email.mime.text import MIMEText as text
 
 dbName = 'lambda'
 dbUser = 'student'
-dbPass = 'default'
+dbPass = 'default!'
 dbHost = 'localhost'
+
+emailUser = 'certifcatecenter@gmail.com'
+emailPass = 'CapStone16'
 
 #Create database connection and cursor for queries
 cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
@@ -106,7 +111,7 @@ class CreateUserAccount(webapp2.RequestHandler):
 		signature = "haven't figured this out yet"
 		instant = datetime.datetime.now()
 		print("email is " + username)
-
+		
 		userDetails = (name, username, password, instant, signature)
 		userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
 		cursor.execute(userInsert, userDetails)
@@ -114,6 +119,34 @@ class CreateUserAccount(webapp2.RequestHandler):
 		cnx.commit()
 		return self.redirect("/dashboard.html")
 
+class PassTest(webapp2.RequestHandler):
+	def post(self):
+		forgottenEmail = self.request.get('fEmail')
+		cursor = cnx.cursor(named_tuple=True)
+		userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
+		cursor.execute(userQuery)
+		
+		releasePass = cursor.fetchone()
+		
+		if releasePass != None:
+			emailMessage = text('Your password as you requested is:' + " " + releasePass.password)
+			emailMessage['Subject'] = "Password Retrieval"
+			emailMessage['From'] = emailUser
+			emailMessage['To'] = forgottenEmail
+			try:
+				server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+				server.ehlo()
+				server.login(emailUser, emailPass)
+				server.sendmail(emailUser, forgottenEmail, emailMessage.as_string())
+				print "email sent!"
+			except:
+				print "Something went wrong"
+		else:
+			print "Email doesn't exist"
+		"""print(forgottenEmail)"""
+		
+		
+		
 """ adapted from
 http://stackoverflow.com/questions/13841827/chrome-not-rendering-stylesheets-served-by-python-webapp2
 """
