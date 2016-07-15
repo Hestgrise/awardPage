@@ -89,6 +89,12 @@ Coding dashboard contents - recent awards section
 	width:100%;
 }
 
+#boxTitle4 {
+	background-color: #9E546B;
+	display:block;
+	padding:10px 0;
+	width:100%;
+}
 
 #sBContents {
 	background-color:#fff;
@@ -151,6 +157,21 @@ Main content box
 
 #list {
 	overflow:scroll
+}
+
+#accountDetails {
+	font-family: "Tahoma",sans-serif;
+	font-size:1.1em;
+	padding:5%;
+	overflow:scroll;
+	width:90%;
+}
+
+#accountDetails b {
+	color:#9E546B;
+	font-family: "Poiret One",cursive;
+	font-size:1.3em;
+	text-transform: uppercase;
 }
 
 /*

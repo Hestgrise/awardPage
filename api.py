@@ -67,6 +67,12 @@ class SignUpPage(webapp2.RequestHandler):
 		template = env.get_template('signUp.html')
 		self.response.out.write(template.render())
 
+class AccountPage(webapp2.RequestHandler):
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('account.html')
+		self.response.out.write(template.render())
+
 class ForgetPasswordPage(webapp2.RequestHandler):
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
