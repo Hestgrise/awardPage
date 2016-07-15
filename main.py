@@ -26,6 +26,7 @@ app.router.add(webapp2.Route(r'/dashboard.html', 'api.DashboardPage'))
 app.router.add(webapp2.Route(r'/users.html', 'api.UsersPage'))
 app.router.add(webapp2.Route(r'/existing.html', 'api.ExistingPage'))
 app.router.add(webapp2.Route(r'/signUp.html', 'api.SignUpPage'))
+app.router.add(webapp2.Route(r'/createUserAccount', 'api.CreateUserAccount'))
 
 if __name__ == '__main__':
 	main()

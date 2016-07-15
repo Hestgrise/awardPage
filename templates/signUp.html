@@ -20,12 +20,14 @@
 			<div class="contents">
 				<div id="title">Register for an Account</div>
 				<div id="login">
-					<div id="subtitle">Please fill out all fields</div>
-					<input type="text" placeholder="Enter your first name" id="loginFields">
-					<input type="text" placeholder="Enter your last name" id="loginFields">
-					<input type="text" placeholder="Enter your email" id="loginFields">
-					<input type="password" placeholder="Enter your password" id="loginFields">
-					<input type="submit" id="loginButton">
+					<form action="/createUserAccount" method="post">
+					  <div id="subtitle">Please fill out all fields</div>
+					  <input type="text" placeholder="Enter your first name" id="loginFields" name="firstName">
+					  <input type="text" placeholder="Enter your last name" id="loginFields" name="lastName">
+					  <input type="text" placeholder="Enter your email" id="loginFields" name="email">
+					  <input type="password" placeholder="Enter your password" id="loginFields" name="password	">
+					  <input type="submit" id="loginButton">
+					</form>
 				</div>
 			</div>
 		</div>

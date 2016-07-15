@@ -14,6 +14,7 @@ from jinja2 import Environment, PackageLoader
 import os
 import mysql.connector
 import json
+import datetime
 
 dbName = 'lambda'
 dbUser = 'student'
@@ -85,16 +86,21 @@ class CheckLogin(webapp2.RequestHandler):
 
 class CreateUserAccount(webapp2.RequestHandler):
 	def post(self):
-		username = self.request.get('username')
-		name = self.request.get('name')
+		username = self.request.get('email')
+		fName = self.request.get('firstName')
+		lName = self.request.get('lastName')
+		name = fName + " " + lName
 		password = self.request.get('password')
 		signature = "haven't figured this out yet"
-		instant = "use datetime.datetime.now()"
+		instant = datetime.datetime.now()
+		print("email is " + username)
 
 		userDetails = (name, username, password, instant, signature)
 		userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
-		#Additional execute() call needed for insert/update/delete commands
 		cursor.execute(userInsert, userDetails)
+		#Additional commit() call needed for insert/update/delete commands
+		cnx.commit()
+		return self.redirect("/dashboard.html")
 
 """ adapted from
 http://stackoverflow.com/questions/13841827/chrome-not-rendering-stylesheets-served-by-python-webapp2
