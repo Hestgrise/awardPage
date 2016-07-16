@@ -4,6 +4,8 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=styles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<script src="../static/script?file=forget.js" type="application/javascript"> </script>
+
 	</head>
 	<body>
 		<div class="contentBox">
@@ -21,12 +23,12 @@
 				<div id="title">Forget your password?</div>
 				<div id="login">
 					<div id="subtitle">Please enter your email</div>
-					<form action="/passTest" method="post">
-						<input type="text" placeholder="Enter your email" id="loginFields" name="fEmail">
-						<input type="submit" id="loginButton">
+					<form id="forgetForm">
+						<input type="text" placeholder="Enter your email" id="fEmail">
+						<input type="submit" id="forgetSubmitButton">
 					</form>
 					<!-- result div needs extra code to appear/disappear-->
-					<div id="result">The email was sent/not sent.</div>
+					<div id="result"></div>
 				</div>
 			</div>
 		</div>
