@@ -19,8 +19,8 @@ import smtplib
 from email.mime.text import MIMEText as text
 
 dbName = 'lambda'
-dbUser = 'RaulDuke'
-dbPass = 'SyS32592!'
+dbUser = 'student'
+dbPass = 'default!'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
