@@ -19,8 +19,8 @@ import smtplib
 from email.mime.text import MIMEText as text
 
 dbName = 'lambda'
-dbUser = 'student'
-dbPass = 'default!'
+dbUser = 'RaulDuke'
+dbPass = 'SyS32592!'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -121,7 +121,8 @@ class CreateUserAccount(webapp2.RequestHandler):
 
 class PassTest(webapp2.RequestHandler):
 	def post(self):
-		forgottenEmail = self.request.get('fEmail')
+		inObj = json.loads(self.request.body)
+		forgottenEmail = inObj['fEmail']
 		cursor = cnx.cursor(named_tuple=True)
 		userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
 		cursor.execute(userQuery)
@@ -138,15 +139,16 @@ class PassTest(webapp2.RequestHandler):
 				server.ehlo()
 				server.login(emailUser, emailPass)
 				server.sendmail(emailUser, forgottenEmail, emailMessage.as_string())
-				print "email sent!"
+				out_obj = {'message': 'Email was sent with password'}
+				self.response.out.write(json.dumps(out_obj))
 			except:
-				print "Something went wrong"
+				out_obj = {'message': 'There was a problem with the server try again later'}
+				self.response.out.write(json.dumps(out_obj))
 		else:
-			print "Email doesn't exist"
-		"""print(forgottenEmail)"""
-		
-		
-		
+			out_obj = {'message': 'Email does not exist'}
+			self.response.out.write(json.dumps(out_obj))
+
+				
 """ adapted from
 http://stackoverflow.com/questions/13841827/chrome-not-rendering-stylesheets-served-by-python-webapp2
 """
@@ -157,7 +159,11 @@ class ServeCss(webapp2.RequestHandler):
 		finalFileName = 'static/css/' +  self.request.get('file')
 		self.response.out.write(open(finalFileName, "rb").read())
 
-		
+class ServeScript(webapp2.RequestHandler):
+	def get(self):
+		self.response.headers['Content-Type'] = "text/html"
+		finalFileName = 'static/script/' +  self.request.get('file')
+		self.response.out.write(open(finalFileName, "rb").read())
 
 			
 			
