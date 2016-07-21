@@ -4,7 +4,8 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=loggedinstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-	</head>
+		<script src="../static/script?file=dashboard.js" type="application/javascript"> </script>
+		</head>
 	<body>
 		<div class="contentArea">
 			<div class="nav">
@@ -37,7 +38,7 @@
 						<div class="subtitle">Create an Award</div>
 					</div>
 					<div id="formBox">
-						<form action="POST">
+						<form id="certForm">
 							<label for="fullName">Employee Name:</label>
 							<input type="text" id="fullName" name="fullName" class="formInput">
 							<label for="email">Employee Email:</label>
@@ -49,8 +50,9 @@
 								<option value="3">Peer Recognition</option>
 								<option value="4">Excellence in Achievement</option>
 							</select>
-							<input type="submit" class="submitBtn" action="">
+							<input type="submit" class="submitBtn" id="certSubmit">
 						</form>
+						<div id="result"></div>
 					</div>
 				</div>
 			</div>
