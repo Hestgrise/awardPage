@@ -17,7 +17,10 @@ import json
 import datetime
 import smtplib
 from email.mime.text import MIMEText as text
-from email.mime.multipart import MIMEMultipart
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEBase import MIMEBase
+from email import encoders
+
 import subprocess
 
 dbName = 'lambda'
@@ -240,7 +243,20 @@ class CreateAward(webapp2.RequestHandler):
 			msg['Subject'] = "You Have Recieved an Award"
 			msg['From'] = "Certificate Sender" """Will be the user's name, need sessions done first"""
 			msg['To'] = empEmail
-			msg.attach(text(file("AwardCertificate.pdf").read()))
+			
+			attachment = open('AwardCertificate.pdf', 'rb')
+			
+			"""Credit to http://naelshiab.com/tutorial-send-email-python/ """
+			part = MIMEBase('application', 'octet-stream')
+			part.set_payload((attachment).read())
+			encoders.encode_base64(part)
+			part.add_header('Content-Dispostion', "atachment: filename='AwardCertificate'")
+			
+			msg.attach(part)
+			
+			
+			
+			
 			
 			try:
 				server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
