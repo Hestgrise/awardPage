@@ -17,10 +17,12 @@ import json
 import datetime
 import smtplib
 from email.mime.text import MIMEText as text
+from email.mime.multipart import MIMEMultipart
+import subprocess
 
 dbName = 'lambda'
-dbUser = 'student'
-dbPass = 'default!'
+dbUser = 'RaulDuke'
+dbPass = 'SyS32592!'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -147,6 +149,112 @@ class PassTest(webapp2.RequestHandler):
 		else:
 			out_obj = {'message': 'Email does not exist'}
 			self.response.out.write(json.dumps(out_obj))
+
+class CreateAward(webapp2.RequestHandler):
+		def post(self):
+			inObj = json.loads(self.request.body)
+			empEmail = inObj['empEmail']
+			empName = inObj['empName']
+			awardType = inObj['awdType']
+			
+			""" I need to be able to get the userid from sessions to get the awarding name, waiting on sessions, for now hard coding awarder name
+			cursor = cnx.cursor(named_tuple=True)
+			userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
+			cursor.execute(userQuery)
+			"""
+			
+			prelimLatex = r'''
+			\documentclass[landscape]{article}
+			\usepackage{wallpaper}
+			\usepackage{niceframe}
+			\usepackage{xcolor}
+			\usepackage{ulem}
+			\usepackage{graphicx}
+			\usepackage{geometry}
+			\geometry{tmargin=.5cm,bmargin=.5cm,
+			lmargin=.5cm,rmargin=.5cm}
+			\usepackage{multicol}
+			\setlength{\columnseprule}{0.4pt}
+			\columnwidth=0.3\textwidth
+
+			\begin{document}
+
+			\centering
+			\scalebox{3}{\color{blue!30!black!60}
+			\begin{minipage}{.33\textwidth}
+			\font\border=umrandb
+			\generalframe
+			{\border \char113} %% up left
+			{\border \char109} %% up
+			{\border \char112} %% up right
+			{\border \char108} %% left 
+			{\border \char110} %% right
+			{\border \char114} %% lower left
+			{\border \char111} %% bottom
+			{\border \char115} %% lower right
+			{\centering
+
+
+
+			\curlyframe[.9\columnwidth]{
+
+			\textcolor{red!10!black!90}
+			{\small Congratulations %(employee_name)s!}\\
+
+			\textcolor{green!10!black!90}{
+			\tiny %(inhonor_text)s}
+
+			\smallskip
+
+			\textcolor{red!30!black!90}
+			{\textit{Recipient of}}
+
+			\textcolor{black}{\large \textsc{%(award_name)s!}}
+
+			\vspace{2mm}
+
+			\tiny
+
+
+			\vspace{20mm}
+
+
+			}}
+			\end{minipage}
+			}
+			\end{document}
+
+			'''
+			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': 'Lucky Person You', 'award_name': awardType}
+
+			outFile = open('AwardCertificate.tex', 'w')
+
+			outFile.write(finishedLatex)
+
+			outFile.close()
+
+			subprocess.check_call(['pdflatex', 'AwardCertificate.tex'])
+
+		
+			msg = MIMEMultipart()
+			msg['Subject'] = "You Have Recieved an Award"
+			msg['From'] = "Certificate Sender" """Will be the user's name, need sessions done first"""
+			msg['To'] = empEmail
+			msg.attach(text(file("AwardCertificate.pdf").read()))
+			
+			try:
+				server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+				server.ehlo()
+				server.login(emailUser, emailPass)
+				server.sendmail(emailUser, forgottenEmail, emailMessage.as_string())
+				out_obj = {'message': 'Email was sent with password'}
+				self.response.out.write(json.dumps(out_obj))
+			except:
+				out_obj = {'message': 'There was a problem with the server try again later'}
+				self.response.out.write(json.dumps(out_obj))
+		"""else:
+			out_obj = {'message': 'Email does not exist'}
+			self.response.out.write(json.dumps(out_obj))"""
 
 				
 """ adapted from
