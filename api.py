@@ -161,7 +161,7 @@ class CreateAward(webapp2.RequestHandler):
 			cursor = cnx.cursor(named_tuple=True)
 			userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
 			cursor.execute(userQuery)
-			"""
+			
 			"""
 			prelimLatex = r'''
 			\documentclass[landscape]{article}
@@ -233,7 +233,7 @@ class CreateAward(webapp2.RequestHandler):
 
 			outFile.close()
 
-			subprocess.check_call(['pdflatex', 'AwardCertificate.tex'])"""
+			subprocess.check_call(['pdflatex', 'AwardCertificate.tex'])
 
 		
 			msg = MIMEMultipart()
