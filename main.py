@@ -4,9 +4,9 @@ import webapp2
 config = {'default-group' : 'base-data'}
 
 #Comment/uncomment hostName as needed for local/AWS testing
-hostName = 'localhost'
-#hostName = 'ec2-52-26-46-121.us-west-2.compute.ama:qzonaws.com'
-portNum = '5432'
+#hostName = 'localhost'
+hostName = 'ec2-52-26-46-121.us-west-2.compute.amazonaws.com'
+portNum = '5423'
 
 app = webapp2.WSGIApplication([
 (r'/', 'api.SignOnPage')

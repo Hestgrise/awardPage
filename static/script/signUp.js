@@ -1,6 +1,6 @@
 console.log("Account creation validation JavaScript is working")
 document.addEventListener('DOMContentLoaded', buttonSet);
-var url = 'http://127.0.0.1:5432/createUserAccount';
+var url = 'http://ec2-52-26-46-121.us-west-2.compute.amazonaws.com:5423/createUserAccount';
 
 function buttonSet() {
 	var submitButton = document.getElementById('createAccountButton');
