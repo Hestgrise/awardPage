@@ -25,10 +25,12 @@
 				</div>
 				<div id="login">
 					<div id="subtitle">Login</div>
-					<input type="radio">As User <input type="radio"> As Administrator
-					<input type="text" placeholder="Enter your email" id="loginFields">
-					<input type="password" placeholder="Enter your password" id="loginFields">
-					<input type="submit" id="loginButton">
+					<form action="/checkLogin" method="post">
+						<input type="radio" name="accountType" required checked>As User <input type="radio" name="accountType"> As Administrator
+						<input type="text" placeholder="Enter your email" id="loginFields" name="email" required>
+						<input type="password" placeholder="Enter your password" id="loginFields" name="password" required>
+						<input type="submit" id="loginButton">
+					</form>
 					<a href="forget.html">Forget your password?</a>
 				</div>
 			</div>

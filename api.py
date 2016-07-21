@@ -17,10 +17,11 @@ import json
 import datetime
 import smtplib
 from email.mime.text import MIMEText as text
+import hashlib
 
 dbName = 'lambda'
 dbUser = 'student'
-dbPass = 'default!'
+dbPass = 'default'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -89,35 +90,52 @@ class CheckLogin(webapp2.RequestHandler):
 		#Simple example of login validation to show mysql connector syntax
 		validLogin = False
 		#Assume the sign on page POSTS a username and password
-		username = self.request.get('username', default_value=None)
+		username = self.request.get('email', default_value=None)
 		password = self.request.get('password', default_value=None)
+		hashedPass = hashlib.sha1(password).hexdigest();
 		#(1)Create the MySQL command, (2)Execute it
-		userQuery = ("SELECT password FROM users WHERE name = '"+username+"'")
+		userQuery = ("SELECT password FROM users WHERE email = '"+username+"'")
 		cursor.execute(userQuery)
-		passwordInDB = cursor.fetchone()
+		passwordQuery = cursor.fetchone()
 		#Check entered password against user's stored password
-		"""if passwordInDB == password:
-			#Redirect to landing page
-		else:
-			#Error message. Try again"""
+		if passwordQuery != None:
+			passwordInDb = passwordQuery[0].encode('utf-8')
+			if passwordInDb == hashedPass:
+				self.redirect("/dashboard.html")
+		outMsg = {"message" : "Invalid login credentials. Please try again."}
+		self.response.out.write(json.dumps(outMsg))
+
 
 class CreateUserAccount(webapp2.RequestHandler):
 	def post(self):
-		username = self.request.get('email')
-		fName = self.request.get('firstName')
-		lName = self.request.get('lastName')
+		postData = json.loads(self.request.body)
+		username = postData['email']
+		fName = postData['firstName']
+		lName = postData['lastName']
 		name = fName + " " + lName
-		password = self.request.get('password')
+		password = postData['password']
 		signature = "haven't figured this out yet"
 		instant = datetime.datetime.now()
-		print("email is " + username)
-		
-		userDetails = (name, username, password, instant, signature)
-		userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
-		cursor.execute(userInsert, userDetails)
-		#Additional commit() call needed for insert/update/delete commands
-		cnx.commit()
-		return self.redirect("/dashboard.html")
+
+		usernameTakenTest = ("SELECT * FROM users WHERE email = '"+username+"'")
+		cursor.execute(usernameTakenTest)
+
+		testResult = cursor.fetchone()
+		#Username is available
+		if testResult == None:
+			hashedPass = hashlib.sha1(password).hexdigest()
+			userDetails = (name, username, hashedPass, instant, signature)
+			userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
+			cursor.execute(userInsert, userDetails)
+			#Additional commit() call needed for insert/update/delete commands
+			cnx.commit()
+			outMsg = {'message' : 'Account successfully created. You can now log in.'}
+			self.response.out.write(json.dumps(outMsg))
+		#Username is already taken. Reply with error message
+		else:
+			outMsg = {'message' : 'An account with that email address already exists. Please try again.'}
+			self.response.headers['Content-Type'] = 'application/json'
+			self.response.out.write(json.dumps(outMsg))			
 
 class PassTest(webapp2.RequestHandler):
 	def post(self):

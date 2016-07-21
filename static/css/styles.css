@@ -165,4 +165,8 @@ Other pages
 	width:500px;
 }
 
-
+.errorMsg {
+	margin: auto;
+	text-align: center;
+	color: red;
+}
