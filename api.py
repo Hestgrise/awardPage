@@ -112,11 +112,14 @@ class ExistingPage(BaseHandler):
 		template = env.get_template('existing.html')
 		self.response.out.write(template.render())
 
-class SignUpPage(webapp2.RequestHandler):
-	def get(self):
-		env = Environment(loader=PackageLoader('api', '/templates'))
-		template = env.get_template('signUp.html')
-		self.response.out.write(template.render())
+class SignUpPage(BaseHandler):
+        def get(self):
+	        if 'user' in self.session:
+                    self.redirect("dashboard.html")
+                else:
+                    env = Environment(loader=PackageLoader('api', '/templates'))
+		    template = env.get_template('signUp.html')
+		    self.response.out.write(template.render())
 
 class AccountPage(BaseHandler):
         @loggedIn
