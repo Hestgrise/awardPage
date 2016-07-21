@@ -1,7 +1,8 @@
 import webapp2
-
+from webapp2_extras import sessions
 
 config = {'default-group' : 'base-data'}
+config['webapp2_extras.sessions'] = {'secret_key':'cs-project-ftw',}
 
 #Comment/uncomment hostName as needed for local/AWS testing
 #hostName = 'localhost'
@@ -33,6 +34,7 @@ app.router.add(webapp2.Route(r'/account.html', 'api.AccountPage'))
 app.router.add(webapp2.Route(r'/passTest', 'api.PassTest'))
 app.router.add(webapp2.Route(r'/checkLogin', 'api.CheckLogin'))
 app.router.add(webapp2.Route(r'/createAward', 'api.CreateAward'))
+app.router.add(webapp2.Route(r'/logout.html', 'api.Logout'))
 
 if __name__ == '__main__':
 	main()

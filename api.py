@@ -23,7 +23,7 @@ from email.MIMEBase import MIMEBase
 from email import encoders
 
 import subprocess
-
+from webapp2_extras import sessions
 
 dbName = 'lambda'
 dbUser = 'student'
@@ -37,11 +37,47 @@ emailPass = 'CapStone16'
 cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 cursor = cnx.cursor(buffered=True)
 
-class SignOnPage(webapp2.RequestHandler):
+#loggedIn will check to see if the user is logged in yet
+#being loggedIn depends on whether the browser has user as a session variable
+def loggedIn(handler):
+    def checkLogin(self):
+        #if the user is logged in, then return the appropriate handler
+        if 'user' in self.session:
+            return handler(self)
+        #if the user is not logged in, then redirect to the sign in page
+        else:
+            self.redirect("index.html")
+
+    return checkLogin
+
+
+"""
+BaseHandler code below is from the webapp2 sessions official documentation
+Code from http://webapp2.readthedocs.io/en/latest/api/webapp2_extras/sessions.html
+"""
+class BaseHandler(webapp2.RequestHandler):
+        def dispatch(self):
+            self.session_store = sessions.get_store(request=self.request)
+
+            try:
+                webapp2.RequestHandler.dispatch(self)
+            finally:
+                self.session_store.save_sessions(self.response)
+
+        @webapp2.cached_property
+        def session(self):
+            return self.session_store.get_session()
+
+
+class SignOnPage(BaseHandler):
 	def get(self):
-		env = Environment(loader=PackageLoader('api', '/templates'))
-		template = env.get_template('index.html')
-		self.response.out.write(template.render())
+            #if the user is already logged in, then redirect to the dashboard page
+                if 'user' in self.session:
+                    self.redirect("dashboard.html")
+                else:
+		    env = Environment(loader=PackageLoader('api', '/templates'))
+		    template = env.get_template('index.html')
+		    self.response.out.write(template.render())
 
 	def post(self):
 		out_obj = {}
@@ -55,19 +91,22 @@ class AboutPage(webapp2.RequestHandler):
 		template = env.get_template('about.html')
 		self.response.out.write(template.render())
 
-class DashboardPage(webapp2.RequestHandler):
-	def get(self):
+class DashboardPage(BaseHandler):
+        @loggedIn
+        def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('dashboard.html')
 		self.response.out.write(template.render())
 
-class UsersPage(webapp2.RequestHandler):
+class UsersPage(BaseHandler):
+        @loggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('users.html')
 		self.response.out.write(template.render())
 
-class ExistingPage(webapp2.RequestHandler):
+class ExistingPage(BaseHandler):
+        @loggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('existing.html')
@@ -79,7 +118,8 @@ class SignUpPage(webapp2.RequestHandler):
 		template = env.get_template('signUp.html')
 		self.response.out.write(template.render())
 
-class AccountPage(webapp2.RequestHandler):
+class AccountPage(BaseHandler):
+        @loggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('account.html')
@@ -91,7 +131,7 @@ class ForgetPasswordPage(webapp2.RequestHandler):
 		template = env.get_template('forget.html')
 		self.response.out.write(template.render())
 
-class CheckLogin(webapp2.RequestHandler):
+class CheckLogin(BaseHandler):
 	def post(self):
 		#Simple example of login validation to show mysql connector syntax
 		validLogin = False
@@ -107,6 +147,12 @@ class CheckLogin(webapp2.RequestHandler):
 		if passwordQuery != None:
 			passwordInDb = passwordQuery[0].encode('utf-8')
 			if passwordInDb == hashedPass:
+                                #get user ID from the database to add to sessions
+                                idQuery = ("SELECT id FROM users WHERE email = '"+username+"'")
+                                cursor.execute(idQuery)
+                                idValue = cursor.fetchone()
+                                #set the session value for user
+                                self.session['user'] = idValue
 				self.redirect("/dashboard.html")
 		outMsg = {"message" : "Invalid login credentials. Please try again."}
 		self.response.out.write(json.dumps(outMsg))
@@ -142,6 +188,12 @@ class CreateUserAccount(webapp2.RequestHandler):
 			outMsg = {'message' : 'An account with that email address already exists. Please try again.'}
 			self.response.headers['Content-Type'] = 'application/json'
 			self.response.out.write(json.dumps(outMsg))			
+
+class Logout(BaseHandler):
+        def get(self):
+            #clear the session upon logout
+            self.session.clear()
+            self.redirect("index.html")
 
 class PassTest(webapp2.RequestHandler):
 	def post(self):
