@@ -162,7 +162,7 @@ class CreateAward(webapp2.RequestHandler):
 			userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
 			cursor.execute(userQuery)
 			"""
-			
+			"""
 			prelimLatex = r'''
 			\documentclass[landscape]{article}
 			\usepackage{wallpaper}
@@ -233,7 +233,7 @@ class CreateAward(webapp2.RequestHandler):
 
 			outFile.close()
 
-			subprocess.check_call(['pdflatex', 'AwardCertificate.tex'])
+			subprocess.check_call(['pdflatex', 'AwardCertificate.tex'])"""
 
 		
 			msg = MIMEMultipart()
@@ -246,7 +246,7 @@ class CreateAward(webapp2.RequestHandler):
 				server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
 				server.ehlo()
 				server.login(emailUser, emailPass)
-				server.sendmail(emailUser, forgottenEmail, emailMessage.as_string())
+				server.sendmail(emailUser, empEmail, msg.as_string())
 				out_obj = {'message': 'Email was sent with password'}
 				self.response.out.write(json.dumps(out_obj))
 			except:
