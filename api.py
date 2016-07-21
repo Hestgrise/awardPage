@@ -21,8 +21,8 @@ from email.mime.multipart import MIMEMultipart
 import subprocess
 
 dbName = 'lambda'
-dbUser = 'RaulDuke'
-dbPass = 'SyS32592!'
+dbUser = 'student'
+dbPass = 'default'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
