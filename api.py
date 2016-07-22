@@ -325,7 +325,7 @@ class CreateAward(webapp2.RequestHandler):
 			part = MIMEBase('application', 'octet-stream')
 			part.set_payload((attachment).read())
 			encoders.encode_base64(part)
-			part.add_header('Content-Dispostion', "atachment: filename='AwardCertificate'")
+			part.add_header('Content-Disposition', "atachment; filename='AwardCertificate.pdf'")
 			
 			msg.attach(part)
 			
@@ -338,7 +338,7 @@ class CreateAward(webapp2.RequestHandler):
 				server.ehlo()
 				server.login(emailUser, emailPass)
 				server.sendmail(emailUser, empEmail, msg.as_string())
-				out_obj = {'message': 'Email was sent with password'}
+				out_obj = {'message': 'Your Award has been sent in an email!'}
 				self.response.out.write(json.dumps(out_obj))
 			except:
 				out_obj = {'message': 'There was a problem with the server try again later'}
