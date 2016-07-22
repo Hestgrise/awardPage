@@ -26,8 +26,8 @@ import subprocess
 from webapp2_extras import sessions
 
 dbName = 'lambda'
-dbUser = 'RaulDuke'
-dbPass = 'SyS32592!'
+dbUser = 'student'
+dbPass = 'default'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
