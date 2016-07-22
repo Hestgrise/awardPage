@@ -22,7 +22,7 @@ function buttonSet()
 		
 		var payLoad = JSON.stringify(userInfo);
 		
-		forgotReq.open('POST', 'http://127.0.0.1:5432/createAward', true);
+		forgotReq.open('POST', '../createAward', true);
 		
 		forgotReq.setRequestHeader('Content-Type', 'application/json');
 		
