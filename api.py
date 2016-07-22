@@ -233,8 +233,16 @@ class CreateAward(webapp2.RequestHandler):
 			inObj = json.loads(self.request.body)
 			empEmail = inObj['empEmail']
 			empName = inObj['empName']
-			awardType = inObj['awdType']
-			
+			awardType = int(inObj['awdType'])
+		        if awardType == 1:
+                            awardType = "Employee of the Month!"
+                        elif awardType == 2:
+                            awardType = "Employee of the Year!"
+                        elif awardType == 3:
+                            awardType = "Peer Recognition!"
+                        elif awardType == 4:
+                            awardType = "Excellence in Achievement!"
+
 			""" I need to be able to get the userid from sessions to get the awarding name, waiting on sessions, for now hard coding awarder name
 			cursor = cnx.cursor(named_tuple=True)
 			userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
