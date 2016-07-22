@@ -26,8 +26,8 @@ import subprocess
 from webapp2_extras import sessions
 
 dbName = 'lambda'
-dbUser = 'student'
-dbPass = 'default'
+dbUser = 'RaulDuke'
+dbPass = 'SyS32592!'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -202,14 +202,15 @@ class PassTest(webapp2.RequestHandler):
 	def post(self):
 		inObj = json.loads(self.request.body)
 		forgottenEmail = inObj['fEmail']
-		cursor = cnx.cursor(named_tuple=True)
-		userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
+		
+		userQuery = ("SELECT password FROM users WHERE email = '"+forgottenEmail+"'")
 		cursor.execute(userQuery)
 		
 		releasePass = cursor.fetchone()
-		
+		print "password is:"
+		print releasePass
 		if releasePass != None:
-			emailMessage = text('Your password as you requested is:' + " " + releasePass.password)
+			emailMessage = text('Your password as you requested is:' + " " + releasePass[0])
 			emailMessage['Subject'] = "Password Retrieval"
 			emailMessage['From'] = emailUser
 			emailMessage['To'] = forgottenEmail
