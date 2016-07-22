@@ -19,7 +19,7 @@ function buttonSet()
 		
 		var payLoad = JSON.stringify(userInfo);
 		
-		forgotReq.open('POST', 'http://127.0.0.1:5432/passTest', true);
+		forgotReq.open('POST', '../passTest', true);
 		
 		forgotReq.setRequestHeader('Content-Type', 'application/json');
 		
