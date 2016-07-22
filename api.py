@@ -56,34 +56,28 @@ BaseHandler code below is from the webapp2 sessions official documentation
 Code from http://webapp2.readthedocs.io/en/latest/api/webapp2_extras/sessions.html
 """
 class BaseHandler(webapp2.RequestHandler):
-        def dispatch(self):
-            self.session_store = sessions.get_store(request=self.request)
+    def dispatch(self):
+        self.session_store = sessions.get_store(request=self.request)
 
-            try:
-                webapp2.RequestHandler.dispatch(self)
-            finally:
-                self.session_store.save_sessions(self.response)
+        try:
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            self.session_store.save_sessions(self.response)
 
-        @webapp2.cached_property
-        def session(self):
-            return self.session_store.get_session()
+    @webapp2.cached_property
+    def session(self):
+        return self.session_store.get_session()
 
 
 class SignOnPage(BaseHandler):
 	def get(self):
-            #if the user is already logged in, then redirect to the dashboard page
-                if 'user' in self.session:
-                    self.redirect("dashboard.html")
-                else:
+        #if the user is already logged in, then redirect to the dashboard page
+		if 'user' in self.session:
+		    self.redirect("dashboard.html")
+		else:
 		    env = Environment(loader=PackageLoader('api', '/templates'))
 		    template = env.get_template('index.html')
 		    self.response.out.write(template.render())
-
-	def post(self):
-		out_obj = {}
-
-		out_obj = {'msg': 'Success, Your POST worked!'}
-		self.response.out.write(json.dumps(out_obj))
 
 class AboutPage(webapp2.RequestHandler):
 	def get(self):
@@ -113,16 +107,16 @@ class ExistingPage(BaseHandler):
 		self.response.out.write(template.render())
 
 class SignUpPage(BaseHandler):
-        def get(self):
-	        if 'user' in self.session:
-                    self.redirect("dashboard.html")
-                else:
-                    env = Environment(loader=PackageLoader('api', '/templates'))
-		    template = env.get_template('signUp.html')
-		    self.response.out.write(template.render())
+    def get(self):
+        if 'user' in self.session:
+			self.redirect("dashboard.html")
+        else:
+			env = Environment(loader=PackageLoader('api', '/templates'))
+			template = env.get_template('signUp.html')
+			self.response.out.write(template.render())
 
 class AccountPage(BaseHandler):
-        @loggedIn
+	@loggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('account.html')
@@ -136,12 +130,11 @@ class ForgetPasswordPage(webapp2.RequestHandler):
 
 class CheckLogin(BaseHandler):
 	def post(self):
-		#Simple example of login validation to show mysql connector syntax
-		validLogin = False
-		#Assume the sign on page POSTS a username and password
-		username = self.request.get('email', default_value=None)
-		password = self.request.get('password', default_value=None)
-		hashedPass = hashlib.sha1(password).hexdigest();
+		#Login page POSTS a username and password
+		postData = json.loads(self.request.body)
+		username = postData['email']
+		password = postData['password']
+		#hashedPass = hashlib.sha1(password).hexdigest();
 		#(1)Create the MySQL command, (2)Execute it
 		userQuery = ("SELECT password FROM users WHERE email = '"+username+"'")
 		cursor.execute(userQuery)
@@ -149,17 +142,21 @@ class CheckLogin(BaseHandler):
 		#Check entered password against user's stored password
 		if passwordQuery != None:
 			passwordInDb = passwordQuery[0].encode('utf-8')
-			if passwordInDb == hashedPass:
-                                #get user ID from the database to add to sessions
-                                idQuery = ("SELECT id FROM users WHERE email = '"+username+"'")
-                                cursor.execute(idQuery)
-                                idValue = cursor.fetchone()
-                                #set the session value for user
-                                self.session['user'] = idValue
-				self.redirect("/dashboard.html")
-		outMsg = {"message" : "Invalid login credentials. Please try again."}
-		self.response.out.write(json.dumps(outMsg))
-
+			if passwordInDb == password:
+				#get user ID from the database to add to sessions
+				idQuery = ("SELECT id FROM users WHERE email = '"+username+"'")
+				cursor.execute(idQuery)
+				idValue = cursor.fetchone()
+				#set the session value for user
+				self.session['user'] = idValue
+				outMsg = {'message' : 'Login successful.'}
+				self.response.out.write(json.dumps(outMsg))
+			else:
+				outMsg = {"message" : "That password doesn't match our records. Please try again."}
+				self.response.out.write(json.dumps(outMsg))
+		else:
+			outMsg = {'message' : "There is no account associated with that email address."}
+			self.response.out.write(json.dumps(outMsg))
 
 class CreateUserAccount(webapp2.RequestHandler):
 	def post(self):
@@ -169,7 +166,7 @@ class CreateUserAccount(webapp2.RequestHandler):
 		lName = postData['lastName']
 		name = fName + " " + lName
 		password = postData['password']
-		signature = "haven't figured this out yet"
+		signature = postData['signatureFile']
 		instant = datetime.datetime.now()
 
 		usernameTakenTest = ("SELECT * FROM users WHERE email = '"+username+"'")
@@ -178,8 +175,8 @@ class CreateUserAccount(webapp2.RequestHandler):
 		testResult = cursor.fetchone()
 		#Username is available
 		if testResult == None:
-			hashedPass = hashlib.sha1(password).hexdigest()
-			userDetails = (name, username, hashedPass, instant, signature)
+			#hashedPass = hashlib.sha1(password).hexdigest()
+			userDetails = (name, username, password, instant, signature)
 			userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
 			cursor.execute(userInsert, userDetails)
 			#Additional commit() call needed for insert/update/delete commands
