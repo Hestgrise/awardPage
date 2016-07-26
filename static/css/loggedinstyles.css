@@ -253,4 +253,15 @@ Style links in top navigation bar
 	text-align:center;
 }
 
+.errorMsg {
+	margin: auto;
+	text-align: center;
+	color: red;
+}
+
+.dynamic {
+	margin-left: 0.5cm;
+	color: black;
+}
+
 

@@ -125,6 +125,28 @@ class AccountPage(BaseHandler):
 		template = env.get_template('account.html')
 		self.response.out.write(template.render())
 
+class FillAccountPage(BaseHandler):
+	def post(self):
+		userId = str(self.session.get('user')[0])
+		print(userId)
+
+		userInfoQuery = ("SELECT name, email, dateCreated FROM users WHERE id = '"+userId+"'")
+		cursor.execute(userInfoQuery)
+		userInfo = cursor.fetchone()
+
+		name = userInfo[0].encode('utf-8')
+		email = userInfo[1].encode('utf-8')
+		date = userInfo[2]
+		prettyDate = date.strftime("%B %d, %Y")
+
+		numAwardsQuery = ("SELECT count(*) FROM awards WHERE userId = '"+userId+"'")
+		cursor.execute(numAwardsQuery)
+		numAwards = cursor.fetchone()
+		numAwards = str(numAwards[0])
+
+		msgBody = {"accountName" : name, "accountEmail" : email, "accountDate" : prettyDate, "accountAwards" : numAwards}
+		self.response.out.write(json.dumps(msgBody))
+
 class ForgetPasswordPage(webapp2.RequestHandler):
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))

@@ -35,6 +35,7 @@ app.router.add(webapp2.Route(r'/passTest', 'api.PassTest'))
 app.router.add(webapp2.Route(r'/checkLogin', 'api.CheckLogin'))
 app.router.add(webapp2.Route(r'/createAward', 'api.CreateAward'))
 app.router.add(webapp2.Route(r'/logout.html', 'api.Logout'))
+app.router.add(webapp2.Route(r'/accountInfo', 'api.FillAccountPage'))
 
 if __name__ == '__main__':
 	main()

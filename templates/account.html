@@ -4,6 +4,7 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=loggedinstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<script src="./static/script?file=accountInfo.js" type="application/javascript"> </script>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -26,13 +27,14 @@
 						<div class="subtitle">My Account</div>
 					</div>
 					<div id="accountDetails">
-						<b>Name:</b> Jane Doe<br><br>
-						<b>E-Mail:</b> Janedoe@emailgoeshere.com<br><br>
-						<b>Date Joined:</b> Jan 1, 2016<br><br>
-						<b>No. Awards Created:</b> 5<br><br>
+						<b>Name:<span id="accountName" class="dynamic"></span></b><br><br>
+						<b>E-Mail:<span id="accountEmail" class="dynamic"></span></b><br><br>
+						<b>Date Joined:<span id="accountDate" class="dynamic"></span></b><br><br>
+						<b>No. Awards Created:<span id="accountAwards" class="dynamic"></span></b><br><br>
 					</div>
 				</div>
 			</div>
+			<div class="errorMsg" id="result"></div>
 		</div>
 		<div>
 		</div>
