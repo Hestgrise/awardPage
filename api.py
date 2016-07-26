@@ -21,6 +21,9 @@ from email.mime.text import MIMEText as text
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
 from email import encoders
+import io
+import imghdr
+import uuid
 
 import subprocess
 from webapp2_extras import sessions
@@ -159,24 +162,27 @@ class CheckLogin(BaseHandler):
 			self.response.out.write(json.dumps(outMsg))
 
 class CreateUserAccount(webapp2.RequestHandler):
-	def post(self):
-		postData = json.loads(self.request.body)
-		username = postData['email']
-		fName = postData['firstName']
-		lName = postData['lastName']
+	def post(self):		
+		signature =  self.request.get("signatureFile")
+		username = self.request.get("email")
+		fName = self.request.POST.get("firstName")
+		lName = self.request.POST.get("lastName")
 		name = fName + " " + lName
-		password = postData['password']
-		signature = postData['signatureFile']
+		password = self.request.get("password")
 		instant = datetime.datetime.now()
-
+	
 		usernameTakenTest = ("SELECT * FROM users WHERE email = '"+username+"'")
 		cursor.execute(usernameTakenTest)
 
 		testResult = cursor.fetchone()
 		#Username is available
 		if testResult == None:
-			#hashedPass = hashlib.sha1(password).hexdigest()
-			userDetails = (name, username, password, instant, signature)
+			cwd = os.getcwd()
+			uniqueName = uuid.uuid4()
+			filename = cwd + "/images/" + str(uniqueName)
+			with open(filename, 'wb') as imgFile:
+				imgFile.write(signature)
+			userDetails = (name, username, password, instant, filename)
 			userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
 			cursor.execute(userInsert, userDetails)
 			#Additional commit() call needed for insert/update/delete commands
