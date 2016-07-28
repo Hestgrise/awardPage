@@ -4,6 +4,7 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<script src="../static/script?file=popUp.js" type="application/javascript"> </script>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -21,8 +22,8 @@
 			</div>
 			<div class="otherContent">
 				<div id="otherMainBox">
-					<div id="boxTitle1">
-						<div class="subtitle">Users</div>
+					<div id="boxTitle2">
+						<div class="subtitle">Data</div>
 					</div>
 					<div id="list">
 						<table>
@@ -46,9 +47,23 @@
 						</table>
 					</div>
 				</div>
+				<button id="tbBtn" onclick="spawn()">Filter</button>
 			</div>
 		</div>
 		<div>
+		</div>
+		<!-- Below is the filter menu pop-up -->
+		<div id="filterMenu">
+			<div id="boxTitle3"><div class="subtitle">Filter Options</div></div>
+			<div id="filterForm">
+				Please fill out the options below to filter the data.
+				<form>
+					Add form fields here
+					<input id="tbBtn" type="submit">
+				</form>
+				<br>
+				<button id="tbBtn" onclick="deSpawn()">Close</button>
+			</div>
 		</div>
 	</body>
 

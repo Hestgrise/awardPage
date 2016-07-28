@@ -87,6 +87,7 @@ class AboutPage(webapp2.RequestHandler):
 		template = env.get_template('about.html')
 		self.response.out.write(template.render())
 
+#dashboard for regular users
 class DashboardPage(BaseHandler):
         @loggedIn
         def get(self):
@@ -94,6 +95,15 @@ class DashboardPage(BaseHandler):
 		template = env.get_template('dashboard.html')
 		self.response.out.write(template.render())
 
+#dashboard for admin
+class AdminDashboardPage(BaseHandler):
+        @loggedIn
+        def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('admin_dashboard.html')
+		self.response.out.write(template.render())
+
+#class for users page - admin page
 class UsersPage(BaseHandler):
         @loggedIn
 	def get(self):
