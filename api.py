@@ -37,8 +37,7 @@ emailUser = 'certifcatecenter@gmail.com'
 emailPass = 'CapStone16'
 
 #Create database connection and cursor for queries
-cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
-cursor = cnx.cursor(buffered=True)
+
 
 #loggedIn will check to see if the user is logged in yet
 #being loggedIn depends on whether the browser has user as a session variable
@@ -127,6 +126,8 @@ class AccountPage(BaseHandler):
 
 class FillAccountPage(BaseHandler):
 	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
 		userId = str(self.session.get('user')[0])
 		print(userId)
 
@@ -146,6 +147,9 @@ class FillAccountPage(BaseHandler):
 
 		msgBody = {"accountName" : name, "accountEmail" : email, "accountDate" : prettyDate, "accountAwards" : numAwards}
 		self.response.out.write(json.dumps(msgBody))
+		print "Cursor closed"
+		cursor.close()
+		cnx.close()
 
 class ForgetPasswordPage(webapp2.RequestHandler):
 	def get(self):
@@ -156,6 +160,8 @@ class ForgetPasswordPage(webapp2.RequestHandler):
 class CheckLogin(BaseHandler):
 	def post(self):
 		#Login page POSTS a username and password
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
 		postData = json.loads(self.request.body)
 		username = postData['email']
 		password = postData['password']
@@ -182,9 +188,14 @@ class CheckLogin(BaseHandler):
 		else:
 			outMsg = {'message' : "There is no account associated with that email address."}
 			self.response.out.write(json.dumps(outMsg))
+		cursor.close()
+		cnx.close()
+		print "Connection closed"
 
 class CreateUserAccount(webapp2.RequestHandler):
 	def post(self):		
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
 		signature =  self.request.get("signatureFile")
 		username = self.request.get("email")
 		fName = self.request.POST.get("firstName")
@@ -216,7 +227,10 @@ class CreateUserAccount(webapp2.RequestHandler):
 			outMsg = {'message' : 'An account with that email address already exists. Please try again.'}
 			self.response.headers['Content-Type'] = 'application/json'
 			self.response.out.write(json.dumps(outMsg))			
-
+		cursor.close()
+		cnx.close()
+		print "Connection closed"
+		
 class Logout(BaseHandler):
         def get(self):
             #clear the session upon logout
@@ -225,6 +239,8 @@ class Logout(BaseHandler):
 
 class PassTest(webapp2.RequestHandler):
 	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
 		inObj = json.loads(self.request.body)
 		forgottenEmail = inObj['fEmail']
 		
@@ -252,9 +268,14 @@ class PassTest(webapp2.RequestHandler):
 		else:
 			out_obj = {'message': 'Email does not exist'}
 			self.response.out.write(json.dumps(out_obj))
-
+		cursor.close()
+		cnx.close()
+		print "Connection closed"
+		
 class CreateAward(webapp2.RequestHandler):
 		def post(self):
+			cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+			cursor = cnx.cursor(buffered=True)
 			inObj = json.loads(self.request.body)
 			empEmail = inObj['empEmail']
 			empName = inObj['empName']
@@ -376,7 +397,11 @@ class CreateAward(webapp2.RequestHandler):
 			except:
 				out_obj = {'message': 'There was a problem with the server try again later'}
 				self.response.out.write(json.dumps(out_obj))
-		"""else:
+			
+			cursor.close()
+			cnx.close()
+
+			"""else:
 			out_obj = {'message': 'Email does not exist'}
 			self.response.out.write(json.dumps(out_obj))"""
 
