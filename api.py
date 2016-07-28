@@ -278,7 +278,7 @@ class PassTest(webapp2.RequestHandler):
 		cnx.close()
 		print "Connection closed"
 		
-class CreateAward(webapp2.RequestHandler):
+class CreateAward(BaseHandler):
 		def post(self):
 			cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 			cursor = cnx.cursor(buffered=True)
@@ -304,6 +304,8 @@ class CreateAward(webapp2.RequestHandler):
 			prelimLatex = r'''
 			\documentclass[landscape]{article}
 			\usepackage{wallpaper}
+			\usepackage{graphicx}
+			\graphicspath{ {images/} }
 			\usepackage{niceframe}
 			\usepackage{xcolor}
 			\usepackage{ulem}
@@ -354,8 +356,8 @@ class CreateAward(webapp2.RequestHandler):
 			\tiny
 
 
-			\vspace{20mm}
-
+			\vspace{7mm}
+			\includegraphics{%(signature_image)s}
 
 			}}
 			\end{minipage}
@@ -363,7 +365,18 @@ class CreateAward(webapp2.RequestHandler):
 			\end{document}
 
 			'''
-			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': 'Lucky Person You', 'award_name': awardType}
+			
+			#Now we have to get our user's signature file name for the latex certificate as well as write the award information			
+			userID = str(self.session['user'][0])
+
+			print "UserID is:", userID[0]
+			
+			userQuery = ("SELECT signature FROM users WHERE id = '"+userID+"'")
+			cursor.execute(userQuery)
+		
+			userSig = cursor.fetchone()
+			
+			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': 'Lucky Person You', 'award_name': awardType, 'signature_image': userSig}
 
 			outFile = open('AwardCertificate.tex', 'w')
 
