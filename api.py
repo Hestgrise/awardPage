@@ -108,6 +108,38 @@ class ExistingPage(BaseHandler):
 		template = env.get_template('existing.html')
 		self.response.out.write(template.render())
 
+class FillExistingPage(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+		userId = str(self.session.get('user')[0])
+		#Get all awards created by current user
+		userAwardsQuery = ("SELECT id, type, awardee, dateAwarded FROM awards WHERE userId = '"+userId+"'")
+		cursor.execute(userAwardsQuery)
+		results = cursor.fetchall()
+
+		#Populate arrays with each value to use to fill table in HTML
+		ids = []
+		types = []
+		winners = []
+		dates = []
+		for result in results:
+			ids.append(str(result[0]))
+			types.append(str(result[1]))
+			winners.append(str(result[2]))
+			dates.append(result[3])
+
+		#Convert datetime object to human readable form
+		for idx in range(0, len(dates)):
+			dates[idx] = dates[idx].strftime("%B %d, %Y")
+
+		msgBody = {"ids":ids, "types":types, "winners":winners, "dates":dates}
+		self.response.out.write(json.dumps(msgBody))
+
+		cursor.close()
+		cnx.close()
+
+
 class SignUpPage(BaseHandler):
     def get(self):
         if 'user' in self.session:
@@ -129,7 +161,6 @@ class FillAccountPage(BaseHandler):
 		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 		cursor = cnx.cursor(buffered=True)
 		userId = str(self.session.get('user')[0])
-		print(userId)
 
 		userInfoQuery = ("SELECT name, email, dateCreated FROM users WHERE id = '"+userId+"'")
 		cursor.execute(userInfoQuery)
