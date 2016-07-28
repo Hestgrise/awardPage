@@ -212,10 +212,10 @@ class CreateUserAccount(webapp2.RequestHandler):
 		if testResult == None:
 			cwd = os.getcwd()
 			uniqueName = uuid.uuid4()
-			filename = cwd + "/images/" + str(uniqueName)
+			filename =  cwd + "/images/" + str(uniqueName)
 			with open(filename, 'wb') as imgFile:
 				imgFile.write(signature)
-			userDetails = (name, username, password, instant, filename)
+			userDetails = (name, username, password, instant, str(uniqueName))
 			userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
 			cursor.execute(userInsert, userDetails)
 			#Additional commit() call needed for insert/update/delete commands
