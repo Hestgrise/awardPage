@@ -43,14 +43,32 @@ emailPass = 'CapStone16'
 #being loggedIn depends on whether the browser has user as a session variable
 def loggedIn(handler):
     def checkLogin(self):
-        #if the user is logged in, then return the appropriate handler
+        # if the user is logged in, then return the appropriate handler
         if 'user' in self.session:
             return handler(self)
-        #if the user is not logged in, then redirect to the sign in page
+        # if the user is not logged in, then redirect to the sign in page
+        elif 'admin' in self.session:
+            self.redirect("admin_dashboard.html")
+        # if not logged in, redirect to home page
         else:
             self.redirect("index.html")
 
     return checkLogin
+
+# checks if an admin is logged in - if not, redirects appropriately
+def adminLoggedIn(handler):
+    def checkAdminLogin(self):
+        # if admin is logged in, then return the appropriate handler
+        if 'admin' in self.session:
+            return handler(self)
+        # if a user is logged in, then redirect to dashboard
+        elif 'user' in self.session:
+            self.redirect("dashboard.html")
+        # if not logged in, redirect to the home page
+        else:
+            self.redirect("index.html")
+
+    return checkAdminLogin
 
 
 """
@@ -97,7 +115,7 @@ class DashboardPage(BaseHandler):
 
 #dashboard for admin
 class AdminDashboardPage(BaseHandler):
-        @loggedIn
+        @adminLoggedIn
         def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('admin_dashboard.html')
@@ -105,7 +123,7 @@ class AdminDashboardPage(BaseHandler):
 
 #class for users page - admin page
 class UsersPage(BaseHandler):
-        @loggedIn
+        @adminLoggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('users.html')
@@ -224,14 +242,15 @@ class CheckLogin(BaseHandler):
 				idQuery = ("SELECT id FROM users WHERE email = '"+username+"'")
 				cursor.execute(idQuery)
 				idValue = cursor.fetchone()
-				#set the session value for user
-				self.session['user'] = idValue
 
 				# differentiate between successful user and admin login
 				# send different response messages
+                                # also set sessions differently based on admin or user
                                 if accountType == "admin":
-					outMsg = {'message' : 'Admin Login successful'}
+                                        self.session['admin'] = idValue
+                                        outMsg = {'message' : 'Admin Login successful'}
                                 else:
+                                        self.session['user'] = idValue
 					outMsg = {'message' : 'Login successful.'}
 				self.response.out.write(json.dumps(outMsg))
 			else:
