@@ -210,9 +210,9 @@ class CheckLogin(BaseHandler):
 		#hashedPass = hashlib.sha1(password).hexdigest();
 		#(1)Create the MySQL command, (2)Execute it
 		# queries will either query admins or users table, depending on the login type
-		if accountType == "admin"
+                if accountType == "admin":
 			userQuery = ("SELECT password FROM admins WHERE email = '"+username+"'")
-		else
+                else:
 			userQuery = ("SELECT password FROM users WHERE email = '"+username+"'")
 		cursor.execute(userQuery)
 		passwordQuery = cursor.fetchone()
@@ -229,9 +229,9 @@ class CheckLogin(BaseHandler):
 
 				# differentiate between successful user and admin login
 				# send different response messages
-				if accountType == "admin"
+                                if accountType == "admin":
 					outMsg = {'message' : 'Admin Login successful'}
-				else
+                                else:
 					outMsg = {'message' : 'Login successful.'}
 				self.response.out.write(json.dumps(outMsg))
 			else:

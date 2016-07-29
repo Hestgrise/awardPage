@@ -7,10 +7,22 @@ function buttonSet() {
 
 	submitButton.onclick = function(event) {
 		var createRequest = new XMLHttpRequest();
-		// set POST request parameters
-		var loginInfo = {email:document.getElementsByName("email")[0].value,
+        // get radio button value
+        /*
+         * Referenced http://stackoverflow.com/questions/604167/how-can-we-access-the-value-of-a-radio-button-using-the-dom
+         * for code assistance on how to get radio button value
+         * Canavar's response
+         */
+        var userType = document.getElementsByName("accountType");
+        var accountType;
+        for (var i=0;i<userType.length;i++) {
+            if (userType[i].checked)
+                aType = userType[i].value;
+        }
+        // set POST request parameters
+        var loginInfo = {email:document.getElementsByName("email")[0].value,
 			password:document.getElementsByName("password")[0].value,
-			accountType:document.getElementsByName("accountType")[0].value};
+			accountType:aType};
 		var payload = JSON.stringify(loginInfo);
 		// submits a post request to login
 		createRequest.open('POST', url + 'checkLogin', true);
