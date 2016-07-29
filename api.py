@@ -204,11 +204,16 @@ class CheckLogin(BaseHandler):
 		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 		cursor = cnx.cursor(buffered=True)
 		postData = json.loads(self.request.body)
+		accountType = postData['accountType'] #get the account type to differentiate between admin and regular login
 		username = postData['email']
 		password = postData['password']
 		#hashedPass = hashlib.sha1(password).hexdigest();
 		#(1)Create the MySQL command, (2)Execute it
-		userQuery = ("SELECT password FROM users WHERE email = '"+username+"'")
+		# queries will either query admins or users table, depending on the login type
+		if accountType == "admin"
+			userQuery = ("SELECT password FROM admins WHERE email = '"+username+"'")
+		else
+			userQuery = ("SELECT password FROM users WHERE email = '"+username+"'")
 		cursor.execute(userQuery)
 		passwordQuery = cursor.fetchone()
 		#Check entered password against user's stored password
@@ -221,7 +226,13 @@ class CheckLogin(BaseHandler):
 				idValue = cursor.fetchone()
 				#set the session value for user
 				self.session['user'] = idValue
-				outMsg = {'message' : 'Login successful.'}
+
+				# differentiate between successful user and admin login
+				# send different response messages
+				if accountType == "admin"
+					outMsg = {'message' : 'Admin Login successful'}
+				else
+					outMsg = {'message' : 'Login successful.'}
 				self.response.out.write(json.dumps(outMsg))
 			else:
 				outMsg = {"message" : "That password doesn't match our records. Please try again."}

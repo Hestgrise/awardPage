@@ -25,7 +25,7 @@ app.router.add(webapp2.Route(r'/productID/<pid:[0-9]+>/adapterID/<aid:[0-9]+><:/
 app.router.add(webapp2.Route(r'/index.html', 'api.SignOnPage'))
 app.router.add(webapp2.Route(r'/about.html', 'api.AboutPage'))
 app.router.add(webapp2.Route(r'/dashboard.html', 'api.DashboardPage'))
-app.router.add(webapp2.Route(r'/admin.html', 'api.AdminDashboardPage'))
+app.router.add(webapp2.Route(r'/admin_dashboard.html', 'api.AdminDashboardPage'))
 app.router.add(webapp2.Route(r'/users.html', 'api.UsersPage'))
 app.router.add(webapp2.Route(r'/existing.html', 'api.ExistingPage'))
 app.router.add(webapp2.Route(r'/signUp.html', 'api.SignUpPage'))
