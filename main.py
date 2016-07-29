@@ -38,6 +38,7 @@ app.router.add(webapp2.Route(r'/createAward', 'api.CreateAward'))
 app.router.add(webapp2.Route(r'/logout.html', 'api.Logout'))
 app.router.add(webapp2.Route(r'/accountInfo', 'api.FillAccountPage'))
 app.router.add(webapp2.Route(r'/existingInfo', 'api.FillExistingPage'))
+app.router.add(webapp2.Route(r'/deleteAwards', 'api.DeleteAwards'))
 
 if __name__ == '__main__':
 	main()

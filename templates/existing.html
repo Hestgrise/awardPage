@@ -23,32 +23,26 @@
 			</div>
 			<div class="otherContent">
 				<div id="otherMainBox">
+					<form action="../deleteAwards" method="post" id="awardForm">
 					<div id="boxTitle3">
 						<div class="subtitle">My Awards</div>
 					</div>
 					<div id="list">
+						
 						<table id="awardsTable">
 							<tr>
-								<th>Delete<th>Created<th>Award Recipient<th>File</th>
-							<!--tr>
-								<td><input type="radio">
-								<td>7/8/16 9:00 AM
-								<td>Jane Doe
-								<td><a href="">File Download Link</a>
-								</td>
-							<tr>
-								<td><input type="radio">
-								<td>7/8/16 10:00 AM
-								<td>John Doe
-								<td><a href="">File Download Link</a>
-								</td>
-							</tr-->
+								<th>Delete<th>Created<th>Award<th>Recipient</th>
 						</table>
-					</div>
+					</div>	
 				</div>
+				<div style="text-align: center">
+				<input type="submit" value="Delete Selected Awards" class="deleteBtn" id="deleteBtn" style="margin: 0 auto; width: 300px;">
+				</div>
+				</form>
 			</div>
 		</div>
-		<div>
+		<div id="deleteResult" class="errorMsg">
+
 		</div>
 	</body>
 

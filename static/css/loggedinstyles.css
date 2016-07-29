@@ -232,6 +232,13 @@ Table formatting
 	width:68%;
 }
 
+.deleteBtn {
+	background-color:#565E7F;
+	font-family: "Tahoma",sans-serif;
+	margin: 0 auto;
+	color: white;
+}
+
 /*
 Style links in top navigation bar
 */

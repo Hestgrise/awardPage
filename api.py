@@ -167,6 +167,19 @@ class FillExistingPage(BaseHandler):
 		cursor.close()
 		cnx.close()
 
+class DeleteAwards(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+
+		postData = json.loads(self.request.body)
+		awardIds = postData["ids"]
+		
+		for awardId in awardIds:
+			deleteQry = ("DELETE FROM awards WHERE id='"+awardId+"'")
+			cursor.execute(deleteQry)
+		cnx.commit()
+		self.redirect("existing.html")
 
 class SignUpPage(BaseHandler):
     def get(self):
