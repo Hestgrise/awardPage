@@ -422,13 +422,10 @@ class CreateAward(BaseHandler):
 
 			\textcolor{black}{\large \textsc{%(award_name)s!}}
 
-			\vspace{2mm}
-
 			\tiny
 
-
-			\vspace{7mm}
-			\includegraphics{%(signature_image)s}
+			\vspace{3mm}
+			\includegraphics[width=4cm,height=2cm,keepaspectratio]{%(signature_image)s}
 
 			}}
 			\end{minipage}
@@ -440,24 +437,26 @@ class CreateAward(BaseHandler):
 			#Now we have to get our user's signature file name for the latex certificate as well as write the award information			
 			userID = str(self.session['user'][0])
 
-			print "UserID is:", userID[0]
 			
 			userQuery = ("SELECT signature FROM users WHERE id = '"+userID+"'")
 			cursor.execute(userQuery)
 		
-			userSig = cursor.fetchone()
-			
-			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': 'Lucky Person You', 'award_name': awardType, 'signature_image': userSig}
+			userSig = cursor.fetchone()[0]
+		
+                        #This gets our variables into the latex template above
+			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': 'Lucky Person You', 'award_name': awardType, 'signature_image': str(userSig)}
 
+                        #Mow we write our .tex file
 			outFile = open('AwardCertificate.tex', 'w')
 
 			outFile.write(finishedLatex)
 
 			outFile.close()
 
+                        #This calls pdflatex on the command line to output the certificate
 			subprocess.check_call(['pdflatex', 'AwardCertificate.tex'])
 
-		
+		        #the Next lines set up the email to send the Certificate
 			msg = MIMEMultipart()
 			msg['Subject'] = "You Have Recieved an Award"
 			msg['From'] = "Certificate Sender" """Will be the user's name, need sessions done first"""
@@ -476,7 +475,7 @@ class CreateAward(BaseHandler):
 			
 			
 			
-			
+			#This sends the generated email with our attachment
 			try:
 				server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
 				server.ehlo()
@@ -487,13 +486,21 @@ class CreateAward(BaseHandler):
 			except:
 				out_obj = {'message': 'There was a problem with the server try again later'}
 				self.response.out.write(json.dumps(out_obj))
-			
-			cursor.close()
+
+
+
+                        #Now we write our Award to the database
+                        
+                        #userDetails = (name, username, password, instant, str(uniqueName))
+			#userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
+			#cursor.execute(userInsert, userDetails)
+			#Additional commit() call needed for insert/update/delete commands
+			#cnx.commit()
+
+                        cursor.close()
 			cnx.close()
 
-			"""else:
-			out_obj = {'message': 'Email does not exist'}
-			self.response.out.write(json.dumps(out_obj))"""
+
 
 				
 """ adapted from
