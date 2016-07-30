@@ -25,7 +25,6 @@ function pageLoad() {
 				row.insertCell(2).innerHTML = response.types[i];
 				row.insertCell(3).innerHTML = response.winners[i];
 			}
-			//document.getElementById("").innerHTML = ;
 		}
 		else {
 			document.getElementById('result').textContent = "Server is unreachable at this time";
@@ -53,7 +52,7 @@ function pageLoad() {
 		createReq.open('POST', deleteUrl, true);
 		createReq.setRequestHeader('Content-Type', 'application/json');
 		createReq.addEventListener('load', function() {
-			if (createRequest.status >= 200 && createRequest.status < 400) {
+			if (createReq.status >= 200 && createReq.status < 400) {
 				window.location.reload();
 			}
 			else {

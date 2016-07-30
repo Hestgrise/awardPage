@@ -107,30 +107,53 @@ class AboutPage(webapp2.RequestHandler):
 
 #dashboard for regular users
 class DashboardPage(BaseHandler):
-        @loggedIn
-        def get(self):
+    @loggedIn
+    def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('dashboard.html')
 		self.response.out.write(template.render())
 
+class RecentAwards(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+		awardQuery = ("SELECT awardee, type, dateAwarded FROM awards ORDER BY dateAwarded DESC LIMIT 5")
+		cursor.execute(awardQuery)
+		awards = cursor.fetchall()
+		names = []
+		types = []
+		dates = []
+
+		for award in awards:
+			names.append(str(award[0]))
+			types.append(str(award[1]))
+			dates.append(award[2])
+
+		#Convert datetime objects to human readable form
+		for idx in range(0, len(dates)):
+			dates[idx] = dates[idx].strftime("%B %d, %Y")
+		
+		msg = {"names":names, "awards":types, "dates":dates}
+		self.response.write(json.dumps(msg))
+
 #dashboard for admin
 class AdminDashboardPage(BaseHandler):
-        @adminLoggedIn
-        def get(self):
+    @adminLoggedIn
+    def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('admin_dashboard.html')
 		self.response.out.write(template.render())
 
 #class for users page - admin page
 class UsersPage(BaseHandler):
-        @adminLoggedIn
+	@adminLoggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('users.html')
 		self.response.out.write(template.render())
 
 class ExistingPage(BaseHandler):
-        @loggedIn
+	@loggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('existing.html')
