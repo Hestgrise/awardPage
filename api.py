@@ -29,8 +29,8 @@ import subprocess
 from webapp2_extras import sessions
 
 dbName = 'lambda'
-dbUser = 'student'
-dbPass = 'default'
+dbUser = 'default'
+dbPass = 'student'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -454,7 +454,7 @@ class CreateAward(BaseHandler):
 			\smallskip
 
 			\textcolor{red!30!black!90}
-			{\textit{Recipient of}}
+			{\textit{Has Awarded You For}}
 
 			\textcolor{black}{\large \textsc{%(award_name)s!}}
 
@@ -473,14 +473,20 @@ class CreateAward(BaseHandler):
 			#Now we have to get our user's signature file name for the latex certificate as well as write the award information			
 			userID = str(self.session['user'][0])
 
-			
+			#First we get our user Signature
 			userQuery = ("SELECT signature FROM users WHERE id = '"+userID+"'")
 			cursor.execute(userQuery)
 		
 			userSig = cursor.fetchone()[0]
+			
+			#Now we get the name of our user making the award
+			userQuery = ("SELECT name FROM users WHERE id = '"+userID+"'")
+			cursor.execute(userQuery)
+		
+			userName = cursor.fetchone()[0]
 		
                         #This gets our variables into the latex template above
-			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': 'Lucky Person You', 'award_name': awardType, 'signature_image': str(userSig)}
+			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': userName, 'award_name': awardType, 'signature_image': str(userSig)}
 
                         #Mow we write our .tex file
 			outFile = open('AwardCertificate.tex', 'w')
