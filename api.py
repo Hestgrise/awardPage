@@ -29,8 +29,8 @@ import subprocess
 from webapp2_extras import sessions
 
 dbName = 'lambda'
-dbUser = 'default'
-dbPass = 'student'
+dbUser = 'student'
+dbPass = 'default'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -454,7 +454,7 @@ class CreateAward(BaseHandler):
 			\smallskip
 
 			\textcolor{red!30!black!90}
-			{\textit{Has Awarded You For}}
+			{\textit{Is Recognizing You For}}
 
 			\textcolor{black}{\large \textsc{%(award_name)s!}}
 
@@ -485,7 +485,7 @@ class CreateAward(BaseHandler):
 		
 			userName = cursor.fetchone()[0]
 		
-                        #This gets our variables into the latex template above
+			#This gets our variables into the latex template above
 			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': userName, 'award_name': awardType, 'signature_image': str(userSig)}
 
                         #Mow we write our .tex file
@@ -541,6 +541,7 @@ class CreateAward(BaseHandler):
 
 			cursor.close()
 			cnx.close()
+
 
 
 
