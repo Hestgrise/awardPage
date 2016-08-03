@@ -28,7 +28,7 @@ function pageLoad()
 	});
 
 	createReq.send();
-	event.preventDefault();
+	//event.preventDefault();
 
 	var submitButton = document.getElementById('certSubmit');
 	submitButton.onclick = function(event)
