@@ -525,15 +525,15 @@ class CreateAward(BaseHandler):
 
 
 
-                        #Now we write our Award to the database
-                        
-                        #userDetails = (name, username, password, instant, str(uniqueName))
-			#userInsert = ("INSERT INTO users (name, email, password, dateCreated, signature) VALUES (%s, %s, %s, %s, %s)")
-			#cursor.execute(userInsert, userDetails)
+			#Now we write our Award to the database
+			instant = datetime.datetime.now()
+			userDetails = (userID, str(2), empName, empEmail, instant)
+			userInsert = ("INSERT INTO awards (userId, type, awardee, email, dateAwarded) VALUES (%s, %s, %s, %s, %s)")
+			cursor.execute(userInsert, userDetails)
 			#Additional commit() call needed for insert/update/delete commands
-			#cnx.commit()
+			cnx.commit()
 
-                        cursor.close()
+			cursor.close()
 			cnx.close()
 
 
