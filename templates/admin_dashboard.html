@@ -56,9 +56,26 @@
 		<div id="filterMenu">
 			<div id="boxTitle3"><div class="subtitle">Filter Options</div></div>
 			<div id="filterForm">
-				Please fill out the options below to filter the data.
+				<div id="filterText">Please fill out the options below to filter the data.</div>
 				<form>
-					Add form fields here
+					<br>
+					<div class="subtitle" style="text-align:left;color:#000">Display:</div>
+					<!-- Inputs will determine which table fields are displayed-->
+					<input type="checkbox" name="fields" value="type"> <label id="filterText" name="fields">Award Type&nbsp;&nbsp;&nbsp;</label>
+					<input type="checkbox" name="fields" value="name"> <span id="filterText" name="fields">Awardee Name&nbsp;&nbsp;&nbsp;</span>
+					<input type="checkbox" name="fields" value="email"> <span id="filterText" name="fields">Awardee Email&nbsp;&nbsp;&nbsp;</span>
+					<input type="checkbox" name="fields" value="date"> <span id="filterText" name="fields">Date Awarded&nbsp;&nbsp;&nbsp;</span>					
+					<br><br>
+					<div class="subtitle" style="text-align:left;color:#000">Filter By:</div>
+					<!-- Filter option will determine which entries are displayed-->
+					<select name="filters">
+						<option value="type" id="filterText">Award Type</option>
+						<option value="name" id="filterText">Awardee Name</option>
+						<option value="email" id="filterText">Awardee Email</option>
+						<option value="dateASC" id="filterText">Date Awarded (Ascending)</option>
+						<option value="dateDES" id="filterText">Date Awarded (Descending)</option>
+					</select>
+					<br><br><br>
 					<input id="tbBtn" type="submit">
 				</form>
 				<br>

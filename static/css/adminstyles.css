@@ -241,6 +241,7 @@ Styling for filter menu
 	width:90%;
 }
 
-#filterBtn {
-
+#filterText {
+	font-family:"Tahoma",sans-serif;
+	font-size:0.9em;
 }
