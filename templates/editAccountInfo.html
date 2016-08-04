@@ -4,7 +4,7 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=loggedinstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-		<script src="./static/script?file=accountInfo.js" type="application/javascript"> </script>
+		<script src="./static/script?file=editAccountInfo.js" type="application/javascript"> </script>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -26,16 +26,17 @@
 					<div id="boxTitle4">
 						<div class="subtitle">My Account</div>
 					</div>
+					<form action="/editAccount" method="POST">
 					<div id="accountDetails">
-						<b>Name:<span id="accountName" class="dynamic"></span></b><br><br>
-						<b>E-Mail:<span id="accountEmail" class="dynamic"></span></b><br><br>
-						<b>Date Joined:<span id="accountDate" class="dynamic"></span></b><br><br>
-						<b>No. Awards Created:<span id="accountAwards" class="dynamic"></span></b><br><br>
+						<b>Current Name:<span id="currentName" class="dynamic"></span></b><br><br>
+						<b>New Name:<span id="newNameSpan" class="dynamic"><input type="text" id="newName" name="newName"></span></b><br><br>
+						<input type="submit" value="Apply" style="margin: 0 auto;" id="editBtn">
 					</div>
-					<div style="text-align: center">
-						<form action="/editAccountInfo.html" method="post">
-							<input type="submit" value="Edit Name" style="margin: 0 auto;" id="editBtn">
-						</form>
+					</form>
+					<div style="text-align: center">	
+					<form action="/account.html">
+						<input type="submit" value="Cancel">
+					</form>
 					</div>
 				</div>
 			</div>

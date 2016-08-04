@@ -242,9 +242,48 @@ class FillAccountPage(BaseHandler):
 
 		msgBody = {"accountName" : name, "accountEmail" : email, "accountDate" : prettyDate, "accountAwards" : numAwards}
 		self.response.out.write(json.dumps(msgBody))
-		print "Cursor closed"
 		cursor.close()
 		cnx.close()
+
+#EditAccountPage shows current name and provides input field to enter new name
+class EditAccountPage(BaseHandler):
+	@loggedIn
+	def post(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('editAccountInfo.html')
+		self.response.out.write(template.render())
+
+#Simply returns current user's name to the edit account name page
+class FillEditAccountPage(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+		userId = str(self.session.get('user')[0])
+
+		nameQuery = ("SELECT name FROM users WHERE id = '"+userId+"'")
+		cursor.execute(nameQuery)
+		currentName = cursor.fetchone()[0].encode('utf-8')
+
+		msg = {'currentName': currentName}
+		self.response.write(json.dumps(msg))
+
+		cursor.close()
+		cnx.close()
+
+#Applies user edits to name (updates name field in database)
+class EditAccount(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+		userId = str(self.session.get('user')[0])
+		newName = self.request.get('newName')
+		updateQuery = ("UPDATE users SET name = '"+newName+"' WHERE id = '"+userId+"'")
+		cursor.execute(updateQuery)
+		cnx.commit()
+		cursor.close()
+		cnx.close()
+		self.redirect('/account.html')
+
 
 class ForgetPasswordPage(webapp2.RequestHandler):
 	def get(self):
@@ -263,10 +302,10 @@ class CheckLogin(BaseHandler):
 		password = postData['password']
 		#hashedPass = hashlib.sha1(password).hexdigest();
 		#(1)Create the MySQL command, (2)Execute it
-		# queries will either query admins or users table, depending on the login type
-                if accountType == "admin":
+		# queries will either query admins or users table, depending on the login typ
+		if accountType == "admin":
 			userQuery = ("SELECT password FROM admins WHERE email = '"+username+"'")
-                else:
+		else:
 			userQuery = ("SELECT password FROM users WHERE email = '"+username+"'")
 		cursor.execute(userQuery)
 		passwordQuery = cursor.fetchone()
@@ -297,7 +336,6 @@ class CheckLogin(BaseHandler):
 			self.response.out.write(json.dumps(outMsg))
 		cursor.close()
 		cnx.close()
-		print "Connection closed"
 
 class CreateUserAccount(webapp2.RequestHandler):
 	def post(self):		
@@ -342,7 +380,6 @@ class CreateUserAccount(webapp2.RequestHandler):
 			self.response.out.write(json.dumps(outMsg))			
 		cursor.close()
 		cnx.close()
-		print "Connection closed"
 		
 class Logout(BaseHandler):
         def get(self):
@@ -383,7 +420,6 @@ class PassTest(webapp2.RequestHandler):
 			self.response.out.write(json.dumps(out_obj))
 		cursor.close()
 		cnx.close()
-		print "Connection closed"
 		
 class CreateAward(BaseHandler):
 		def post(self):
