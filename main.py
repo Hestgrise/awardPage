@@ -43,6 +43,7 @@ app.router.add(webapp2.Route(r'/recentAwards', 'api.RecentAwards'))
 app.router.add(webapp2.Route(r'/editAccountInfo.html', 'api.EditAccountPage'))
 app.router.add(webapp2.Route(r'/editAccountName', 'api.FillEditAccountPage'))
 app.router.add(webapp2.Route(r'/editAccount', 'api.EditAccount'))
+app.router.add(webapp2.Route(r'/filterData', 'api.FilterData'))
 
 if __name__ == '__main__':
 	main()

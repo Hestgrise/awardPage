@@ -24,6 +24,7 @@ from email import encoders
 import io
 import imghdr
 import uuid
+from copy import deepcopy
 
 import subprocess
 from webapp2_extras import sessions
@@ -244,6 +245,63 @@ class FillAccountPage(BaseHandler):
 		self.response.out.write(json.dumps(msgBody))
 		cursor.close()
 		cnx.close()
+
+#contacts database and returns data to the admin_dashboard page
+class FilterData(BaseHandler):
+        def post(self):
+                cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+                cursor = cnx.cursor(buffered=True)
+                postData = json.loads(self.request.body) #get the filter data
+                num = int(postData['size'])
+                filterQuery = "SELECT "
+                userFlag = 0 # flag to denote if userId is passed in - if so, need to do a JOIN in the query
+                dateFlag = -1 # flag to denote if the date was a chosen field
+                #iterate to build appropriate SQL query
+                for x in range(0,num):
+                    key = "option"+str(x)
+                    if postData[key] != "userName":
+                        if postData[key] == "dateAwarded":
+                            dateFlag = x #get index of the date awarded values
+                        filterQuery+=("awards."+postData[key])
+                    else:
+                        userFlag = 1
+                        filterQuery+="users.name" #name field in the users table
+                    if x < num-1:
+                        filterQuery+=", "
+                    else:
+                        filterQuery+=" "
+
+                filterQuery+= "FROM awards"
+
+                if userFlag == 1:
+                    filterQuery+=" INNER JOIN users ON users.id=awards.userId"
+
+                if postData["filter"] != "none":
+                    filterQuery = filterQuery + " WHERE awards." + postData["filter"] + " = '" + postData["filterVal"] + "'"
+
+                #outMsg = {"result":filterQuery}
+                #self.response.out.write(json.dumps(outMsg)) #pass back for testing
+                
+                cursor.execute(filterQuery) #execute the query
+                results = cursor.fetchall() #fetch the results
+
+                entry = []
+                entries = []
+                y=0
+               # if dateFlag > -1:
+                for result in results:
+                    entry = []
+                    for y in range(0,len(result)):
+                        if dateFlag == y:
+                            entry.append(result[y].strftime("%B %d, %Y"))
+                        else:     
+                            entry.append(result[y])
+                    entries.append(entry)
+
+                #self.response.out.write(json.dumps(filterQuery))
+                self.response.out.write(json.dumps(entries)) #send back the data in json format
+                cursor.close()
+                cnx.close()
 
 #EditAccountPage shows current name and provides input field to enter new name
 class EditAccountPage(BaseHandler):

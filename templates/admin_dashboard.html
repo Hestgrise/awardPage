@@ -5,7 +5,8 @@
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 		<script src="../static/script?file=popUp.js" type="application/javascript"> </script>
-	</head>
+<!--        <script src="../static/script?file=filterData.js" type="application/javascript"></script>
+-->    </head>
 	<body>
 		<div class="contentArea">
 			<div class="nav">
@@ -26,28 +27,12 @@
 						<div class="subtitle">Data</div>
 					</div>
 					<div id="list">
-						<table>
-							<tr>
-								<th>Delete<th>Admin?<th>Joined<th>Full Name<th>Email</th>
-							<tr>
-								<td><input type="radio">
-								<td>No
-								<td>7/8/16 9:00 AM
-								<td>Jane Doe
-								<td>janedoe@someemailprovider.com
-								</td>
-							<tr>
-								<td><input type="radio">
-								<td>No
-								<td>7/8/16 9:00 AM
-								<td>John Doe
-								<td>johndoe@someemailprovider.com
-								</td>
-							</tr>
+						<table id="filterDataTable">
+                            <!--Contents here will be dynamically generated-->
 						</table>
 					</div>
 				</div>
-				<button id="tbBtn" onclick="spawn()">Filter</button>
+				<button id="tbBtn" onclick="spawn()">Filter Options</button>
 			</div>
 		</div>
 		<div>
@@ -56,29 +41,37 @@
 		<div id="filterMenu">
 			<div id="boxTitle3"><div class="subtitle">Filter Options</div></div>
 			<div id="filterForm">
-				<div id="filterText">Please fill out the options below to filter the data.</div>
+				<div id="filterText">Please fill out the options below to filter the data. Already filtered data may not be filtered a second time.</div>
 				<form>
 					<br>
-					<div class="subtitle" style="text-align:left;color:#000">Display:</div>
-					<!-- Inputs will determine which table fields are displayed-->
-					<input type="checkbox" name="fields" value="type"> <label id="filterText" name="fields">Award Type&nbsp;&nbsp;&nbsp;</label>
-					<input type="checkbox" name="fields" value="name"> <span id="filterText" name="fields">Awardee Name&nbsp;&nbsp;&nbsp;</span>
-					<input type="checkbox" name="fields" value="email"> <span id="filterText" name="fields">Awardee Email&nbsp;&nbsp;&nbsp;</span>
-					<input type="checkbox" name="fields" value="date"> <span id="filterText" name="fields">Date Awarded&nbsp;&nbsp;&nbsp;</span>					
-					<br><br>
+					<div class="subtitle" style="text-align:left;color:#000">Fields to Display:</div>
+                    <div id="filterText">Please select at least one to see data</div>
+                    <!-- Inputs will determine which table fields are displayed-->
+					<input type="checkbox" class="fields" value="type"> <label id="filterText" name="fields">Award Type&nbsp;&nbsp;&nbsp;</label>
+					<input type="checkbox" class="fields" value="awardee"> <span id="filterText" name="fields">Awardee Name&nbsp;&nbsp;&nbsp;</span>
+					<input type="checkbox" class="fields" value="email"> <span id="filterText" name="fields">Awardee Email&nbsp;&nbsp;&nbsp;</span>
+					<input type="checkbox" class="fields" value="dateAwarded"> <span id="filterText" name="fields">Date Awarded&nbsp;&nbsp;&nbsp;</span>					
+                    <br><input type="checkbox" class="fields" value="userId"> <span id="filterText" name="fields">User ID&nbsp;&nbsp;&nbsp;</span>
+                    <input type="checkbox" class="fields" value="userName"> <span id="filterText" name="fields">User (Full Name)</span>
+                    <br><br>
 					<div class="subtitle" style="text-align:left;color:#000">Filter By:</div>
+                    <div id="filterText">Choose a filter type and enter a value to filter by</div>
 					<!-- Filter option will determine which entries are displayed-->
-					<select name="filters">
-						<option value="type" id="filterText">Award Type</option>
-						<option value="name" id="filterText">Awardee Name</option>
+					<select id="filters">
+                        <option value="none" id="filterText">None</option>
+                        <option value="type" id="filterText">Award Type</option>
+						<option value="awardee" id="filterText">Awardee Name</option>
 						<option value="email" id="filterText">Awardee Email</option>
-						<option value="dateASC" id="filterText">Date Awarded (Ascending)</option>
-						<option value="dateDES" id="filterText">Date Awarded (Descending)</option>
+                        <option value="userId" id="filterText">User (user id)</option>
+						<option value="dateAwarded" id="filterText">Date Awarded</option>
 					</select>
-					<br><br><br>
-					<input id="tbBtn" type="submit">
+                        <input type="text" id="filterVal" name="filterVal">
+                    <br><br><br>
+                    <!--Clicking this will trigger the filterReq javascript function-->
+                    <button type="button" onclick="filterReq()" id="tbBtn">Submit</button>
 				</form>
 				<br>
+                <!--Clicking this will close the window-->
 				<button id="tbBtn" onclick="deSpawn()">Close</button>
 			</div>
 		</div>
