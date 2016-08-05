@@ -272,7 +272,7 @@ class FilterData(BaseHandler):
                         filterQuery+=" "
 
                 filterQuery+= "FROM awards"
-
+                # add inner join if userName is passed in as a field
                 if userFlag == 1:
                     filterQuery+=" INNER JOIN users ON users.id=awards.userId"
 
@@ -289,11 +289,13 @@ class FilterData(BaseHandler):
                 entries = []
                 y=0
                # if dateFlag > -1:
+               # add entries to new entries array
                 for result in results:
                     entry = []
                     for y in range(0,len(result)):
+                        # modify date to be a string - so it can be parsed as JSON
                         if dateFlag == y:
-                            entry.append(result[y].strftime("%B %d, %Y"))
+                            entry.append(result[y].strftime("%Y %B %d"))
                         else:     
                             entry.append(result[y])
                     entries.append(entry)
