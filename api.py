@@ -153,6 +153,64 @@ class UsersPage(BaseHandler):
 		template = env.get_template('users.html')
 		self.response.out.write(template.render())
 
+class FillUsersPage(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+
+		usersQuery = ("SELECT id, name, email, dateCreated FROM users")
+		cursor.execute(usersQuery)
+		results = cursor.fetchall()
+		ids = []
+		names = []
+		dates = []
+		emails = []
+		for result in results:
+			ids.append(str(result[0]))
+			names.append(str(result[1]))
+			emails.append(str(result[2]))
+			dates.append(result[3])
+		for idx in range(0, len(dates)):
+			dates[idx] = dates[idx].strftime("%B %d, %Y")
+
+		msgBody = {"ids":ids, "names":names, "emails":emails, "dates":dates}
+		self.response.out.write(json.dumps(msgBody))
+
+		cursor.close()
+		cnx.close()
+
+class AdminsPage(BaseHandler):
+	@adminLoggedIn
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('admins.html')
+		self.response.out.write(template.render())
+
+class FillAdminsPage(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+
+		adminsQuery = ("SELECT id, email, dateCreated FROM admins")
+		cursor.execute(adminsQuery)
+		results = cursor.fetchall()
+		ids = []
+		dates = []
+		emails = []
+		for result in results:
+			ids.append(str(result[0]))
+			emails.append(str(result[1]))
+			dates.append(result[2])
+		for idx in range(0, len(dates)):
+			dates[idx] = dates[idx].strftime("%B %d, %Y")
+
+		msgBody = {"ids":ids, "emails":emails, "dates":dates}
+		self.response.out.write(json.dumps(msgBody))
+
+		cursor.close()
+		cnx.close()
+
+
 class ExistingPage(BaseHandler):
 	@loggedIn
 	def get(self):
@@ -191,6 +249,39 @@ class FillExistingPage(BaseHandler):
 		cursor.close()
 		cnx.close()
 
+class DeleteAdminAccount(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+		postData = json.loads(self.request.body)
+		adminIds = postData["ids"]
+		
+		for adminId in adminIds:
+			deleteQry = ("DELETE FROM admins WHERE id='"+adminId+"'")
+			cursor.execute(deleteQry)
+		cnx.commit()
+		self.redirect("admins.html")
+
+		cursor.close()
+		cnx.close
+
+class DeleteUserAccount(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+
+		postData = json.loads(self.request.body)
+		userIds = postData["ids"]
+		
+		for userId in userIds:
+			deleteQry = ("DELETE FROM users WHERE id='"+userId+"'")
+			cursor.execute(deleteQry)
+		cnx.commit()
+		self.redirect("users.html")
+
+		cursor.close()
+		cnx.close
+
 class DeleteAwards(BaseHandler):
 	def post(self):
 		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
@@ -204,6 +295,9 @@ class DeleteAwards(BaseHandler):
 			cursor.execute(deleteQry)
 		cnx.commit()
 		self.redirect("existing.html")
+
+		cursor.close()
+		cnx.close
 
 class SignUpPage(BaseHandler):
     def get(self):

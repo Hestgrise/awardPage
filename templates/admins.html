@@ -4,7 +4,7 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-		<script src="./static/script?file=usersInfo.js" type="application/javascript"> </script>
+		<script src="./static/script?file=adminsInfo.js" type="application/javascript"> </script>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -22,26 +22,26 @@
 				</div>
 			</div>
 			<div class="otherContent">
-				<form id="adminEditUsersForm">
+				<form id="adminEditAccountsForm">
 				<div id="otherMainBox">
 					<div id="boxTitle1">
-						<div class="subtitle">User Accounts</div>
+						<div class="subtitle">Admin Accounts</div>
 					</div>
 					<div id="list">
-						<table id="usersTable">
+						<table id="adminsTable">
 							<tr>
-								<th>Delete<th>Edit<th>Full Name<th>Email<th>Joined</th>
+								<th>Delete<th>Edit<th>Email<th>Joined</th>
 						</table>
 					</div>
 				</div>
 				<div style="text-align: center">
-					<input type="submit" value="Delete Selected Users" id="deleteUsersBtn">
-					<input type="submit" value="Edit Selected User" id="editUserBtn">
+					<input type="submit" value="Delete Selected Admins" id="deleteAdminsBtn">
+					<input type="submit" value="Edit Selected Admin" id="editAdminBtn">
 				</div>
 				</form>
-				<form id="createUserBtn" action="/createUser.html" method="post">
+				<form id="createAdminBtn" action="/createAdmin.html" method="post">
 				<div style="text-align: center">
-					<input type="submit" value="Create User Account">
+					<input type="submit" value="Create Admin Account">
 				</div>
 				</form>
 			</div>
