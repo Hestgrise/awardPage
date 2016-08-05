@@ -22,22 +22,35 @@
 				</div>
 			</div>
 			<div class="otherContent">
-				<div id="otherMainBox">
+                <div id="blurb" style="font-size:1.2em;">To see data, please select at least 1 field in the Filter Options</div>
+                <div id="otherMainBox">
 					<div id="boxTitle2">
 						<div class="subtitle">Data</div>
 					</div>
-					<div id="list">
-						<table id="filterDataTable">
+                    <div id="list">
+                        <table id="filterDataTable">
                             <!--Contents here will be dynamically generated-->
 						</table>
 					</div>
 				</div>
-				<button id="tbBtn" onclick="spawn()">Filter Options</button>
+				<button id="tbBtn" onclick="spawn('filterMenu')">Filter Options</button>
+                <button id="tbBtn" onclick="exportCSV()">Export to CSV</button>
 			</div>
 		</div>
 		<div>
 		</div>
-		<!-- Below is the filter menu pop-up -->
+        <!-- notification will let users know about their possible errors -->
+        <div id="notif">
+            <div id="boxTitle1"><div class="subtitle">Error</div></div>
+            <div id="filterForm">
+                <div id="filterText">
+                    Please make sure you select at least 1 field before proceeding.
+                    <br> If you selected a filter, please make sure you entered a value to filter by.
+                </div> <br>
+                <button type="button" id="tbBtn" onclick="deSpawn('notif')">Okay</button>
+            </div>
+        </div>    
+        <!-- Below is the filter menu pop-up -->
 		<div id="filterMenu">
 			<div id="boxTitle3"><div class="subtitle">Filter Options</div></div>
 			<div id="filterForm">
@@ -45,7 +58,7 @@
 				<form>
 					<br>
 					<div class="subtitle" style="text-align:left;color:#000">Fields to Display:</div>
-                    <div id="filterText">Please select at least one to see data</div>
+                    <div id="filterText"><b>Please select at least one to see data</b></div>
                     <!-- Inputs will determine which table fields are displayed-->
 					<input type="checkbox" class="fields" value="type"> <label id="filterText" name="fields">Award Type&nbsp;&nbsp;&nbsp;</label>
 					<input type="checkbox" class="fields" value="awardee"> <span id="filterText" name="fields">Awardee Name&nbsp;&nbsp;&nbsp;</span>
@@ -72,7 +85,7 @@
 				</form>
 				<br>
                 <!--Clicking this will close the window-->
-				<button id="tbBtn" onclick="deSpawn()">Close</button>
+				<button id="tbBtn" onclick="deSpawn('filterMenu')">Close</button>
 			</div>
 		</div>
 	</body>

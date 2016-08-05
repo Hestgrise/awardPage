@@ -219,6 +219,19 @@ Style links in top navigation bar
 	text-align:center;
 }
 
+
+#notif {
+    background-color:#fff;
+    border:1px #000 solid;
+    display:none; /* initially hidden - only appears if necessary to alert user of something*/
+    height: 300px;
+    margin-left:-200px;
+    left:50%;
+    position:fixed;
+    top:200px;
+    width:400px;
+    z-index:6; /*needs to appear in front of the filterMenu*/
+}
 /*
 Styling for filter menu
 */
@@ -226,13 +239,14 @@ Styling for filter menu
 #filterMenu {
 	background-color: #fff;
 	border:1px #000 solid;
-	display:none; // initially hidden
+	display:none; /* initially hidden*/
 	height:600px;
 	margin-left:-300px;
 	position:fixed;
 	left:50%;
 	top:50px;
 	width:600px;
+    z-index:5;
 }
 
 #filterForm {
