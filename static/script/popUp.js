@@ -62,8 +62,9 @@ function filterReq() {
 
     // if y==0, then no headers were selected 
     // show error in a notification and return
+    var errMess = "Please make sure you select at least 1 field before proceeding. If you selected a filter, please make sure you entered a value to filter by.";
     if (y==0) {
-        spawn('notif');
+        dialogSpawn("Error",errMess,"notif","errTitle","filterText");
         return;
     }
 
@@ -74,7 +75,7 @@ function filterReq() {
 
     // if a filter option is provided but no filter value is provided, then alert the user and return
     if (data["filter"] != "none" && data["filterVal"] == "") {
-        spawn('notif');
+        dialogSpawn("Error",errMess,"notif","errTitle","filterText");
         return;
     }
 
@@ -140,8 +141,11 @@ function exportCSV() {
 
     if (queryData != null && queryData != "") {
         console.log(queryData);
-    } else
+    } else {
+        // let user know there is an error
+        dialogSpawn("Error","Please query data before exporting to a CSV file.","notif","errTitle","filterText");
         return;
+    }
 
     var temp, csvStr = ""; // set csvStr to an empty string
     // concat csvStr together to form a string in CSV format

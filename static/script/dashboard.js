@@ -32,7 +32,8 @@ function pageLoad()
 				}
 			}
 			else {
-				document.getElementById('result').textContent = "Server is unreachable at this time";
+                // make dialog appear to show error
+				dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
 			}
 		});
 
@@ -64,13 +65,17 @@ function pageLoad()
 			if(forgotReq.status >= 200 && forgotReq.status < 400)
 			{
 				var response = JSON.parse(forgotReq.responseText);
-				document.getElementById('result').textContent = response.message;
-				
-			}
+//				document.getElementById('result').textContent = response.message;
+                // call dialog to display results				
+                dialogSpawn("Success",response.message,"resultBox","resultTitle","resultInfo");
+
+            }
 			else
 			{
-				document.getElementById('result').textContent = "Server is unreachable at this time";
-			}
+//				document.getElementById('result').textContent = "Server is unreachable at this time";
+//				call dialog to display error
+                dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
+            }
 			
 			showAwards();
 			
