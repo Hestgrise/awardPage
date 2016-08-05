@@ -4,6 +4,7 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+        <script src="../static/script?file=alert.js" type="application/javascript"> </script>
 		<script src="../static/script?file=popUp.js" type="application/javascript"> </script>
 <!--        <script src="../static/script?file=filterData.js" type="application/javascript"></script>
 -->    </head>
@@ -42,13 +43,11 @@
 		</div>
         <!-- notification will let users know about their possible errors -->
         <div id="notif">
-            <div id="boxTitle1"><div class="subtitle">Error</div></div>
+            <div id="boxTitle1"><div class="subtitle" id="errTitle"></div></div>
             <div id="filterForm">
                 <div id="filterText">
-                    Please make sure you select at least 1 field before proceeding.
-                    <br> If you selected a filter, please make sure you entered a value to filter by.
                 </div> <br>
-                <button type="button" id="tbBtn" onclick="deSpawn('notif')">Okay</button>
+                <button type="button" id="tbBtn" onclick="dialogDeSpawn('notif')">Okay</button>
             </div>
         </div>    
         <!-- Below is the filter menu pop-up -->

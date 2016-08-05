@@ -4,6 +4,7 @@
 	<head>
 		<link rel="stylesheet" href="../static/css?file=loggedinstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+        <script src="./static/script?file=alert.js" type="application/javascript"></script>
 		<script src="./static/script?file=dashboard.js" type="application/javascript"> </script>
 		</head>
 	<body>
@@ -50,14 +51,18 @@
 							</select>
 							<input type="submit" class="submitBtn" id="certSubmit">
 						</form>
-						<div id="result"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div>
-		<center>Coded by Tiffany Chiou for CS419, potential login page</center>
-		</div>
+        <!--Popup dialog that will display success or failure-->
+        <div id="resultBox">
+            <div id="boxTitle3"><div class="subtitle" id="resultTitle"></div></div>
+            <div id="resultText">
+                <div id="resultInfo"></div>
+                <button id="resBtn" onclick="dialogDeSpawn('resultBox')">Okay</button>
+            </div>
+        </div>    
 	</body>
 
 </html>

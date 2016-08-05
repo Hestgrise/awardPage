@@ -168,7 +168,8 @@ Code form BoltClock's post about altering button sizing to be the same as divs
 }
 
 #list {
-	overflow:scroll
+    height:337px;
+	overflow:scroll;
 }
 
 /*
