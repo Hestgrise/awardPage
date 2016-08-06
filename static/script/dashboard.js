@@ -51,9 +51,10 @@ function pageLoad()
 		
 		var userInfo = {empName:document.getElementById("fullName").value,
 						empEmail:document.getElementById("email").value,
-						awdType:document.getElementById("awardType").value
+						awdType:document.getElementById("awardType").value,
+						dateAwarded:document.getElementById("dateAwarded").value
 						};
-		
+		//console.log(str(userInfo(dateAwarded)));
 		var payLoad = JSON.stringify(userInfo);
 		
 		forgotReq.open('POST', '../createAward', true);
