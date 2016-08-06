@@ -30,8 +30,8 @@ import subprocess
 from webapp2_extras import sessions
 
 dbName = 'lambda'
-dbUser = 'default'
-dbPass = 'student'
+dbUser = 'student'
+dbPass = 'default'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -677,9 +677,68 @@ class CreateAward(BaseHandler):
 			cursor.execute(userQuery)
 		
 			userName = cursor.fetchone()[0]
-		
+			
+			#Now we take our date time and split it to parse it for the certificate
+			#Make a copy of date time string
+			dateAwardedCopy = dateAwarded
+			dateTimeList = dateAwardedCopy.split("-")
+			#print "date time list 1: ", dateTimeList[0], " datetimelist list 2 is: ", dateTimeList[1], " datetimelist 3 is: ", dateTimeList[2]
+
+			#This is our year to print on the certificate
+			certYear = dateTimeList[0]
+			
+			#We get our month to print out
+			if dateTimeList[1] == '01':
+				certMonth = 'January'
+			elif dateTimeList[1] == '02':
+				certMonth = 'February'
+			elif dateTimeList[1] == '03':
+				certMonth = 'March'
+			elif dateTimeList[1] == '04':
+				certMonth = 'April'
+			elif dateTimeList[1] == '05':
+				certMonth = 'May'
+			elif dateTimeList[1] == '06':
+				certMonth = 'June'
+			elif dateTimeList[1] == '07':
+				certMonth = 'July'
+			elif dateTimeList[1] == '08':
+				certMonth = 'August'
+			elif dateTimeList[1] == '09':
+				certMonth = 'September'
+			elif dateTimeList[1] == '10':
+				certMonth = 'October'				
+			elif dateTimeList[1] == '11':
+				certMonth = 'November'				
+			elif dateTimeList[1] == '12':
+				certMonth = 'December'				
+			
+			#Now we pull out the day as well to separate it from the time
+			dayTimeList = dateTimeList[2].split('T')
+			
+			if dayTimeList[0] == '01':
+				certDay = '1st'
+			elif dayTimeList[0] == '02':
+				certDay = '2nd'
+			elif dayTimeList[0] == '03':
+				certDay = '3rd'
+			elif dayTimeList[0] == '21':
+				certDay = '21st'
+			elif dayTimeList[0] == '22':
+				certDay = '22nd'
+			elif dayTimeList[0] == '23':
+				certDay = '23rd'
+			elif dayTimeList[0] == '31':
+				certDay = '31st'
+			else:
+				certDay = (str(int(dayTimeList[0])) + 'th')
+				
+			finalNameAndDate = userName + " this " + certDay + " day of " + certMonth + ", " + certYear
+				
+			#print "CertYear: ", certYear, " certMonth ", certMonth, " certDay ", certDay
+	
 			#This gets our variables into the latex template above
-			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': userName, 'award_name': awardType, 'signature_image': str(userSig)}
+			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': finalNameAndDate, 'award_name': awardType, 'signature_image': str(userSig)}
 
 			#Mow we write our .tex file
 			outFile = open('AwardCertificate.tex', 'w')
