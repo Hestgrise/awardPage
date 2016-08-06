@@ -30,8 +30,8 @@ import subprocess
 from webapp2_extras import sessions
 
 dbName = 'lambda'
-dbUser = 'student'
-dbPass = 'default'
+dbUser = 'RaulDuke'
+dbPass = 'SyS32592!'
 dbHost = 'localhost'
 
 emailUser = 'certifcatecenter@gmail.com'
@@ -591,6 +591,9 @@ class CreateAward(BaseHandler):
                             awardType = "Peer Recognition!"
                         elif awardType == 4:
                             awardType = "Excellence in Achievement!"
+			dateAwarded = inObj['dateAwarded']
+			
+			print str(dateAwarded);
 
 			""" I need to be able to get the userid from sessions to get the awarding name, waiting on sessions, for now hard coding awarder name
 			cursor = cnx.cursor(named_tuple=True)
@@ -678,20 +681,20 @@ class CreateAward(BaseHandler):
 			#This gets our variables into the latex template above
 			finishedLatex = prelimLatex % {'employee_name': empName, 'inhonor_text': userName, 'award_name': awardType, 'signature_image': str(userSig)}
 
-                        #Mow we write our .tex file
+			#Mow we write our .tex file
 			outFile = open('AwardCertificate.tex', 'w')
 
 			outFile.write(finishedLatex)
 
 			outFile.close()
 
-                        #This calls pdflatex on the command line to output the certificate
+			#This calls pdflatex on the command line to output the certificate
 			subprocess.check_call(['pdflatex', 'AwardCertificate.tex'])
 
-		        #the Next lines set up the email to send the Certificate
+			#the Next lines set up the email to send the Certificate
 			msg = MIMEMultipart()
 			msg['Subject'] = "You Have Recieved an Award"
-			msg['From'] = "Certificate Sender" """Will be the user's name, need sessions done first"""
+			msg['From'] = userName
 			msg['To'] = empEmail
 			
 			attachment = open('AwardCertificate.pdf', 'rb')
@@ -721,9 +724,9 @@ class CreateAward(BaseHandler):
 
 
 
-			#Now we write our Award to the database
-			instant = datetime.datetime.now()
-			userDetails = (userID, awardType, empName, empEmail, instant)
+			#Now we write our Award to the database			
+			#instant = datetime.datetime.now()
+			userDetails = (userID, awardType, empName, empEmail, str(dateAwarded))
 			userInsert = ("INSERT INTO awards (userId, type, awardee, email, dateAwarded) VALUES (%s, %s, %s, %s, %s)")
 			cursor.execute(userInsert, userDetails)
 			#Additional commit() call needed for insert/update/delete commands
