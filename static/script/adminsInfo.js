@@ -72,7 +72,6 @@ function pageLoad() {
 
 	var editButton = document.getElementById("editAdminBtn");
 	editButton.onclick = function(event) {
-		editRequest = new XMLHttpRequest();
-
+		window.location = '../editAdminInfo.html';
 	};
 }

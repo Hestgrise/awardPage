@@ -210,6 +210,12 @@ class FillAdminsPage(BaseHandler):
 		cursor.close()
 		cnx.close()
 
+class CreateUserPage(BaseHandler):
+	@adminLoggedIn
+	def post(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('createUser.html')
+		self.response.out.write(template.render())
 
 class ExistingPage(BaseHandler):
 	@loggedIn
@@ -402,10 +408,84 @@ class FilterData(BaseHandler):
 #EditAccountPage shows current name and provides input field to enter new name
 class EditAccountPage(BaseHandler):
 	@loggedIn
-	def post(self):
+	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('editAccountInfo.html')
 		self.response.out.write(template.render())
+
+#Renders page with options to edit user's name and email
+class AdminEditUserPage(BaseHandler):
+	@adminLoggedIn
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('adminEditUserAccount.html')
+		self.response.out.write(template.render())
+
+#Returns selected user's current name and email so they can be rendered on HTML
+#Interacts with adminEditUserInfo.js
+class FillAdminEditUserPage(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+
+		postData = json.loads(self.request.body)
+		editId = postData['editId'].encode('utf-8')
+
+		nameQuery = ("SELECT name, email FROM users WHERE id = '"+editId+"'")
+		cursor.execute(nameQuery)
+		result = cursor.fetchone()
+		currentName = result[0].encode("utf-8")
+		currentEmail = result[1].encode("utf-8")
+		msg = {'currentName': currentName, "currentEmail":currentEmail}
+		self.response.write(json.dumps(msg))
+
+		cursor.close()
+		cnx.close()
+
+#Takes submitted values from edit user page and applies them
+class DoAdminEditUser(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+		postData = json.loads(self.request.body)
+		userId = postData['userId'].encode("utf-8")
+		newName = postData['newName'].encode("utf-8")
+		newEmail = postData['newEmail'].encode("utf-8")
+
+		#Immediately redirect if neither value was updated
+		if newName == "" and newEmail == "":
+			self.redirect('/users.html')
+		#Name was updated
+		if newName != "":
+			#Name and email were both updated
+			if newEmail != "":
+				updateQuery = ("UPDATE users SET name = '"+newName+"', email = '"+newEmail+"' WHERE id = '"+userId+"'")
+			#Only name was updated
+			else:
+				updateQuery = ("UPDATE users SET name = '"+newName+"' WHERE id = '"+userId+"'")
+		else:
+			#Only email was updated
+			if newEmail != "":
+				updateQuery = ("UPDATE users SET email = '"+newEmail+"' WHERE id = '"+userId+"'")
+			else:
+				#Meaningless query
+				updateQuery = ("SELECT count(*) FROM users")
+
+		cursor.execute(updateQuery)
+		cnx.commit()
+
+		cursor.close()
+		cnx.close()
+		self.redirect('/users.html')
+
+#Hacky implementation to pass id of selected user from display page to edit page
+class EditUserAccount(BaseHandler):
+	def post(self):
+		postData = json.loads(self.request.body)
+		editId = postData['editId'].encode('utf-8')
+		newUrl = "/adminEditUserAccount.html?toEdit=" + str(editId)
+		msg = {"editId":editId}
+		self.response.write(json.dumps(msg))
 
 #Simply returns current user's name to the edit account name page
 class FillEditAccountPage(BaseHandler):
@@ -437,7 +517,6 @@ class EditAccount(BaseHandler):
 		cursor.close()
 		cnx.close()
 		self.redirect('/account.html')
-
 
 class ForgetPasswordPage(webapp2.RequestHandler):
 	def get(self):

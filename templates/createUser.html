@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
+		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<script src="../static/script?file=signUp.js" type="application/javascript"> </script>
+	</head>
+	<body>
+		<div class="contentArea">
+			<div class="nav">
+				<div class="navLinks">
+					<div id="titleLogo">
+						Employee Awards
+					</div>
+					<div id="links">
+						<a href="admin_dashboard.html">Reports</a>
+						<a href="users.html">Users</a>
+						<a href="admins.html">Admins</a>
+						<a href="logout.html">Logout</a>
+					</div>
+				</div>
+			</div>
+			<div class="contents">
+				<div id="title">Create a New User Account</div>
+				<div id="login">
+					<form id="createAccountForm" method="POST" enctype="multipart/form-data">
+					  <div id="subtitle">Please fill out all fields</div>
+					  <input type="text" placeholder="Enter user's first name" id="loginFields" name="firstName" required>
+					  <input type="text" placeholder="Enter user's last name" id="loginFields" name="lastName" required>
+					  <input type="email" placeholder="Enter user's email" id="loginFields" name="email" required>
+					  <input type="password" placeholder="Enter user's password" id="loginFields" name="password" required>
+					  <p>Select an image file with user's signature to upload</p>
+					  <input type="file" name="signatureFile" accept="image/*" >
+					  <input type="submit" id="createAccountButton">
+					</form>
+				</div>
+				<div class="errorMsg" id="registerResult"></div>
+			</div>
+		</div>
+		<div>
+		</div>
+	</body>
+
+</html>

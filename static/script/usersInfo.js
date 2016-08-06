@@ -74,6 +74,34 @@ function pageLoad() {
 	var editButton = document.getElementById("editUserBtn");
 	editButton.onclick = function(event) {
 		var editRequest = new XMLHttpRequest();
-	}
+
+		var toEdit = document.getElementsByName("toEdit");
+		var editIds = [];
+		var editId;
+		for (var i = 0; i < toEdit.length; i++) {
+			if (toEdit[i].checked) {
+				editId = toEdit[i].value;
+			}
+		}
+
+		var jsonId = {editId:editId};
+		var payload = JSON.stringify(jsonId);
+
+		editRequest.open('POST', editUrl, true);
+		editRequest.setRequestHeader('Content-Type', 'application/json');
+		editRequest.addEventListener('load', function() {
+			if (editRequest.status >= 200 && editRequest.status < 400) {
+				var editId = JSON.parse(editRequest.responseText).editId;
+				var redirectUrl = "/adminEditUserAccount.html?toEdit=" + editId;
+				window.location = redirectUrl;
+			}
+			else {
+				document.getElementById('deleteResult').textContent = "Server is unreachable at this time";
+			}
+		});
+
+		editRequest.send(payload);
+		event.preventDefault();
+	};
 
 }

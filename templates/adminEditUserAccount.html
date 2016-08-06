@@ -2,9 +2,10 @@
 
 <html>
 	<head>
-		<link rel="stylesheet" href="../static/css?file=loggedinstyles.css">
+		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-		<script src="./static/script?file=adminEditAccountInfo.js" type="application/javascript"> </script>
+		<script src="./static/script?file=adminEditUserInfo
+		.js" type="application/javascript"> </script>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -14,9 +15,9 @@
 						Employee Awards
 					</div>
 					<div id="links">
-						<a href="dashboard.html">Create Award</a>
-						<a href="existing.html">My Awards</a>
-						<a href="account.html">Account</a>
+						<a href="admin_dashboard.html">Reports</a>
+						<a href="users.html">Users</a>
+						<a href="admins.html">Admins</a>
 						<a href="logout.html">Logout</a>
 					</div>
 				</div>
@@ -26,15 +27,17 @@
 					<div id="boxTitle4">
 						<div class="subtitle">My Account</div>
 					</div>
-					<form action="/editAccount" method="POST">
+					<form>
 					<div id="accountDetails">
 						<b>Current Name:<span id="currentName" class="dynamic"></span></b><br><br>
 						<b>New Name:<span id="newNameSpan" class="dynamic"><input type="text" id="newName" name="newName"></span></b><br><br>
+						<b>Current Email:<span id="currentEmail" class="dynamic"></span></b><br><br>
+						<b>New Email:<span id="newEmailSpan" class="dynamic"><input type="text" id="newEmail" name="newEmail"></span></b><br><br>
 						<input type="submit" value="Apply" style="margin: 0 auto;" id="editBtn">
 					</div>
 					</form>
 					<div style="text-align: center">	
-					<form action="/account.html">
+					<form action="/users.html">
 						<input type="submit" value="Cancel">
 					</form>
 					</div>

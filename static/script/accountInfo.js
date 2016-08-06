@@ -28,6 +28,6 @@ function pageLoad() {
 	var editButton = document.getElementById("editBtn");
 
 	editButton.onclick = function(event) {
-		window.location = '../editAccountInfo.html';
+		window.location.href = '../editAccountInfo.html';
 	};
 }
