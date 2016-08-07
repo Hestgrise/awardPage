@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
+		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<script src="../static/script?file=createAdmin.js" type="application/javascript"> </script>
+	</head>
+	<body>
+		<div class="contentArea">
+			<div class="nav">
+				<div class="navLinks">
+					<div id="titleLogo">
+						Employee Awards
+					</div>
+					<div id="links">
+						<a href="admin_dashboard.html">Reports</a>
+						<a href="users.html">Users</a>
+						<a href="admins.html">Admins</a>
+						<a href="logout.html">Logout</a>
+					</div>
+				</div>
+			</div>
+			<div class="contents">
+				<div id="title">Create a New Admin Account</div>
+				<div id="login">
+					<form id="createAccountForm" method="POST" enctype="multipart/form-data">
+					  <div id="subtitle">Please fill out all fields</div>
+					  <input type="email" placeholder="Enter admin's email" id="loginFields" name="email" required>
+					  <input type="password" placeholder="Enter admin's password" id="loginFields" name="password" required>
+					  <input type="submit" id="createAdminButton">
+					</form>
+				</div>
+				<div class="errorMsg" id="registerResult"></div>
+			</div>
+		</div>
+		<div>
+		</div>
+	</body>
+
+</html>

@@ -420,12 +420,28 @@ class EditAccountPage(BaseHandler):
 		template = env.get_template('editAccountInfo.html')
 		self.response.out.write(template.render())
 
+#EditAdminPage shows current name and provides input field to enter new email
+class EditAccountPage(BaseHandler):
+	@loggedIn
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('editAdminInfo.html')
+		self.response.out.write(template.render())
+
 #Renders page with options to edit user's name and email
 class AdminEditUserPage(BaseHandler):
 	@adminLoggedIn
 	def get(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('adminEditUserAccount.html')
+		self.response.out.write(template.render())
+
+#Renders page with options to edit admin's email
+class AdminEditAdminPage(BaseHandler):
+	@adminLoggedIn
+	def get(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('adminEditAdminAccount.html')
 		self.response.out.write(template.render())
 
 #Returns selected user's current name and email so they can be rendered on HTML
@@ -444,6 +460,26 @@ class FillAdminEditUserPage(BaseHandler):
 		currentName = result[0].encode("utf-8")
 		currentEmail = result[1].encode("utf-8")
 		msg = {'currentName': currentName, "currentEmail":currentEmail}
+		self.response.write(json.dumps(msg))
+
+		cursor.close()
+		cnx.close()
+
+#Returns selected admin's current email so they can be rendered on HTML
+#Interacts with adminEditAdminInfo.js
+class FillAdminEditAdminPage(BaseHandler):
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+
+		postData = json.loads(self.request.body)
+		editId = postData['editId'].encode('utf-8')
+
+		nameQuery = ("SELECT email FROM admins WHERE id = '"+editId+"'")
+		cursor.execute(nameQuery)
+		result = cursor.fetchone()
+		currentEmail = result[0].encode("utf-8")
+		msg = {"currentEmail":currentEmail}
 		self.response.write(json.dumps(msg))
 
 		cursor.close()
@@ -485,12 +521,39 @@ class DoAdminEditUser(BaseHandler):
 		cnx.close()
 		self.redirect('/users.html')
 
+#Takes submitted values from edit user page and applies them
+class DoAdminEditAdmin(BaseHandler):
+	def post(self):
+		postData = json.loads(self.request.body)
+		userId = postData['userId'].encode("utf-8")
+		newEmail = postData['newEmail'].encode("utf-8")
+
+		if newEmail != "":
+			cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+			cursor = cnx.cursor(buffered=True)
+			updateQuery = ("UPDATE admins SET email = '"+newEmail+"' WHERE id = '"+userId+"'")
+			cursor.execute(updateQuery)
+			cnx.commit()
+			cursor.close()
+			cnx.close()
+
+		self.redirect('/admins.html')
+
 #Hacky implementation to pass id of selected user from display page to edit page
 class EditUserAccount(BaseHandler):
 	def post(self):
 		postData = json.loads(self.request.body)
 		editId = postData['editId'].encode('utf-8')
 		newUrl = "/adminEditUserAccount.html?toEdit=" + str(editId)
+		msg = {"editId":editId}
+		self.response.write(json.dumps(msg))
+
+#Hacky implementation to pass id of selected user from display page to edit page
+class EditAdminAccount(BaseHandler):
+	def post(self):
+		postData = json.loads(self.request.body)
+		editId = postData['editId'].encode('utf-8')
+		newUrl = "/adminEditAdminAccount.html?toEdit=" + str(editId)
 		msg = {"editId":editId}
 		self.response.write(json.dumps(msg))
 

@@ -78,30 +78,40 @@ function pageLoad() {
 		var toEdit = document.getElementsByName("toEdit");
 		var editIds = [];
 		var editId;
+		var selected = false;
 		for (var i = 0; i < toEdit.length; i++) {
 			if (toEdit[i].checked) {
 				editId = toEdit[i].value;
+				selected = true;
+				break;
 			}
 		}
 
-		var jsonId = {editId:editId};
-		var payload = JSON.stringify(jsonId);
+		//Test that user selected an account to edit
+		if (selected) {
+			var jsonId = {editId:editId};
+			var payload = JSON.stringify(jsonId);
 
-		editRequest.open('POST', editUrl, true);
-		editRequest.setRequestHeader('Content-Type', 'application/json');
-		editRequest.addEventListener('load', function() {
-			if (editRequest.status >= 200 && editRequest.status < 400) {
-				var editId = JSON.parse(editRequest.responseText).editId;
-				var redirectUrl = "/adminEditUserAccount.html?toEdit=" + editId;
-				window.location = redirectUrl;
-			}
-			else {
-				document.getElementById('deleteResult').textContent = "Server is unreachable at this time";
-			}
-		});
+			editRequest.open('POST', editUrl, true);
+			editRequest.setRequestHeader('Content-Type', 'application/json');
+			editRequest.addEventListener('load', function() {
+				if (editRequest.status >= 200 && editRequest.status < 400) {
+					var editId = JSON.parse(editRequest.responseText).editId;
+					var redirectUrl = "/adminEditUserAccount.html?toEdit=" + editId;
+					window.location = redirectUrl;
+				}
+				else {
+					document.getElementById('deleteResult').textContent = "Server is unreachable at this time";
+				}
+			});
+			editRequest.send(payload);
+			event.preventDefault();
+		}
+		else {
+			document.getElementById('deleteResult').textContent = "You must select one user to edit.";
+			document.getElementById("deleteResult").style.color = "red";
+		}
 
-		editRequest.send(payload);
-		event.preventDefault();
 	};
 
 }
