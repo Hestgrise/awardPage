@@ -217,6 +217,13 @@ class CreateUserPage(BaseHandler):
 		template = env.get_template('createUser.html')
 		self.response.out.write(template.render())
 
+class CreateAdminPage(BaseHandler):
+	@adminLoggedIn
+	def post(self):
+		env = Environment(loader=PackageLoader('api', '/templates'))
+		template = env.get_template('createAdmin.html')
+		self.response.out.write(template.render())
+
 class ExistingPage(BaseHandler):
 	@loggedIn
 	def get(self):
@@ -567,6 +574,33 @@ class CheckLogin(BaseHandler):
 		else:
 			outMsg = {'message' : "There is no account associated with that email address."}
 			self.response.out.write(json.dumps(outMsg))
+		cursor.close()
+		cnx.close()
+
+class CreateAdminAccount(BaseHandler):
+	@adminLoggedIn
+	def post(self):
+		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
+		cursor = cnx.cursor(buffered=True)
+
+		email = self.request.get("email")
+		password = self.request.get("password")
+		instant = datetime.datetime.now()
+
+		emailTakenTest = ("SELECT * FROM admins WHERE email = '"+email+"'")
+		cursor.execute(emailTakenTest)
+		testResult = cursor.fetchone()
+		#Username is available, add to DB
+		if testResult == None:
+			adminDetails = (email, password, instant)
+			adminInsert = ("INSERT INTO admins (email, password, dateCreated) VALUES (%s, %s, %s)")
+			cursor.execute(adminInsert, adminDetails)
+			cnx.commit()
+			outMsg = {'message' : "Admin account successfully created"}
+		else:
+			outMsg = {'message' : "That email is associated with an existing admin account. Please try again."}
+		
+		self.response.out.write(json.dumps(outMsg))
 		cursor.close()
 		cnx.close()
 
