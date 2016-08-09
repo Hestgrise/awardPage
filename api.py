@@ -415,17 +415,9 @@ class FilterData(BaseHandler):
 #EditAccountPage shows current name and provides input field to enter new name
 class EditAccountPage(BaseHandler):
 	@loggedIn
-	def get(self):
+	def post(self):
 		env = Environment(loader=PackageLoader('api', '/templates'))
 		template = env.get_template('editAccountInfo.html')
-		self.response.out.write(template.render())
-
-#EditAdminPage shows current name and provides input field to enter new email
-class EditAccountPage(BaseHandler):
-	@loggedIn
-	def get(self):
-		env = Environment(loader=PackageLoader('api', '/templates'))
-		template = env.get_template('editAdminInfo.html')
 		self.response.out.write(template.render())
 
 #Renders page with options to edit user's name and email

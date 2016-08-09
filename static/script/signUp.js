@@ -44,7 +44,7 @@ function validateForm() {
 	var file = document.getElementsByName("signatureFile")[0].value;
 
 	if (email == null || email == "" || fName == null || fName == "" 
-		|| lName == null || lName == "" || password == null || password == "") {
+		|| lName == null || lName == "" || password == null || file == "") {
 		return false;
 	}
 	return true;
