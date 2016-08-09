@@ -5,8 +5,8 @@ config = {'default-group' : 'base-data'}
 config['webapp2_extras.sessions'] = {'secret_key':'cs-project-ftw',}
 
 #Comment/uncomment hostName as needed for local/AWS testing
-hostName = 'localhost'
-#hostName = 'ec2-52-26-46-121.us-west-2.compute.amazonaws.com'
+#hostName = 'localhost'
+hostName = 'ec2-52-26-46-121.us-west-2.compute.amazonaws.com'
 portNum = '5423'
 
 app = webapp2.WSGIApplication([

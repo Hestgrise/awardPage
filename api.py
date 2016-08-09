@@ -118,7 +118,7 @@ class RecentAwards(BaseHandler):
 	def post(self):
 		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 		cursor = cnx.cursor(buffered=True)
-		awardQuery = ("SELECT awardee, type, dateAwarded FROM awards ORDER BY dateAwarded DESC LIMIT 5")
+		awardQuery = ("SELECT awardee, type, dateAwarded FROM awards ORDER BY id DESC LIMIT 5")
 		cursor.execute(awardQuery)
 		awards = cursor.fetchall()
 		names = []
