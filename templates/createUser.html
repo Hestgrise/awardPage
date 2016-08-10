@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-
+<!-- Page to create regular, non-admin users -->
 <html>
 	<head>
+		<link rel="stylesheet" href="../static/css?file=shared.css">
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 		<script src="../static/script?file=signUp.js" type="application/javascript"> </script>
@@ -23,16 +24,17 @@
 			</div>
 			<div class="contents">
 				<div id="title" style="margin-top:15px;">Create a New User Account</div>
-				<div id="register">
+				<div class="formFrame">
+					<!-- Form to create regular users -->
 					<form id="createAccountForm" method="POST" enctype="multipart/form-data">
 					  <div class="subtitle">Please fill out all fields</div>
-					  <input type="text" placeholder="Enter user's first name" id="registerFields" name="firstName" required>
-					  <input type="text" placeholder="Enter user's last name" id="registerFields" name="lastName" required>
-					  <input type="email" placeholder="Enter user's email" id="registerFields" name="email" required>
-					  <input type="password" placeholder="Enter user's password" id="registerFields" name="password" required>
+					  <input type="text" placeholder="Enter user's first name" class="formFields" name="firstName" required>
+					  <input type="text" placeholder="Enter user's last name" class="formFields" name="lastName" required>
+					  <input type="email" placeholder="Enter user's email" class="formFields" name="email" required>
+					  <input type="password" placeholder="Enter user's password" class="formFields" name="password" required>
 					  <p>Select an image file with user's signature to upload</p>
 					  <input type="file" name="signatureFile" accept="image/*" required>
-					  <input type="submit" id="registerButton" style="margin-top:10px;">
+					  <input type="submit" id="registerButton" class="formButton">
 					</form>
 				</div>
 				<div class="errorMsg" id="registerResult"></div>

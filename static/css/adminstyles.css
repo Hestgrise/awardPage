@@ -1,7 +1,6 @@
 /****
-Page styling
+Page styling for admin pages
 **/
-
 
 .contentArea {
 	background-color:#fff;
@@ -40,16 +39,9 @@ Page styling
 	text-transform: uppercase;
 }
 
-
 /*
-Coding dashboard contents - recent awards section
+Styling for the header of different sections
 */
-#smallBox {
-	background-color:#fff;
-	border:1px solid #8A96CC;
-	float:left;
-	width:250px;
-}
 
 #boxTitle1 {
 	background-color: #9E637D;
@@ -70,21 +62,6 @@ Coding dashboard contents - recent awards section
 	display:block;
 	padding:10px 0;
 	width:100%;
-}
-
-#sBContents {
-	background-color:#fff;
-	padding:5px 20px;
-	width:210px;
-}
-
-#sBContents ul {
-	list-style-type: none;
-	padding:0;
-}
-
-#sBContents ul li{
-	padding: 5px 0;
 }
 
 /*
@@ -123,6 +100,9 @@ Code form BoltClock's post about altering button sizing to be the same as divs
 	width:100%;
 }
 
+/*
+Styling for header/navigation bar
+*/
 .nav {
 	background-color:#4F587F;
 	height:auto;
@@ -150,13 +130,27 @@ Code form BoltClock's post about altering button sizing to be the same as divs
 	text-align: right;
 }
 
+/*
+Style links in top navigation bar
+*/
+
+
+#links a {
+	color:#CDD6FF;
+	font-family: "verdana",sans-serif;
+	padding:0 3em;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
 #list {
     height:337px;
 	overflow:scroll;
 }
 
 /*
-Table formatting
+Table formatting - same as for logged in users
 */
 
 #otherMainBox table{
@@ -181,20 +175,9 @@ Table formatting
 	text-align: center;
 }
 
-
 /*
-Style links in top navigation bar
+Styling for text blurb
 */
-
-
-#links a {
-	color:#CDD6FF;
-	font-family: "verdana",sans-serif;
-	padding:0 3em;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-}
 
 #blurb {
 	font-family: "Tahoma",sans-serif;
@@ -252,36 +235,4 @@ Styling for users and admin page buttons
 .subBtn {
 
 
-}
-
-/*
-Styling for form pages
-*/
-
-#register {
-	background-color:#fff;
-	border: 1px #000 solid;
-	color:#000;
-	font-family: "Tahoma",sans-serif;
-	font-size: 0.8em;
-	margin:20px auto;
-	padding:10px;
-	text-align: center;
-	width:400px;
-}
-
-#registerFields {
-	border:1px #000 solid;
-	display: block;
-	height:25px;
-	margin:0 auto;
-	width:85%;
-}
-
-#registerButton {
-	border:1px #000 solid;
-	display: block;
-	height:25px;
-	margin:0 auto 10px;
-	width:86%;
 }
