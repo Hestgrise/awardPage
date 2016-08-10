@@ -1,18 +1,12 @@
 /****
-Page styling
+Not logged in page styling
+CSS is broken up into different style pages for logged in (admin/regular user) and not logged in because the looks
+are slightly different
 **/
 
 /*
-Code help to reset CSS on browser
-https://css-tricks.com/forums/topic/div-doesnt-reach-edge-of-browser-page/
-Gets rid of margins and padding of the body
+ Styling for the overall content of the page
 */
-html, body {
-	background-color:#fff;
-	margin:0;
-	padding:0;
-}
-
 .contentArea {
 	background-color:#d3ebfd;
 	height:100%;
@@ -22,6 +16,9 @@ html, body {
 	width:100%;
 }
 
+/*
+Styling for header
+*/
 .nav {
 	background-color:#4F587F;
 	height:auto;
@@ -36,6 +33,9 @@ html, body {
 	width:850px;
 }
 
+/*
+Website logo
+*/
 #titleLogo {
 	color:#fff;
 	float:left;
@@ -57,6 +57,9 @@ Style links in top navigation bar
 	text-transform: uppercase;
 }
 
+/*
+Styling for the page's content below the header
+*/
 .content{
 	background-color:#d3ebfd;
 	height:auto;
@@ -64,13 +67,6 @@ Style links in top navigation bar
 	overflow:auto;
 	padding:30px;
 	width:850px; /* total width is 790px */ 
-}
-
-#title {
-	font-family: "Poiret One",cursive;
-	font-size:3em;
-	text-align: center;
-	text-transform: uppercase;
 }
 
 #subtitle {
@@ -89,36 +85,9 @@ Style links in top navigation bar
 	text-align:center;
 }
 
-#login {
-	background-color:#fff;
-	border: 1px #000 solid;
-	color:#000;
-	font-family: "Tahoma",sans-serif;
-	font-size: 0.8em;
-	margin:20px auto;
-	padding:10px;
-	text-align: center;
-	width:400px;
-}
-
-#loginFields {
-	border:1px #000 solid;
-	display: block;
-	height:25px;
-	margin:0 auto;
-	width:85%;
-}
-
-#loginButton {
-	border:1px #000 solid;
-	display: block;
-	height:25px;
-	margin:0 auto 10px;
-	width:86%;
-}
 
 /**
-Other pages
+Styling for the about page
 **/
 .contentBox {
 	background-color:#fff;
@@ -165,6 +134,9 @@ Other pages
 	width:500px;
 }
 
+/*
+Styling for message that appears as feedback for user
+*/
 .errorMsg {
 	margin: auto;
 	text-align: center;

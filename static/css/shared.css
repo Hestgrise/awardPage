@@ -1,7 +1,58 @@
 /**
 Styles that are common amongst all pages
-For alert
 **/
+
+/*
+Code help to reset CSS on browser
+https://css-tricks.com/forums/topic/div-doesnt-reach-edge-of-browser-page/
+Gets rid of margins and padding of the body
+*/
+html, body {
+    background-color:#fff;
+    margin:0;
+    padding:0;
+}
+
+/*
+Styling for title on page
+*/
+#title {
+    font-family: "Poiret One",cursive;
+    font-size:3em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/*
+Styling for the form
+*/
+.formFrame {
+    background-color:#fff;
+    border: 1px #000 solid;
+    color:#000;
+    font-family: "Tahoma",sans-serif;
+    font-size: 0.8em;
+    margin:20px auto;
+    padding:10px;
+    text-align: center;
+    width:400px;
+}
+
+.formFields {
+    border:1px #000 solid;
+    display: block;
+    height:25px;
+    margin:0 auto;
+    width:85%;
+}
+
+.formButton {
+    border:1px #000 solid;
+    display: block;
+    height:25px;
+    margin:0 auto 10px;
+    width:86%;
+}
 
 /*
  * Styles for dialog

@@ -1,17 +1,7 @@
 /****
-Page styling
+Page styling for regular logged in users
 **/
 
-/*
-Code help to reset CSS on browser
-https://css-tricks.com/forums/topic/div-doesnt-reach-edge-of-browser-page/
-Gets rid of margins and padding of the body
-*/
-html, body {
-	background-color:#fff;
-	margin:0;
-	padding:0;
-}
 
 .contentArea {
 	background-color:#fff;
@@ -40,12 +30,9 @@ html, body {
 	width:900px; 
 }
 
-#title {
-	font-family: "Poiret One",cursive;
-	font-size:3em;
-	text-align: center;
-	text-transform: uppercase;
-}
+/*
+Styling for subtitle text
+*/
 
 .subtitle {
 	color:#fff;
@@ -67,6 +54,10 @@ Coding dashboard contents - recent awards section
 	float:left;
 	width:250px;
 }
+
+/*
+Styling for the header of different sections
+*/
 
 #boxTitle1 {
 	background-color: #9E637D;
@@ -96,6 +87,9 @@ Coding dashboard contents - recent awards section
 	width:100%;
 }
 
+/*
+Styling for list inside Recent Awards section
+*/
 #sBContents {
 	background-color:#fff;
 	padding:5px 20px;
@@ -129,6 +123,10 @@ Main content box
 	width:100%;
 }
 
+/*
+Styling for header
+*/
+
 .nav {
 	background-color:#4F587F;
 	height:auto;
@@ -155,11 +153,27 @@ Main content box
 	padding: 0 4em;
 }
 
+/*
+Style links in top navigation bar
+*/
+
+#links a {
+	color:#CDD6FF;
+	font-family: "verdana",sans-serif;
+	padding:0 3em;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
 #list {
     height:337px;
 	overflow:scroll;
 }
 
+/*
+Styling for account details page
+*/
 #accountDetails {
     font-family: "Tahoma",sans-serif;
 	font-size:1.1em;
@@ -180,6 +194,11 @@ Main content box
 #accountDetails1 {
     padding: 10px 5% 5%;
     width:90%;
+}
+
+.dynamic {
+	margin-left: 0.5cm;
+	color: black;
 }
 
 /*
@@ -264,6 +283,9 @@ Table formatting
     width:100%;
 }
 
+/*
+Styling for button on awards page
+*/
 .deleteBtn {
 	background-color:#565E7F;
     color:#fff;
@@ -273,21 +295,9 @@ Table formatting
     width:100%;
 }
 
-
 /*
-Style links in top navigation bar
+Styling for block of text
 */
-
-
-#links a {
-	color:#CDD6FF;
-	font-family: "verdana",sans-serif;
-	padding:0 3em;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-}
-
 #blurb {
 	font-family: "Tahoma",sans-serif;
 	font-size: 0.8em;
@@ -301,8 +311,4 @@ Style links in top navigation bar
 	color: red;
 }
 
-.dynamic {
-	margin-left: 0.5cm;
-	color: black;
-}
 

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-
+<!-- Forget password page -->
 <html>
 	<head>
+		<link rel="stylesheet" href="../static/css?file=shared.css">
 		<link rel="stylesheet" href="../static/css?file=styles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 		<script src="./static/script?file=forget.js" type="application/javascript"> </script>
@@ -21,11 +22,11 @@
 			</div>
 			<div class="contents">
 				<div id="title">Forget your password?</div>
-				<div id="login">
+				<div class="formFrame">
 					<div id="subtitle">Please enter your email</div>
 					<form id="forgetForm">
-						<input type="text" placeholder="Enter your email" id="fEmail">
-						<input type="submit" id="forgetSubmitButton">
+						<input type="text" placeholder="Enter your email" id="fEmail" class="formFields">
+						<input type="submit" id="forgetSubmitButton" class="formButton">
 					</form>
 					<!-- result div needs extra code to appear/disappear-->
 					<div id="result"></div>

@@ -2,16 +2,6 @@
 Page styling
 **/
 
-/*
-Code help to reset CSS on browser
-https://css-tricks.com/forums/topic/div-doesnt-reach-edge-of-browser-page/
-Gets rid of margins and padding of the body
-*/
-html, body {
-	background-color:#fff;
-	margin:0;
-	padding:0;
-}
 
 .contentArea {
 	background-color:#fff;
@@ -38,13 +28,6 @@ html, body {
 	overflow:auto;
 	padding:30px;
 	width:900px; 
-}
-
-#title {
-	font-family: "Poiret One",cursive;
-	font-size:3em;
-	text-align: center;
-	text-transform: uppercase;
 }
 
 .subtitle {

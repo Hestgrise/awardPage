@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-
+<!--Account Details Page-->
 <html>
 	<head>
+		<link rel="stylesheet" href="../static/css?file=shared.css">
 		<link rel="stylesheet" href="../static/css?file=loggedinstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 		<script src="./static/script?file=accountInfo.js" type="application/javascript"> </script>
@@ -32,13 +33,11 @@
 						<b>Date Joined:<span id="accountDate" class="dynamic"></span></b><br><br>
 						<b>No. Awards Created:<span id="accountAwards" class="dynamic"></span></b><br><br>
 					</div>
-					<div style="text-align: center">
-						<form action="/editAccountInfo.html" method="post">
-                            <div id="accountDetails1">
-                            <input type="submit" class="submitBtn1" value="Edit Name" style="margin: 0 auto;" id="editBtn">
-                            </div>
-                        </form>
-					</div>
+					<form action="/editAccountInfo.html" method="post">
+                        <div id="accountDetails1">
+                        <input type="submit" class="submitBtn1" value="Edit Name" id="editBtn">
+                        </div>
+                    </form>
 				</div>
 			</div>
 			<div class="errorMsg" id="result"></div>

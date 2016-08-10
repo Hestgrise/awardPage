@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-
+<!-- Main/home page -->
 <html>
 	<head>
+		<link rel="stylesheet" href="/static/css?file=shared.css">
 		<link rel="stylesheet" href="/static/css?file=styles.css" >
-		<link rel="stylesheet" href="/static/css?file=alertstyle.css" >
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 		<script src="../static/script?file=alert.js" type="application/javascript"> </script>
 		<script src="../static/script?file=checkLogin.js" type="application/javascript"> </script>
@@ -11,6 +11,7 @@
 	</head>
 	<body>
 		<div class="contentArea">
+			<!-- Navigation bar -->
 			<div class="nav">
 				<div class="navLinks">
 					<div id="titleLogo">
@@ -21,19 +22,21 @@
 					<a href="signUp.html">Register</a>
 				</div>
 			</div>
+			<!-- Page contents (Below nav bar/header) -->
 			<div class="content">
 				<div id="title">Employee Awards</div>
 				<div id="blurb">
 					Showing your appreciation for your employees has never been easier.
 					<br>Easily generate awards for your employees who have done tremendous work!
 				</div>
-				<div id="login">
+				<div class="formFrame">
+					<!-- Login Form -->
 					<div id="subtitle">Login</div>
 					<form id="loginForm" method="POST">
 						<input type="radio" name="accountType" value="user" required checked>As User <input type="radio" value="admin" name="accountType"> As Administrator
-						<input type="email" placeholder="Enter your email" id="loginFields" name="email" required>
-						<input type="password" placeholder="Enter your password" id="loginFields" name="password" required>
-						<input type="submit" id="loginButton">
+						<input type="email" placeholder="Enter your email" class="formFields" name="email" required>
+						<input type="password" placeholder="Enter your password" class="formFields" name="password" required>
+						<input type="submit" class="formButton">
 					</form>
 					<a href="forget.html">Forget your password?</a>
 				</div>
