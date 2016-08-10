@@ -161,9 +161,9 @@ Main content box
 }
 
 #accountDetails {
-	font-family: "Tahoma",sans-serif;
+    font-family: "Tahoma",sans-serif;
 	font-size:1.1em;
-	padding:5%;
+	padding:5% 5% 0;
 	overflow:scroll;
 	width:90%;
 }
@@ -173,6 +173,13 @@ Main content box
 	font-family: "Poiret One",cursive;
 	font-size:1.3em;
 	text-transform: uppercase;
+}
+
+/* accountDetails1 styling for account page - edit name & edit account page - cancel button*/
+
+#accountDetails1 {
+    padding: 10px 5% 5%;
+    width:90%;
 }
 
 /*
@@ -201,8 +208,12 @@ Table formatting
 	text-align: center;
 }
 
+/*
+ * Styling for the form on the dashboard
+ */
+
 #formBox {
-	margin:20px auto 0;
+    margin:20px auto 0;
 	width:60%;
 }
 
@@ -219,11 +230,19 @@ Table formatting
 }
 
 .formInput {
-	height:25px;
+    height:25px;
 	margin-top:10px;
 	width:68%;
 }
 
+.formInputSelect {
+    margin:15px auto 7px;
+    width:68%;
+}
+
+/*
+ * Submit button for dashboard
+ */ 
 .submitBtn {
 	background-color:#979E66;
 	color:#fff;
@@ -233,12 +252,27 @@ Table formatting
 	width:68%;
 }
 
+/**
+ * Submit button for account/edit account page
+ **/ 
+.submitBtn1 {
+    background-color: #9E546B;
+    color:#fff;
+    font-size:1.2em;
+    margin: 0 auto;
+    text-transform:uppercase;
+    width:100%;
+}
+
 .deleteBtn {
 	background-color:#565E7F;
-	font-family: "Tahoma",sans-serif;
-	margin: 0 auto;
-	color: white;
+    color:#fff;
+    font-family: "Tahoma",sans-serif;
+    font-size:1.2em;
+    margin: 0 auto;
+    width:100%;
 }
+
 
 /*
 Style links in top navigation bar
