@@ -7,6 +7,13 @@ For alert
  * Styles for dialog
  */
 
+#resTitle {
+    background-color: #5D919E;
+    display:block;
+    padding:10px 0;
+    width:100%;
+}
+
 #resultBox {
     background-color:#fff;
     border:1px #000 solid;
