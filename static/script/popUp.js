@@ -87,9 +87,12 @@ function filterReq() {
     fTable.innerHTML="";
     var header = fTable.createTHead();
     var rowHeader = header.insertRow();
-
+    var thCell;
     for (var t=0; t<headers.length; t++) {
-        rowHeader.insertCell(t).innerHTML = headers[t];
+//        rowHeader.insertCell(t).innerHTML = headers[t];
+        thCell = document.createElement("th");
+        thCell.appendChild(document.createTextNode(headers[t]));
+        rowHeader.appendChild(thCell);
     }
 
     data["size"] = y;
@@ -112,11 +115,11 @@ function filterReq() {
             queryData = [];
             queryData.push(headers); // push header array into queryData       
             // display the results in the table
-           var footer = fTable.createTFoot();
-           var newRow, temp;
+        //   var footer = fTable.createTFoot();
+           var newRow, temp, headerCell;
            for (var c=0;c<response.length;c++) {
                 queryData.push(response[c]); // push array into queryData global variable
-                newRow = footer.insertRow(c); // insert a new row
+                newRow = header.insertRow(c+1); // insert a new row
                 temp = response[c];
                 for (var d=0;d<temp.length;d++) {
                     newRow.insertCell(d).innerHTML = temp[d];
