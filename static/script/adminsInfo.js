@@ -33,7 +33,8 @@ function pageLoad() {
 			}
 		}
 		else {
-			document.getElementById('result').textContent = "Server is unreachable at this time";
+			//document.getElementById('result').textContent = "Server is unreachable at this time";
+			dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
 		}
 	});
 
@@ -62,7 +63,8 @@ function pageLoad() {
 				window.location.reload();
 			}
 			else {
-				document.getElementById('deleteResult').textContent = "Server is unreachable at this time";
+				//document.getElementById('deleteResult').textContent = "Server is unreachable at this time";
+				dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
 			}
 		});
 
@@ -100,15 +102,17 @@ function pageLoad() {
 					window.location = redirectUrl;
 				}
 				else {
-					document.getElementById('deleteResult').textContent = "Server is unreachable at this time";
+					//document.getElementById('deleteResult').textContent = "Server is unreachable at this time";
+					dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
 				}
 			});
 			editRequest.send(payload);
 			event.preventDefault();
 		}
 		else {
-			document.getElementById('deleteResult').textContent = "You must select one admin to edit.";
-			document.getElementById("deleteResult").style.color = "red";
+			//document.getElementById('deleteResult').textContent = "You must select one admin to edit.";
+			//document.getElementById("deleteResult").style.color = "red";
+			dialogSpawn("Error","You must select one admin to edit","resultBox","resultTitle","resultInfo");
 		}
 
 	};

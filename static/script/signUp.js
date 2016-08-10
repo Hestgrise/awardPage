@@ -16,14 +16,16 @@ function buttonSet() {
 			createRequest.addEventListener('load', function() {
 				if (createRequest.status >= 200 && createRequest.status < 400) {
 					var response = JSON.parse(createRequest.responseText);
-					document.getElementById('registerResult').textContent = response.message;
+					dialogSpawn("Result",response.message,"resultBox","resultTitle","resultInfo");
+					//document.getElementById('registerResult').textContent = response.message;
 					//Check for substring in response indicating successful account creation
 					//Change color of response message to green if found
-					if (response.message.indexOf("success") != -1) {
+					/*if (response.message.indexOf("success") != -1) {
 						document.getElementById('registerResult').style.color = "green";
-					}
+					}*/
 				} else {
-					document.getElementById('registerResult').textContent = "Server is unreachable at this time";
+					//document.getElementById('registerResult').textContent = "Server is unreachable at this time";
+					dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
 				}
 			});
 
@@ -31,7 +33,8 @@ function buttonSet() {
 			event.preventDefault();
 		}
 		else {
-			document.getElementById('registerResult').textContent = "You must fill out all fields and upload a file.";
+			//document.getElementById('registerResult').textContent = "You must fill out all fields and upload a file.";
+			dialogSpawn("Error","You must fill out all fields and upload a file.","resultBox","resultTitle","resultInfo");
 		}
 	}
 }

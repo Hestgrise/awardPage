@@ -3,8 +3,11 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="/static/css?file=styles.css" >
+		<link rel="stylesheet" href="/static/css?file=alertstyle.css" >
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<script src="../static/script?file=alert.js" type="application/javascript"> </script>
 		<script src="../static/script?file=checkLogin.js" type="application/javascript"> </script>
+		<title>Employee Awards</title>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -39,6 +42,14 @@
 		</div>
 		<div>
 		</div>
+		<!--Popup dialog that will display success or failure-->
+        <div id="resultBox">
+            <div id="boxTitle3"><div class="subtitle" id="resultTitle"></div></div>
+            <div id="resultText">
+                <div id="resultInfo"></div>
+                <button id="resBtn" onclick="dialogDeSpawn('resultBox')">Okay</button>
+            </div>
+        </div> 
 	</body>
 
 </html>

@@ -260,3 +260,45 @@ Styling for filter menu
 	font-family:"Tahoma",sans-serif;
 	font-size:0.9em;
 }
+
+
+/*
+Styling for users and admin page buttons
+*/
+
+.subBtn {
+
+
+}
+
+/*
+Styling for form pages
+*/
+
+#register {
+	background-color:#fff;
+	border: 1px #000 solid;
+	color:#000;
+	font-family: "Tahoma",sans-serif;
+	font-size: 0.8em;
+	margin:20px auto;
+	padding:10px;
+	text-align: center;
+	width:400px;
+}
+
+#registerFields {
+	border:1px #000 solid;
+	display: block;
+	height:25px;
+	margin:0 auto;
+	width:85%;
+}
+
+#registerButton {
+	border:1px #000 solid;
+	display: block;
+	height:25px;
+	margin:0 auto 10px;
+	width:86%;
+}

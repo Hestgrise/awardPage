@@ -23,16 +23,16 @@
 			</div>
 			<div class="contents">
 				<div id="title">Create a New User Account</div>
-				<div id="login">
+				<div id="register">
 					<form id="createAccountForm" method="POST" enctype="multipart/form-data">
-					  <div id="subtitle">Please fill out all fields</div>
-					  <input type="text" placeholder="Enter user's first name" id="loginFields" name="firstName" required>
-					  <input type="text" placeholder="Enter user's last name" id="loginFields" name="lastName" required>
-					  <input type="email" placeholder="Enter user's email" id="loginFields" name="email" required>
-					  <input type="password" placeholder="Enter user's password" id="loginFields" name="password" required>
+					  <div class="subtitle">Please fill out all fields</div>
+					  <input type="text" placeholder="Enter user's first name" id="registerFields" name="firstName" required>
+					  <input type="text" placeholder="Enter user's last name" id="registerFields" name="lastName" required>
+					  <input type="email" placeholder="Enter user's email" id="registerFields" name="email" required>
+					  <input type="password" placeholder="Enter user's password" id="registerFields" name="password" required>
 					  <p>Select an image file with user's signature to upload</p>
 					  <input type="file" name="signatureFile" accept="image/*" required>
-					  <input type="submit" id="createAccountButton">
+					  <input type="submit" id="registerButton">
 					</form>
 				</div>
 				<div class="errorMsg" id="registerResult"></div>

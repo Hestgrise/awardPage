@@ -2,8 +2,10 @@
 
 <html>
 	<head>
+		<link rel="stylesheet" href="../static/css?file=alertstyle.css">
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+		<script src="./static/script?file=alert.js" type="application/javascript"> </script>
 		<script src="./static/script?file=usersInfo.js" type="application/javascript"> </script>
 	</head>
 	<body>
@@ -34,21 +36,25 @@
 						</table>
 					</div>
 				</div>
-				<div style="text-align: center">
-					<input type="submit" value="Delete Selected Users" id="deleteUsersBtn">
-					<input type="button" value="Edit Selected User" id="editUserBtn" onclick="window.location.href='adminEditUserAccount.html';">
-				</div>
+					<input type="submit" class="subBtn" value="Delete Selected Users" id="deleteUsersBtn">
+					<input type="button" class="subBtn" value="Edit Selected User" id="editUserBtn" onclick="window.location.href='adminEditUserAccount.html';">
 				</form>
 				<form id="createUserBtn" action="/createUser.html" method="post">
-				<div style="text-align: center">
-					<input type="submit" value="Create User Account">
-				</div>
+					<input type="submit" class="subBtn" value="Create User Account">
 				</form>
 			</div>
 		</div>
 		<div>
-			<div id="deleteResult" class="errorMsg" style="text-align: center"></div>
+			<!--<div id="deleteResult" class="errorMsg" style="text-align: center"></div>-->
 		</div>
+		<!--Popup dialog that will display sign up success or failure-->
+        <div id="resultBox">
+            <div id="boxTitle3"><div class="subtitle" id="resultTitle"></div></div>
+            <div id="resultText">
+                <div id="resultInfo"></div>
+                <button id="resBtn" onclick="dialogDeSpawn('resultBox')">Okay</button>
+            </div>
+        </div> 
 	</body>
 
 </html>

@@ -30,19 +30,23 @@ function buttonSet() {
 		createRequest.addEventListener('load', function() {
 			if (createRequest.status >= 200 && createRequest.status < 400) {
 				var response = JSON.parse(createRequest.responseText);
-				document.getElementById('loginResult').textContent = response.message;
 				//Check for substring in response indicating successful login
 				//Redirect to either the admin or user's home page
 				if (response.message.indexOf("success") != -1) {
 					document.getElementById("loginResult").style.color = "green";
+					document.getElementById('loginResult').textContent = response.message;
 					if (response.message.indexOf("Admin") != -1)
 						window.location = url + 'admin_dashboard.html';
 					else
 						window.location = url + 'dashboard.html';
+				} else {
+					// if login failed, show login failed message in a pop up dialog
+					dialogSpawn("Login Failed",response.message,"resultBox","resultTitle","resultInfo");
 				} 
 			}
 			else {
-				document.getElementById('loginResult').textContent = "Server is unreachable at this time";
+				//document.getElementById('loginResult').textContent = "Server is unreachable at this time";
+				dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
 			}
 		});
 

@@ -1,0 +1,47 @@
+/**
+Styles that are common amongst all pages
+For alert
+**/
+
+/*
+ * Styles for dialog
+ */
+
+#resultBox {
+    background-color:#fff;
+    border:1px #000 solid;
+    display:none;
+    height:auto;
+    margin-left:-200px;
+    left:50%;
+    top:200px;
+    position:fixed;
+    width:400px;
+    z-index:4;
+}
+
+#resultText {
+    color:#000;
+    font-family:"Tahoma",sans-serif;
+    font-size:0.9em;
+    height:100px;
+    padding:20px 5%;
+    text-align:center;
+    width:90%;
+    z-index:5;
+}
+
+#resBtn {
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box;
+    background-color:#D3CCF2;
+    box-sizing:content-box;
+    color:#45434F;
+    font-family:"Poiret One",cursive;
+    font-size:1.5em;
+    margin: 20px auto 0;
+    padding: 0;
+    text-transform:uppercase;
+    width:100%;
+
+}
