@@ -24,21 +24,21 @@
 			</div>
 			<div class="otherContent">
 				<div id="otherMainBox">
-					<div id="boxTitle4">
-						<div class="subtitle">My Account</div>
+					<div id="boxTitle3">
+						<div class="subtitle">Edit Admin Account</div>
 					</div>
 					<form>
 					<div id="accountDetails">
 						<b>Current Email:<span id="currentEmail" class="dynamic"></span></b><br><br>
-						<b>New Email:<span id="newEmailSpan" class="dynamic"><input type="text" id="newEmail" name="newEmail"></span></b><br><br>
-						<input type="submit" value="Apply" style="margin: 0 auto;" id="editBtn">
+						<b>New Email:<span id="newEmailSpan" class="dynamic"><input type="text" id="newEmail" name="newEmail" class="formInput"></span></b><br><br>
+						<input type="submit" value="Apply" class="submitBtn1" id="editBtn">
 					</div>
-					</form>
-					<div style="text-align: center">	
+					</form>	
 					<form action="/admins.html">
-						<input type="submit" value="Cancel">
+						<div id="accountDetails1">
+							<input type="submit" class="submitBtn1" value="Cancel">
+						</div>
 					</form>
-					</div>
 				</div>
 			</div>
 			<div class="errorMsg" id="result"></div>

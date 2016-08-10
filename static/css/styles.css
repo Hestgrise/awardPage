@@ -142,3 +142,45 @@ Styling for message that appears as feedback for user
 	text-align: center;
 	color: red;
 }
+
+/*
+Styling for edit account form pages
+*/
+#accountDetails {
+    font-family: "Tahoma",sans-serif;
+	font-size:1.1em;
+	padding:5% 5% 0;
+	overflow:scroll;
+	width:90%;
+}
+
+#accountDetails b {
+	color:#9E546B;
+	font-family: "Poiret One",cursive;
+	font-size:1.3em;
+	text-transform: uppercase;
+}
+
+/* styling for bottom half of form */
+
+#accountDetails1 {
+    padding: 10px 5% 5%;
+    width:90%;
+}
+
+.dynamic {
+	margin-left: 0.5cm;
+	color: black;
+}
+
+/**
+ * Submit button for edit account pages
+ **/ 
+.submitBtn1 {
+    background-color: #9E546B;
+    color:#fff;
+    font-size:1.2em;
+    margin: 0 auto;
+    text-transform:uppercase;
+    width:100%;
+}

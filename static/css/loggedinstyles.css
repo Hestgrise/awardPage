@@ -172,36 +172,6 @@ Style links in top navigation bar
 }
 
 /*
-Styling for account details page
-*/
-#accountDetails {
-    font-family: "Tahoma",sans-serif;
-	font-size:1.1em;
-	padding:5% 5% 0;
-	overflow:scroll;
-	width:90%;
-}
-
-#accountDetails b {
-	color:#9E546B;
-	font-family: "Poiret One",cursive;
-	font-size:1.3em;
-	text-transform: uppercase;
-}
-
-/* accountDetails1 styling for account page - edit name & edit account page - cancel button*/
-
-#accountDetails1 {
-    padding: 10px 5% 5%;
-    width:90%;
-}
-
-.dynamic {
-	margin-left: 0.5cm;
-	color: black;
-}
-
-/*
 Table formatting
 */
 
@@ -271,17 +241,6 @@ Table formatting
 	width:68%;
 }
 
-/**
- * Submit button for account/edit account page
- **/ 
-.submitBtn1 {
-    background-color: #9E546B;
-    color:#fff;
-    font-size:1.2em;
-    margin: 0 auto;
-    text-transform:uppercase;
-    width:100%;
-}
 
 /*
 Styling for button on awards page
