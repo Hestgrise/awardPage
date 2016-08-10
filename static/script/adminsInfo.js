@@ -1,10 +1,10 @@
-console.log("Account info populating JavaScript is working")
+console.log("Account info populating JavaScript is working");
 document.addEventListener('DOMContentLoaded', pageLoad);
 var url = '../adminsInfo';
 var deleteUrl = '../deleteAdminAccount';
 var editUrl = '../editAdminAccount';
 
-function pageLoad() {
+function pageLoad(event) {
 	var createRequest = new XMLHttpRequest();
 
 	createRequest.open('POST', url, true);

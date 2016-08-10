@@ -10,7 +10,7 @@ function pageLoad(event) {
 
 	createRequest.open('POST', url, true);
 	createRequest.setRequestHeader('Content-Type', 'application/json');
-	createRequest.addEventListener('load', function(event) {
+	createRequest.addEventListener('load', function() {
 		if (createRequest.status >= 200 && createRequest.status < 400) {
 			var response = JSON.parse(createRequest.responseText);
 			var table = document.getElementById("usersTable")

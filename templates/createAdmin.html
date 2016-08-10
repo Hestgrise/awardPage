@@ -5,7 +5,8 @@
 		<link rel="stylesheet" href="../static/css?file=shared.css">
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-		<script src="../static/script?file=createAdmin.js" type="application/javascript"> </script>
+        <script src="../static/script?file=alert.js" type="application/javascript"></script>
+        <script src="../static/script?file=createAdmin.js" type="application/javascript"> </script>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -30,14 +31,20 @@
 					  <div id="subtitle">Please fill out all fields</div>
 					  <input type="email" placeholder="Enter admin's email" class="formFields" name="email" required>
 					  <input type="password" placeholder="Enter admin's password" class="formFields" name="password" required>
-					  <input type="submit" id="registerButton" class="formButton">
+					  <input type="submit" onclick="createAdminAccount()" id="createAdminButton" class="formButton">
 					</form>
 				</div>
-				<div class="errorMsg" id="registerResult"></div>
+                <!--<div class="errorMsg" id="registerResult"></div>-->
 			</div>
 		</div>
-		<div>
-		</div>
+        <!-- Pop up dialog -->
+        <div id="resultBox">
+            <div id="resTitle"><div id="resultTitle"></div></div>
+            <div id="resultText">
+                <div id="resultInfo"></div>
+                <button id="resBtn" onclick="dialogDeSpawn('resultBox')">Ok</button>
+            </div>
+        </div>
 	</body>
 
 </html>

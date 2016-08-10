@@ -5,7 +5,8 @@
 		<link rel="stylesheet" href="../static/css?file=shared.css">
 		<link rel="stylesheet" href="../static/css?file=adminstyles.css">
 		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-		<script src="../static/script?file=signUp.js" type="application/javascript"> </script>
+        <script src="../static/script?file=alert.js" type="application/javascript"> </script>
+        <script src="../static/script?file=signUp.js" type="application/javascript"> </script>
 	</head>
 	<body>
 		<div class="contentArea">
@@ -34,7 +35,7 @@
 					  <input type="password" placeholder="Enter user's password" class="formFields" name="password" required>
 					  <p>Select an image file with user's signature to upload</p>
 					  <input type="file" name="signatureFile" accept="image/*" required>
-					  <input type="submit" id="registerButton" class="formButton">
+					  <input type="submit" id="createAccountButton" class="formButton">
 					</form>
 				</div>
 				<div class="errorMsg" id="registerResult"></div>
@@ -42,6 +43,14 @@
 		</div>
 		<div>
 		</div>
-	</body>
+        <!-- Popup dialog -->
+        <div id="resultBox">
+            <div id="resTitle"><div id="resultTitle"></div></div>
+            <div id="resultText">
+                <div id="resultInfo"></div>
+                <button id="resBtn" onclick="dialogDeSpawn('resultBox')">Okay</button>
+            </div>
+        </div>
+    </body>
 
 </html>

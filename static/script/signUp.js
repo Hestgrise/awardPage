@@ -1,4 +1,4 @@
-console.log("Account creation validation JavaScript is working")
+console.log("Account creation validation JavaScript is working");
 document.addEventListener('DOMContentLoaded', buttonSet);
 var url ='../createUserAccount';
 

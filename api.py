@@ -691,7 +691,7 @@ class CreateUserAccount(webapp2.RequestHandler):
 			cursor.execute(userInsert, userDetails)
 			#Additional commit() call needed for insert/update/delete commands
 			cnx.commit()
-			outMsg = {'message' : 'Account successfully created. You can now log in.'}
+			outMsg = {'message' : 'Account successfully created.'}
 
 			#This resaves the signature file with the correct file extension
 			fullName = filename + '.' + imghdr.what(filename) 
