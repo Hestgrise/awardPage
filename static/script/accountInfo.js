@@ -1,8 +1,8 @@
-console.log("Account info populating JavaScript is working")
+console.log("Account info populating JavaScript is working");
 document.addEventListener('DOMContentLoaded', pageLoad);
-var url = '../accountInfo'
+var url = '../accountInfo';
 
-function pageLoad() {
+function pageLoad(event) {
 	var createRequest = new XMLHttpRequest();
 
 	createRequest.open('POST', url, true);

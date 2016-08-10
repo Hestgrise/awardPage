@@ -1,9 +1,9 @@
-console.log("Account info populating JavaScript is working")
+console.log("Account info populating JavaScript is working");
 document.addEventListener('DOMContentLoaded', pageLoad);
-var url = '../existingInfo'
-var deleteUrl = '../deleteAwards'
+var url = '../existingInfo';
+var deleteUrl = '../deleteAwards';
 
-function pageLoad() {
+function pageLoad(event) {
 	var createRequest = new XMLHttpRequest();
 
 	createRequest.open('POST', url, true);
@@ -48,7 +48,7 @@ function pageLoad() {
 		}
 		var jsonIds = {ids:deleteIds};
 		var payload = JSON.stringify(jsonIds);
-
+//console.log(payload);
 		createReq.open('POST', deleteUrl, true);
 		createReq.setRequestHeader('Content-Type', 'application/json');
 		createReq.addEventListener('load', function() {

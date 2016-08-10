@@ -1,19 +1,21 @@
-console.log("Account info populating JavaScript is working")
+console.log("Account info populating JavaScript is working");
 document.addEventListener('DOMContentLoaded', pageLoad);
 var url = '../usersInfo';
 var deleteUrl = '../deleteUserAccount';
 var editUrl = '../editUserAccount';
 
-function pageLoad() {
+// function will execute when page loads
+function pageLoad(event) {
 	var createRequest = new XMLHttpRequest();
 
 	createRequest.open('POST', url, true);
 	createRequest.setRequestHeader('Content-Type', 'application/json');
-	createRequest.addEventListener('load', function() {
+	createRequest.addEventListener('load', function(event) {
 		if (createRequest.status >= 200 && createRequest.status < 400) {
 			var response = JSON.parse(createRequest.responseText);
 			var table = document.getElementById("usersTable")
 			var numUsers = response.names.length;
+    // populate table
 			for (var i = 0; i < numUsers; i++) {
 				var row = table.insertRow(i + 1);
 				var editRadio = document.createElement("input");
@@ -56,7 +58,7 @@ function pageLoad() {
 		}
 		var jsonIds = {ids:deleteIds};
 		var payload = JSON.stringify(jsonIds);
-
+//console.log(payload);
 		createReq.open('POST', deleteUrl, true);
 		createReq.setRequestHeader('Content-Type', 'application/json');
 		createReq.addEventListener('load', function() {

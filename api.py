@@ -287,7 +287,11 @@ class DeleteUserAccount(BaseHandler):
 		userIds = postData["ids"]
 		
 		for userId in userIds:
-			deleteQry = ("DELETE FROM users WHERE id='"+userId+"'")
+                    #first delete awards
+                        deleteAwardsQry = ("DELETE FROM awards WHERE userId='"+userId+"'")
+                        cursor.execute(deleteAwardsQry)
+                    #then delete user from users data
+                        deleteQry = ("DELETE FROM users WHERE id='"+userId+"'")
 			cursor.execute(deleteQry)
 		cnx.commit()
 		self.redirect("users.html")
