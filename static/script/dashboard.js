@@ -38,7 +38,7 @@ function pageLoad()
 		});
 
 		createReq.send();
-		//event.preventDefault();
+		
 	};
 	//We call the function to fill in the awards defined just above
 	showAwards();
@@ -47,6 +47,7 @@ function pageLoad()
 	submitButton.onclick = function(event)
 	{
 
+		var validInput = true;
 		var forgotReq = new XMLHttpRequest();
 		
 		var userInfo = {empName:document.getElementById("fullName").value,
@@ -54,35 +55,56 @@ function pageLoad()
 						awdType:document.getElementById("awardType").value,
 						dateAwarded:document.getElementById("dateAwarded").value
 						};
-		//console.log(str(userInfo(dateAwarded)));
-		var payLoad = JSON.stringify(userInfo);
-		
-		forgotReq.open('POST', '../createAward', true);
-		
-		forgotReq.setRequestHeader('Content-Type', 'application/json');
-		
-		forgotReq.addEventListener('load', function()
+		if(document.getElementById("fullName").value.length == 0)
 		{
-			if(forgotReq.status >= 200 && forgotReq.status < 400)
-			{
-				var response = JSON.parse(forgotReq.responseText);
-//				document.getElementById('result').textContent = response.message;
-                // call dialog to display results				
-                dialogSpawn("Success",response.message,"resultBox","resultTitle","resultInfo");
-
-            }
-			else
-			{
-//				document.getElementById('result').textContent = "Server is unreachable at this time";
-//				call dialog to display error
-                dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
-            }
+			dialogSpawn("Error","You must enter a name","resultBox","resultTitle","resultInfo");
+			validInput = false;
+			console.log("Name tripped");
+		}
+		else if(document.getElementById("email").value.length == 0)
+		{
+			dialogSpawn("Error","You must enter an email","resultBox","resultTitle","resultInfo");
+			validInput = false;
+		}
+		else if(document.getElementById("dateAwarded").value.length == 0)
+		{
+			dialogSpawn("Error","You must enter an award date and time","resultBox","resultTitle","resultInfo");
+			validInput = false;
+		}
+		
+		if(validInput)
+		{
+			//console.log(str(userInfo(dateAwarded)));
+			var payLoad = JSON.stringify(userInfo);
 			
-			showAwards();
+			forgotReq.open('POST', '../createAward', true);
+			
+			forgotReq.setRequestHeader('Content-Type', 'application/json');
+			
+			forgotReq.addEventListener('load', function()
+			{
+				if(forgotReq.status >= 200 && forgotReq.status < 400)
+				{
+					var response = JSON.parse(forgotReq.responseText);
+	//				document.getElementById('result').textContent = response.message;
+					// call dialog to display results				
+					dialogSpawn("Success",response.message,"resultBox","resultTitle","resultInfo");
+
+				}
+				else
+				{
+	//				document.getElementById('result').textContent = "Server is unreachable at this time";
+	//				call dialog to display error
+					dialogSpawn("Error","Server is unreachable at this time","resultBox","resultTitle","resultInfo");
+				}
+				
+				showAwards();
 			
 		});
 		
+		
 		forgotReq.send(payLoad);
+		}
 		event.preventDefault();
 		
 	}
