@@ -86,8 +86,13 @@ function filterReq() {
     // header titles are stored in the headers array
     fTable.innerHTML="";
     var header = fTable.createTHead();
-    var rowHeader = header.insertRow();
+    var rowHeader = header.insertRow(0);
     var thCell;
+    /*
+     * Reference for creating element and appending to header:
+     * http://stackoverflow.com/questions/14999927/insert-th-in-thead
+     * Minko Gechev's Javascript answer
+     */ 
     for (var t=0; t<headers.length; t++) {
 //        rowHeader.insertCell(t).innerHTML = headers[t];
         thCell = document.createElement("th");

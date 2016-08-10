@@ -233,6 +233,16 @@ Styling for users and admin page buttons
 */
 
 .subBtn {
-
-
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box;
+    background-color:#DEDAE5;
+    border: 1px solid #000;
+    box-sizing:content-box;
+    color:#3E3C47;
+    font-family:"Poiret One",cursive;
+    font-size:1.5em;
+    margin: 0;
+    padding: 0;
+    text-transform:uppercase;
+    width:99.9%;
 }
