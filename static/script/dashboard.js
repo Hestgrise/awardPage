@@ -47,7 +47,7 @@ function pageLoad()
 	submitButton.onclick = function(event)
 	{
 		submitButton.disabled = true;
-		//submitButton.bgcolor='#ffffff';
+		submitButton.className ='deadBtn';
 		var validInput = true;
 		var forgotReq = new XMLHttpRequest();
 		
@@ -61,6 +61,7 @@ function pageLoad()
 			dialogSpawn("Error","You must enter a name","resultBox","resultTitle","resultInfo");
 			validInput = false;
 			submitButton.disabled = false;
+			submitButton.className ='submitBtn';
 			//console.log("Name tripped");
 		}
 		else if(document.getElementById("email").value.length == 0)
@@ -68,12 +69,14 @@ function pageLoad()
 			dialogSpawn("Error","You must enter an email","resultBox","resultTitle","resultInfo");
 			validInput = false;
 			submitButton.disabled = false;
+			submitButton.className ='submitBtn';
 		}
 		else if(document.getElementById("dateAwarded").value.length == 0)
 		{
 			dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 			validInput = false;
 			submitButton.disabled = false;
+			submitButton.className ='submitBtn';
 		}
 		else if(document.getElementById("dateAwarded").value.length > 0)	//If our date is there, we want to check for the right format
 		{
@@ -84,6 +87,7 @@ function pageLoad()
 				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
+				submitButton.className ='submitBtn';
 				//console.log("Failing length or not number for first test length is: ");
 				//console.log(listOfDateParts[0].length);
 				//console.log(" isNaN: ");
@@ -94,6 +98,7 @@ function pageLoad()
 				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
+				submitButton.className ='submitBtn';
 				//console.log("Failing length or not number for second test");
 			}
 			else if(listOfDateParts[2].length != 8)
@@ -101,6 +106,7 @@ function pageLoad()
 				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
+				submitButton.className ='submitBtn';
 				//console.log("Failing length or not number for third test");
 				//console.log("Failing length or not number for third test length is: ");
 				//console.log(listOfDateParts[2].length);
@@ -117,6 +123,7 @@ function pageLoad()
 					dialogSpawn("Error","The year entered must be between 1901 and 2500","resultBox","resultTitle","resultInfo");
 					validInput = false;
 					submitButton.disabled = false;
+					submitButton.className ='submitBtn';
 				}
 				
 			}
@@ -151,6 +158,7 @@ function pageLoad()
 				
 				showAwards();
 				submitButton.disabled = false;
+				submitButton.className ='submitBtn';
 		});
 		
 		
