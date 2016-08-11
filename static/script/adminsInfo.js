@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', pageLoad);
 var url = '../adminsInfo';
 var deleteUrl = '../deleteAdminAccount';
 var editUrl = '../editAdminAccount';
-
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
 function pageLoad(event) {
 	var createRequest = new XMLHttpRequest();
 

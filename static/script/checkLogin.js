@@ -1,7 +1,7 @@
 console.log("Login validation JavaScript is working")
 document.addEventListener('DOMContentLoaded', buttonSet);
 var url = '../'
-
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
 function buttonSet() {
 	var submitButton = document.getElementById('loginButton');
 

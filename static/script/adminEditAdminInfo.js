@@ -2,6 +2,8 @@ console.log("Account info populating JavaScript is working");
 document.addEventListener('DOMContentLoaded', pageLoad);
 var url = '../fillAdminEditAdminPage';
 
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
+
 function pageLoad(event) {
 	//Parse out the user's id from the url
 	var currentUrl = window.location.href;

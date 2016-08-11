@@ -1,7 +1,7 @@
 console.log("Account creation validation JavaScript is working");
 //document.addEventListener('DOMContentLoaded', buttonSet);
 var url ='../createAdminAccount';
-
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
 // when button is clicked, then createAdminAccount will execute
 function createAdminAccount() {
 	//var submitButton = document.getElementById('createAdminButton');

@@ -1,7 +1,7 @@
 console.log("Account info populating JavaScript is working")
 document.addEventListener('DOMContentLoaded', pageLoad);
 var url = '../recentAwards'
-
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
 function pageLoad() {
 	var createRequest = new XMLHttpRequest();
 

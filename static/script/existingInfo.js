@@ -2,7 +2,7 @@ console.log("Account info populating JavaScript is working");
 document.addEventListener('DOMContentLoaded', pageLoad);
 var url = '../existingInfo';
 var deleteUrl = '../deleteAwards';
-
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
 function pageLoad(event) {
 	var createRequest = new XMLHttpRequest();
 

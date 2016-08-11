@@ -1,7 +1,7 @@
 console.log("Account creation validation JavaScript is working");
 document.addEventListener('DOMContentLoaded', buttonSet);
 var url ='../createUserAccount';
-
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
 function buttonSet() {
 	var submitButton = document.getElementById('createAccountButton');
 

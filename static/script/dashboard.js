@@ -1,6 +1,6 @@
 console.log("Javascript is working");
 document.addEventListener('DOMContentLoaded', pageLoad);
-
+//Credit for some asistance with JavaScript code implementation to Professor Wolford CS 290 Lectures 
 function pageLoad()
 {
 
