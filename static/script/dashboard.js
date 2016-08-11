@@ -46,7 +46,8 @@ function pageLoad()
 	var submitButton = document.getElementById('certSubmit');
 	submitButton.onclick = function(event)
 	{
-
+		submitButton.disabled = true;
+		//submitButton.bgcolor='#ffffff';
 		var validInput = true;
 		var forgotReq = new XMLHttpRequest();
 		
@@ -59,23 +60,73 @@ function pageLoad()
 		{
 			dialogSpawn("Error","You must enter a name","resultBox","resultTitle","resultInfo");
 			validInput = false;
-			console.log("Name tripped");
+			submitButton.disabled = false;
+			//console.log("Name tripped");
 		}
 		else if(document.getElementById("email").value.length == 0)
 		{
 			dialogSpawn("Error","You must enter an email","resultBox","resultTitle","resultInfo");
 			validInput = false;
+			submitButton.disabled = false;
 		}
 		else if(document.getElementById("dateAwarded").value.length == 0)
 		{
-			dialogSpawn("Error","You must enter an award date and time","resultBox","resultTitle","resultInfo");
+			dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 			validInput = false;
+			submitButton.disabled = false;
+		}
+		else if(document.getElementById("dateAwarded").value.length > 0)	//If our date is there, we want to check for the right format
+		{
+			var copyOfDateString = document.getElementById("dateAwarded").value;
+			var listOfDateParts = copyOfDateString.split("-");
+			if(listOfDateParts[0].length != 4 || isNaN(listOfDateParts[0]))		//Our date is not four digits, we have an error
+			{
+				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				validInput = false;
+				submitButton.disabled = false;
+				//console.log("Failing length or not number for first test length is: ");
+				//console.log(listOfDateParts[0].length);
+				//console.log(" isNaN: ");
+				//console.log(isNaN(listOfDateParts[0]));
+			}
+			else if(listOfDateParts[1].length != 2 || isNaN(listOfDateParts[1]))
+			{
+				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				validInput = false;
+				submitButton.disabled = false;
+				//console.log("Failing length or not number for second test");
+			}
+			else if(listOfDateParts[2].length != 8)
+			{
+				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				validInput = false;
+				submitButton.disabled = false;
+				//console.log("Failing length or not number for third test");
+				//console.log("Failing length or not number for third test length is: ");
+				//console.log(listOfDateParts[2].length);
+				//console.log(" isNaN: ");
+				//console.log(isNaN(listOfDateParts[2]));
+			}
+			else
+			{
+				//This gets our year portion of our date into a integer
+				var numYear = +listOfDateParts[0];
+				if(numYear > 2500 || numYear < 1901)
+				{
+					console.log("Triggering date range");
+					dialogSpawn("Error","The year entered must be between 1901 and 2500","resultBox","resultTitle","resultInfo");
+					validInput = false;
+					submitButton.disabled = false;
+				}
+				
+			}
 		}
 		
 		if(validInput)
 		{
 			//console.log(str(userInfo(dateAwarded)));
 			var payLoad = JSON.stringify(userInfo);
+			console.log("valid input, date was: " + userInfo['dateAwarded']);
 			
 			forgotReq.open('POST', '../createAward', true);
 			
@@ -99,7 +150,7 @@ function pageLoad()
 				}
 				
 				showAwards();
-			
+				submitButton.disabled = false;
 		});
 		
 		
