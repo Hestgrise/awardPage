@@ -46,6 +46,7 @@ function pageLoad()
 	var submitButton = document.getElementById('certSubmit');
 	submitButton.onclick = function(event)
 	{
+		//We deactivate and change the color of the button when it is clicked to stop multiple sendings
 		submitButton.disabled = true;
 		submitButton.className ='deadBtn';
 		var validInput = true;
@@ -56,6 +57,7 @@ function pageLoad()
 						awdType:document.getElementById("awardType").value,
 						dateAwarded:document.getElementById("dateAwarded").value
 						};
+		//We first confirm that full name is there, then email, then that the date is there too
 		if(document.getElementById("fullName").value.length == 0)
 		{
 			dialogSpawn("Error","You must enter a name","resultBox","resultTitle","resultInfo");
@@ -80,6 +82,7 @@ function pageLoad()
 		}
 		else if(document.getElementById("dateAwarded").value.length > 0)	//If our date is there, we want to check for the right format
 		{
+			//If the date is present, we chop up the string, this checks if the date is more than 4 digits and is all numbers
 			var copyOfDateString = document.getElementById("dateAwarded").value;
 			var listOfDateParts = copyOfDateString.split("-");
 			if(listOfDateParts[0].length != 4 || isNaN(listOfDateParts[0]))		//Our date is not four digits, we have an error
@@ -95,6 +98,7 @@ function pageLoad()
 			}
 			else if(listOfDateParts[1].length != 2 || isNaN(listOfDateParts[1]))
 			{
+				//This confirms that month is two digits and all numbers
 				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
@@ -103,6 +107,7 @@ function pageLoad()
 			}
 			else if(listOfDateParts[2].length != 8)
 			{
+				//This confirms that the rest of the datetime is enough digits
 				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
@@ -115,7 +120,8 @@ function pageLoad()
 			}
 			else
 			{
-				//This gets our year portion of our date into a integer
+				//This gets our year portion of our date into a integer, and confirms it is less than 2500 and more than 1900. If 1900 or earlier datetime in MYSQL complains and
+				//crashes server
 				var numYear = +listOfDateParts[0];
 				if(numYear > 2500 || numYear < 1901)
 				{
@@ -157,6 +163,7 @@ function pageLoad()
 				}
 				
 				showAwards();
+				//We reactivate the button
 				submitButton.disabled = false;
 				submitButton.className ='submitBtn';
 		});
