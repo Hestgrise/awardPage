@@ -241,6 +241,14 @@ Table formatting
 	width:68%;
 }
 
+.deadBtn {
+	background-color:#ebebe0;
+	color:#fff;
+	font-size:1.2em;
+	margin-top:20px;	
+	text-transform: uppercase;
+	width:68%;
+}
 
 /*
 Styling for button on awards page
