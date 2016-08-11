@@ -29,11 +29,13 @@ from copy import deepcopy
 import subprocess
 from webapp2_extras import sessions
 
+#Login information for our database
 dbName = 'lambda'
 dbUser = 'student'
 dbPass = 'default'
 dbHost = 'localhost'
 
+#user information to send emails through gmail account for project
 emailUser = 'certifcatecenter@gmail.com'
 emailPass = 'CapStone16'
 
@@ -681,6 +683,7 @@ class CreateUserAccount(webapp2.RequestHandler):
 		testResult = cursor.fetchone()
 		#Username is available
 		if testResult == None:
+			#Here we take uploaded file, generate a new file name and save the file to the server, saving the filename to the database user object
 			cwd = os.getcwd()
 			uniqueName = uuid.uuid4()
 			filename =  cwd + "/images/" + str(uniqueName)
@@ -713,10 +716,12 @@ class Logout(BaseHandler):
             self.session.clear()
             self.redirect("index.html")
 
+#This function retrieves the users password from the database and emails it to them if the email addres exists in the database
 class PassTest(webapp2.RequestHandler):
 	def post(self):
 		cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 		cursor = cnx.cursor(buffered=True)
+		#First we check if email address exists in user database
 		inObj = json.loads(self.request.body)
 		forgottenEmail = inObj['fEmail']
 		
@@ -724,8 +729,9 @@ class PassTest(webapp2.RequestHandler):
 		cursor.execute(userQuery)
 		
 		releasePass = cursor.fetchone()
-		print "password is:"
-		print releasePass
+		#print "password is:"
+		#print releasePass
+		#Here we generate a plain email with the password of the user, and send the password to the user credit to http://naelshiab.com/tutorial-send-email-python/
 		if releasePass != None:
 			emailMessage = text('Your password as you requested is:' + " " + releasePass[0])
 			emailMessage['Subject'] = "Password Retrieval"
@@ -746,14 +752,19 @@ class PassTest(webapp2.RequestHandler):
 			self.response.out.write(json.dumps(out_obj))
 		cursor.close()
 		cnx.close()
-		
+
+
+#This function takes in the form entered information alomg with the information retrieved from the database for the logged in user (through sessions)
+#And creates a .tex file. Then it calls pdflatex <texfile> from the command line. Finally it generates a MIME email message and sends the email to the user. 		
 class CreateAward(BaseHandler):
 		def post(self):
 			cnx = mysql.connector.connect(user=dbUser, password=dbPass, host=dbHost, database=dbName)
 			cursor = cnx.cursor(buffered=True)
+			#First we take in the entered information to generate the award from the form
 			inObj = json.loads(self.request.body)
 			empEmail = inObj['empEmail']
 			empName = inObj['empName']
+			#We translate 1-4 from the awardType select into actual award names
 			awardType = int(inObj['awdType'])
 		        if awardType == 1:
                             awardType = "Employee of the Month!"
@@ -765,14 +776,12 @@ class CreateAward(BaseHandler):
                             awardType = "Excellence in Achievement!"
 			dateAwarded = inObj['dateAwarded']
 			
-			print str(dateAwarded);
+			#print str(dateAwarded);
 
-			""" I need to be able to get the userid from sessions to get the awarding name, waiting on sessions, for now hard coding awarder name
-			cursor = cnx.cursor(named_tuple=True)
-			userQuery = ("SELECT password, name, email FROM users WHERE email = '"+forgottenEmail+"'")
-			cursor.execute(userQuery)
+
+			#This string is our basic latex template, many tweaks were made to it, although the basic format was taken from http://tex.stackexchange.com/questions/46406/package-for-certificates/46440
+			#Specifically the post by Fran, In the basic format we are inserting our strings and image
 			
-			"""
 			prelimLatex = r'''
 			\documentclass[landscape]{article}
 			\usepackage{wallpaper}
@@ -956,7 +965,7 @@ class CreateAward(BaseHandler):
 
 
 			#Now we write our Award to the database			
-			#instant = datetime.datetime.now()
+			
 			userDetails = (userID, awardType, empName, empEmail, str(dateAwarded))
 			userInsert = ("INSERT INTO awards (userId, type, awardee, email, dateAwarded) VALUES (%s, %s, %s, %s, %s)")
 			cursor.execute(userInsert, userDetails)
@@ -972,6 +981,8 @@ class CreateAward(BaseHandler):
 				
 """ adapted from
 http://stackoverflow.com/questions/13841827/chrome-not-rendering-stylesheets-served-by-python-webapp2
+The WebApp2 framework does not come with an easy static file server, we had to make our oww. If
+you use Google App Engine it has a nice static server, but we are not using GAE
 """
 
 class ServeCss(webapp2.RequestHandler):
