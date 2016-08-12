@@ -75,7 +75,7 @@ function pageLoad()
 		}
 		else if(document.getElementById("dateAwarded").value.length == 0)
 		{
-			dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+			dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is yyyy-mm-ddTnn:nn","resultBox","resultTitle","resultInfo");
 			validInput = false;
 			submitButton.disabled = false;
 			submitButton.className ='submitBtn';
@@ -84,10 +84,23 @@ function pageLoad()
 		{
 			//If the date is present, we chop up the string, this checks if the date is more than 4 digits and is all numbers
 			var copyOfDateString = document.getElementById("dateAwarded").value;
-			var listOfDateParts = copyOfDateString.split("-");
-			if(listOfDateParts[0].length != 4 || isNaN(listOfDateParts[0]))		//Our date is not four digits, we have an error
+            var listOfDateParts = copyOfDateString.split("-");
+            // use regular expressions to test out date/time string
+            /*
+             * Used http://www.w3schools.com/jsref/jsref_obj_regexp.asp for reference for regex symbols and using exec()
+             * After testing regular expressions - tests each chunk of the string
+             */ 
+            var dTRegex = /\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}/;
+            if (dTRegex.exec(copyOfDateString) == null) {
+                dialogSpawn("Error","You must enter an award date and time; if you are using Firefox the format is yyyy-mm-ddTnn:nn","resultBox","resultTitle","resultInfo");
+                validInput = false;
+                submitButton.disabled = false;
+                submitButton.className = 'submitBtn';
+            }
+            //var listOfDateParts = copyOfDateString.split("-");
+            else if(listOfDateParts[0].length != 4 || isNaN(listOfDateParts[0]))		//Our date is not four digits, we have an error
 			{
-				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is yyyy-mm-ddTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
 				submitButton.className ='submitBtn';
@@ -99,7 +112,7 @@ function pageLoad()
 			else if(listOfDateParts[1].length != 2 || isNaN(listOfDateParts[1]))
 			{
 				//This confirms that month is two digits and all numbers
-				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is yyyy-mm-ddTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
 				submitButton.className ='submitBtn';
@@ -108,7 +121,7 @@ function pageLoad()
 			else if(listOfDateParts[2].length != 8)
 			{
 				//This confirms that the rest of the datetime is enough digits
-				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is yyyy-mm-ddTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
 				submitButton.className ='submitBtn';

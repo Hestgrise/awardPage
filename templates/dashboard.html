@@ -42,7 +42,8 @@
 						<div class="subtitle">Create an Award</div>
 					</div>
 					<div id="formBox">
-						<form id="certForm">
+                        <div id="blurb">Note: If the date/time field is blank and does not let you select a date from the calendar (i.e. Firefox), please enter date/time with the following format: yyyy-mm-ddTnn-nn. i.e. ("2016-08-01T13:00" for August 8, 2016 at 1 PM).</div>
+                        <form id="certForm">
 							<label for="fullName">Employee Name:</label>
 							<input type="text" id="fullName" name="fullName" class="formInput">
 							<label for="email">Employee Email:</label>
@@ -54,7 +55,7 @@
 								<option value="3">Peer Recognition</option>
 								<option value="4">Excellence in Achievement</option>
 							</select>
-							<label for="dateAwarded">Date of Award:</label>
+							<label for="dateAwarded">Date/Time:</label>
                             <input type="datetime-local" id="dateAwarded" name="dateAwarded" class="formInput">
                             <input type="submit" class="submitBtn" id="certSubmit">
                         </form>
