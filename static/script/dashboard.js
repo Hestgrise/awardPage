@@ -75,7 +75,7 @@ function pageLoad()
 		}
 		else if(document.getElementById("dateAwarded").value.length == 0)
 		{
-			dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+			dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 			validInput = false;
 			submitButton.disabled = false;
 			submitButton.className ='submitBtn';
@@ -87,7 +87,7 @@ function pageLoad()
 			var listOfDateParts = copyOfDateString.split("-");
 			if(listOfDateParts[0].length != 4 || isNaN(listOfDateParts[0]))		//Our date is not four digits, we have an error
 			{
-				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
 				submitButton.className ='submitBtn';
@@ -99,7 +99,7 @@ function pageLoad()
 			else if(listOfDateParts[1].length != 2 || isNaN(listOfDateParts[1]))
 			{
 				//This confirms that month is two digits and all numbers
-				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
 				submitButton.className ='submitBtn';
@@ -108,7 +108,7 @@ function pageLoad()
 			else if(listOfDateParts[2].length != 8)
 			{
 				//This confirms that the rest of the datetime is enough digits
-				dialogSpawn("Error","You must enter an award date and time if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
+				dialogSpawn("Error","You must enter an award date and time; if you are using FireFox the format is nnnn-nn-nnTnn:nn","resultBox","resultTitle","resultInfo");
 				validInput = false;
 				submitButton.disabled = false;
 				submitButton.className ='submitBtn';
