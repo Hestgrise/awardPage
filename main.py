@@ -20,6 +20,7 @@ def main():
 	
 app.router.add((r'/static/css.*', 'api.ServeCss'))
 app.router.add((r'/static/script.*', 'api.ServeScript'))
+app.router.add((r'/static/img.*', 'api.ServeImg'))
 app.router.add(webapp2.Route(r'/adapter/<id:[0-9]+><:/?>', 'api.AdapterVar'))
 app.router.add(webapp2.Route(r'/productID/<pid:[0-9]+>/adapterID/<aid:[0-9]+><:/?>', 'api.Link'))
 app.router.add(webapp2.Route(r'/index.html', 'api.SignOnPage'))

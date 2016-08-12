@@ -984,18 +984,24 @@ http://stackoverflow.com/questions/13841827/chrome-not-rendering-stylesheets-ser
 The WebApp2 framework does not come with an easy static file server, we had to make our oww. If
 you use Google App Engine it has a nice static server, but we are not using GAE
 """
-
+#for css files
 class ServeCss(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = "text/css"
 		finalFileName = 'static/css/' +  self.request.get('file')
 		self.response.out.write(open(finalFileName, "rb").read())
 
+#for js files
 class ServeScript(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = "text/html"
 		finalFileName = 'static/script/' +  self.request.get('file')
 		self.response.out.write(open(finalFileName, "rb").read())
 
-			
+#images - for about page
+class ServeImg(webapp2.RequestHandler):
+	def get(self):
+		self.response.headers['Content-Type'] = "img/png"
+		finalFileName = 'static/script/' +  self.request.get('file')
+		self.response.out.write(open(finalFileName, "rb").read())			
 			
