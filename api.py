@@ -1002,6 +1002,6 @@ class ServeScript(webapp2.RequestHandler):
 class ServeImg(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = "img/png"
-		finalFileName = 'static/script/' +  self.request.get('file')
+		finalFileName = 'static/img/' +  self.request.get('file')
 		self.response.out.write(open(finalFileName, "rb").read())			
 			
